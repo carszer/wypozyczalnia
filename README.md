@@ -1,2 +1,2 @@
-<h1> Wypożyczalnia CARszer </h1>
+<h1 style="color: red; background-color: black;"> Wypożyczalnia CARszer </h1>
 
