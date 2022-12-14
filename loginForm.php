@@ -52,25 +52,64 @@
       <main>  
         <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
           <div class="col-md-5 p-lg-5 mx-auto my-5 "> 
-            <form action="loginForm.php">
+            <form action="loginForm.php" method="POST">
               <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
               <h1 class="h1 mb-3 fw-normal m-md-3">Zaloguj się</h1>
           
               <div class="form-floating m-md-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                 <label for="floatingInput">Adres E-mail</label>
               </div>
               <div class="form-floating m-md-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                 <label for="floatingPassword">Hasło</label>
                 <small id="registerHelp" class="">Nie masz konta? Zarejestruj się klikajac <a href="registerForm.php">Tutaj</a></small>
               </div>
-
+            
             </br>
             </br>
-              <button class="w-50 btn btn-lg btn-primary" type="submit">Zaloguj się</button>
-              <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
+            
+              <input class="w-50 btn btn-lg btn-primary" type="submit" value = "Zalguj się">
             </form>
+            <?php
+        $conn = mysqli_connect("localhost","root","","testowa");
+        if(mysqli_connect_errno()) { 
+            echo "Connnection failed: ".mysqli_connect_error();
+        }
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+              $email = test_input($_POST["email"]);
+              $password = test_input($_POST["password"]);
+
+
+              if ($query = mysqli_query($conn, 'SELECT password from users where email = "' . $email . '";')) {
+                if (mysqli_num_rows($query) > 0) {
+                  $row = mysqli_fetch_assoc($query);
+                  $passwordb = $row['password'];
+                  if ($password == $passwordb) {
+                    setcookie("odwiedziny", "0", time()+60, "/"); 
+                    echo $_COOKIE["odwiedziny"];
+                    header("Location: index.html");
+                  } else {
+                    echo "Nieprawidłowe hasło";
+                  }
+                } else {
+                  echo "Email nie istnieje";
+                }
+              } else
+                echo "Query failed";
+            }
+            
+            
+            function test_input($data) {
+              $data = trim($data);
+              $data = stripslashes($data);
+              $data = htmlspecialchars($data);
+              return $data;
+            }
+            ?>
+        
           </div>
           <div class="product-device shadow-sm d-none d-md-block"></div>
           <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
