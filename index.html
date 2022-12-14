@@ -14,6 +14,10 @@
    </style>
     <title>CarSzer</title>
     <script type="text/javascript">
+      function delete_cookie(name) {
+      document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      }
+
       function logged(){
       let username = getCookie("odwiedziny");
         if (username != "") {
@@ -21,12 +25,13 @@
           let registerButton = document.getElementById("registerButton")
           logButton.innerHTML = "Panel użytkownika";
           registerButton.innerHTML = "Wyloguj";
-          registerButton.setAttribute( "onClick", "javascript: logout();" );
+          registerButton.setAttribute( "onClick", "logout()" );
         } 
     }
 
     function logout(){
-      document.cookie = "username= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+      delete_cookie("odwiedziny");
+      location.reload();
     }
 
       function getCookie(cname) {
