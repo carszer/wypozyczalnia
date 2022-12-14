@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>CarSzer</title>
+    <?php
+    include('function.php');
+    ?>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -49,7 +52,7 @@
       <main>  
         <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
           <div class="col-md-5 p-lg-5 mx-auto my-5 "> 
-            <form>
+            <form action="loginForm.php">
               <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
               <h1 class="h1 mb-3 fw-normal m-md-3">Zaloguj się</h1>
           
