@@ -16,10 +16,9 @@
     <script type="text/javascript">
       let username = getCookie("odwiedziny");
         if (username != "") {
-        alert("Welcome again " + username);
-        } else {
-        alert("Nie zalogowany");
-      }
+          document.getElementById
+        } 
+
       function getCookie(cname) {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
@@ -67,10 +66,10 @@
                 </li>  
               </ul>
               <div class="text-end">
-                <a class="btn btn-outline-light me-2" href="loginForm.php">Zaloguj się</a>
+                <button class="btn btn-outline-light me-2" type="button" onclick="window.location='loginForm.php'">Zaloguj się</button>
                 <!--<a class="btn btn-warning me-2" href="logowanie.html">Zaloguj się</a> -->
 
-                 <a class="btn btn-warning" href="registerForm.php">Zarejestruj się</a>
+                 <button class="btn btn-warning" href="registerForm.php">Zarejestruj się</button>
                  <!--<a class="btn btn-outline-light me-2" href="registerForm.html">Zarejestruj się</a>-->
               </div>
             </div>
