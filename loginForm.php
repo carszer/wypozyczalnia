@@ -60,7 +60,7 @@
               <div class="form-floating m-md-3">
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                 <label for="floatingPassword">Hasło</label>
-                <small id="registerHelp" class="">Nie masz konta? Zarejestruj się klikajac <a href="registerForm.html">Tutaj</a></small>
+                <small id="registerHelp" class="">Nie masz konta? Zarejestruj się klikajac <a href="registerForm.phpfix">Tutaj</a></small>
               </div>
 
             </br>
