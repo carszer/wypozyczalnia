@@ -1,5 +1,5 @@
 <?php
-    $connect = new mysqli("localhost", "root", "", "carszer");
+    $connect = new mysqli("localhost", "root", "", "testowa");
     session_start();
     if (isset($_POST['email']))
     {
