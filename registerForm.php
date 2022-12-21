@@ -56,6 +56,7 @@
             color: red;
         }
     </style>
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -70,7 +71,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav m-auto mb-2 justify-content-center mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="index.html">Strona główna</a>
+                  <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="oferta.html">Oferta</a>
@@ -136,7 +137,12 @@
                 }
               ?>
             </br>
+<<<<<<< HEAD
+            <div  class="g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
+              </br>
+=======
             </br>
+>>>>>>> d53030694862957450df49110e1535abf7c57832
               <button class="w-50 btn btn-lg btn-primary" type="submit" name="utworz">Utwórz konto</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               <?php
