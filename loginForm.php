@@ -75,7 +75,7 @@
               </div>
             </br>
             </br>
-              <input class="w-50 btn btn-lg btn-primary" type="submit" value = "Zaloguj się">
+              <input class="w-50 btn btn-lg btn-primary" type="submit" name ="login_btn" value = "Zaloguj się">
             </form> 
             <?php
               if(isset($_SESSION['blad']))
