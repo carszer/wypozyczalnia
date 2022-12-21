@@ -35,7 +35,7 @@
 
         if ($validation==true)
         {
-          header("Location: registationSuccess.html");
+          header("Location: registrationSuccess.html");
         }
         
     }   
