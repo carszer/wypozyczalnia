@@ -2,6 +2,7 @@
 session_start();
     require_once "connect.php";
     $poloczenie = new mysqli($host,$db_user,$db_pass,$db_name);  
+    if(isset($_POST['send_btn']))
     if($poloczenie->connect_errno!=0)   
     {
     echo "Error: ".$poloczenie->connect_errno." Opis: ".$poloczenie->connect_error;
@@ -19,7 +20,7 @@ session_start();
                      $sql2="UPDATE users SET kod='$kod' WHERE email='$email'";
                      $rezultat2 = @$poloczenie->query($sql2); 
                      
-                     if(isset($_POST['submit'])){
+                     if(isset($_POST['send_btn'])){
                         $url = "https://script.google.com/macros/s/AKfycbwj3BNwGNiRVG33O8m_ToNYUa_v7-ihRAbc-2A9mWOhBwFPR-3dFOtXxkaYC2oKRU0/exec";
                         $ch = curl_init($url);
                         curl_setopt_array($ch, 
