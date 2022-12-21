@@ -7,6 +7,19 @@
 
         $password1 = $_POST['pass1'];
         $password2 = $_POST['pass2'];
+        
+        $token = $_POST["g-recaptcha-response"];
+        $secret = "6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j";
+        $ip = $_SERVER["REMOTE_ADDR"];
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$token."&remoteip=".$ip;
+        $request = file_get_contents($url);
+        $response = json_decode($request);
+        if($response->success){
+          /* Kontynuj działanie skryptu */
+       } else {
+          die("Nieprawidłowa odpowiedź CAPTCHA");
+       }
+
         if ((strlen($password1)<6) || (strlen($password1)>16))
         {
             $validation = false;
@@ -61,13 +74,6 @@
     </style>
       
       <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-      <script type="text/javascript">
-      var onloadCallback = function() {
-        grecaptcha.render('html_element', {
-          'sitekey' : 'your_site_key'
-        });
-      };
-    </script>
 
 
 </head>
@@ -153,13 +159,7 @@
               <div class = "form-floating m-md-3">
                   <div  class="mx-auto g-recaptcha" onload="onloadCallback()" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
               </div>
-              <?php
-                if (isset($_SESSION['error_captcha']))
-                {
-                    echo '<div class="error">'.$_SESSION['error_captcha'].'</div>';
-                    unset($_SESSION['error_captcha']);
-                }
-              ?>
+
               <button class="w-50 btn btn-lg btn-primary" type="submit" name="utworz">Utwórz konto</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               <?php
