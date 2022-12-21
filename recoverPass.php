@@ -1,66 +1,6 @@
-<?php
-    $connect = new mysqli("localhost", "root", "", "testowa");
-    $sprawdzemail = null;
-    $newPassword = null;
-    session_start();
-    if (isset($_POST['email']))
-    {
-        $validation = true;
-        $sprawdzemail = $_POST['email'];
-
-        $emailIstnieje = $connect->query("SELECT id FROM klient WHERE email='$sprawdzemail'");
-        $numEmail = $emailIstnieje->num_rows;
-        if ($numEmail=0)
-        {
-            $validation = false;
-            $_SESSION['error_email'] = "Użytkownik o podanym emailu nie istnieje.";
-        }
-        if ($numEmail>0)
-        {
-            $validation = true;
-            $_SESSION['wyslano_haslo'] = "Użytkownik o podanym emailu istnieje.";
-        }
-        if($validation=true)
-        {
-          function generujHaslo($length) {
-          $uppercase = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'W', 'Y', 'Z');
-          $lowercase = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'w', 'y', 'z');
-          $number = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-
-          $password = NULL;
-
-          for ($i = 0; $i < $length; $i++) {
-          $password .= $uppercase[rand(0, count($uppercase) - 1)];
-          $password .= $lowercase[rand(0, count($lowercase) - 1)];
-          $password .= $number[rand(0, count($number) - 1)];
-        }
-          return substr($password, 0, $length);}
-          //Zrobione jest tak że odrazu podmienia poprzednie hasło na nowe, trzeba dodać dodatkowe pole w bazie na wygenerowane hasło? jakiś pomysł?
-          $newPassword = generujHaslo(8);
-          $zmianahasla = $connect->query("UPDATE users SET password='$newPassword' WHERE email='$sprawdzemail'");
-
-          function wysylanieMaila()
-          {
-            $header = "From: CarSzer@gmail.com \nContent-Type:".' text/plain;charset="UTF-8"'."\nContent-Transfer-Encoding: 8bit";
-            $to = $sprawdzemail;
-            $subject = "Zmiana hasła";
-            $message = "Witaj, twoje nowe hasło to:".$newPassword.". Pozdrawiamy, zespół CarSzer.";
-            mail($to, $subject, $message, $header);
-            if(mail($to, $subject, $message, $header))
-              {
-              echo "Poprawnie wysłano e-mail";
-              }
-              else
-              {
-              echo "Wystąpił nieoczekiwany błąd, spróbuj jeszcze raz...";
-              }
-          }
-          echo "<p>Nowe hasło zostało wysłane na mail: $sprawdzemail</p>" . "\n";
-        }
-      }   
-         $connect->close();
+<?php 
+  session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -118,24 +58,25 @@
               <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
               <h1 class="h1 mb-3 fw-normal m-md-3">Odzyskiwanie hasła</h1>
           
-              <form>
+              <form action="mail.php" method="post">
               <div class="form-floating m-md-3">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="mail">
                 <label for="floatingInput">Adres E-mail</label>
-                <?php
-                if (isset($_SESSION['error_email']))
-                {
-                    echo '<div class="error">'.$_SESSION['error_email'].'</div>';
-                    unset($_SESSION['error_email']);
-                }
-              ?>
               </br>
                 </br>
-                <button class="w-50 btn btn-lg btn-primary" type="submit" name="utworz">Wyślij kod odzyskiwania</button>
+                <button class="w-50 btn btn-lg btn-primary" type="submit" name="submit">Wyślij kod odzyskiwania</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               </div>
             </form>
 
+            <?php
+              if(isset($_SESSION['blad']))
+              { 
+                echo '<div class="alert alert-danger" role="alert">';
+                  echo $_SESSION['blad'];
+                echo '</div>';
+              }
+            ?>
           <div class="product-device shadow-sm d-none d-md-block"></div>
           <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>   
         </div>
