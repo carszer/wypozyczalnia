@@ -1,53 +1,61 @@
 <?php
     $connect = new mysqli("localhost", "root", "", "testowa");
     session_start();
-    if (isset($_POST['kod']))
+    if (isset($_POST['email']))
     {
         $validation = true;
-        $kod = $_POST['kod'];
-        $kodBaza = $connect->query("SELECT kod FROM users WHERE email=".$addremail);
-        $numKod = $kodBaza->num_rows;
-        if ($numKod>0)
-        {
-          if ($kod!=$kodBaza)
-          {
-            $validation = false;
-            $_SESSION['error_kod'] = "Podany kod jest błędny!";
-          }
-        }
 
-        $addremail = $_POST['email'];
-        $emailIstnieje = $connect->query("SELECT id FROM users WHERE email=".$addremail);
-        $numEmail = $emailIstnieje->num_rows;
-        if ($numEmail==0)
-        {
-          $validation = false;
-          $_SESSION['error_email'] = "Podany adres email jest nieprawidłowy!";
-        }
+        $password1 = $_POST['pass1'];
+        $password2 = $_POST['pass2'];
 
-        $newpass1 = $_POST['newpass1'];
-        $newpass2 = $_POST['newpass2'];
-        if ((strlen($newpass1)<6) || (strlen($newpass1)>16))
+
+      if (isset($_POST['utworz'])) {
+        $recaptcha = $_POST['g-recaptcha-response'];
+        $secret_key = "6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j";
+        $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
+        $response = file_get_contents($url);
+        $response = json_decode($response);
+        if ($response->success == true) {
+          echo '<script>alert("Google reCAPTACHA verified")</script>';
+        } else {
+          echo '<script>alert("Error in Google reCAPTACHA")</script>';
+        }
+      }
+
+        if ((strlen($password1)<6) || (strlen($password1)>16))
         {
             $validation = false;
             $_SESSION['error_pass1'] = "Hasło musi składać się z 6 do 16 znaków!";
         }
 
-        if ($newpass1!=$newpass2)
+        $addremail = $_POST['email'];
+
+        if ($password1!=$password2)
         {
             $validation = false;
             $_SESSION['error_pass2'] = "Podane hasła są różne!";
         }
+        
+        //$hashPass = password_hash($password1, PASSWORD_DEFAULT);
+        $emailIstnieje = $connect->query("SELECT id FROM users WHERE email='$addremail'");
+        $numEmail = $emailIstnieje->num_rows;
+        if ($numEmail>0)
+        {
+            $validation = false;
+            $_SESSION['error_email'] = "Użytkownik o podanym emailu istnieje.";
+        }
 
         if ($validation==true)
         {
-          if ($connect->query("UPDATE users SET password = '$newpass1' WHERE email = ".$addremail))
-          {
-            $_SESSION['passChange'] = true;
-            $_SESSION['potwierdzenie'] = "Hasło zostało zmienione.";
-          }
+            if($connect->query("INSERT INTO users (ID, email, password) VALUES (NULL, '$addremail', '$password1')"))
+            {
+              $_SESSION['zarejestrowany'] = true;
+              $_SESSION['witamy'] = 'Zarejestrowano pomyślnie!</br><a href="loginForm.php">Zaloguj się</a>';
+
+            }
         }
-    }
+        
+    }   
         $connect->close();
 ?>
 <!DOCTYPE html>
@@ -61,6 +69,9 @@
     <style>
         .error {
             color: red;
+        }
+        .g-recaptcha{
+          width: min-content;
         }
     </style>
 </head>
@@ -107,22 +118,11 @@
           <div class="col-md-5 p-lg-5 mx-auto my-5 "> 
             <form method="POST">
               <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-              <h1 class="h1 mb-3 fw-normal m-md-3">Uwtórz nowe hasło</h1>
+              <h1 class="h1 mb-3 fw-normal m-md-3">Utwórz konto</h1>
           
               <div class="form-floating m-md-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="kod">
-                <label for="floatingInput">Kod z maila</label>
-              </div>
-              <?php
-                if (isset($_SESSION['error_kod']))
-                {
-                    echo '<div class="error">'.$_SESSION['error_kod'].'</div>';
-                    unset($_SESSION['error_kod']);
-                }
-              ?>
-              <div class="form-floating m-md-3">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
-                <label for="floatingInput">E-mail</label>
+                <label for="floatingInput">Adres E-mail</label>
               </div>
               <?php
                 if (isset($_SESSION['error_email']))
@@ -132,8 +132,8 @@
                 }
               ?>
               <div class="form-floating m-md-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="newpass1">
-                <label for="floatingPassword">Nowe hasło</label>
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass1">
+                <label for="floatingPassword">Hasło</label>
               </div>
               <?php
                 if (isset($_SESSION['error_pass1']))
@@ -143,7 +143,7 @@
                 }
               ?>
               <div class="form-floating m-md-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="newpass2">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass2">
                 <label for="floatingPassword">Powtórz Hasło</label>
               </div>
               <?php
@@ -153,25 +153,29 @@
                     unset($_SESSION['error_pass2']);
                 }
               ?>
-            </br>
-            </br>
-            <input class="w-50 btn btn-lg btn-primary" type="submit" value = "Ustaw hasło">
-            <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
+        
+              <div class = "form-floating m-md-3">
+                  <div  class="mx-auto g-recaptcha"  data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
+              </div>
+             
+              <button class="w-50 btn btn-lg btn-primary g-recaptcha" name="utworz">Utwórz konto</button>
+              <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               <?php
-                if (isset($_SESSION['potwierdzenie']))
+                if (isset($_SESSION['witamy']))
                 {
-                    echo '<div class="error">'.$_SESSION['potwierdzenie'].'</div>';
-                    unset($_SESSION['potwierdzenie']);
+                    echo '<div class="error">'.$_SESSION['witamy'].'</div>';
+                    unset($_SESSION['witamy']);
                 }
               ?>
             </form>
           </div>
           <div class="product-device shadow-sm d-none d-md-block"></div>
           <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-          <div class="alert alert-primary" role="alert">
+         
+        </div>
+        <div class="alert alert-primary text-center" role="alert">
             Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
           </div>
-        </div>
       </main>
       <footer class="container py-5">
         <div class="row">
@@ -219,5 +223,7 @@
           </div>
         </div>
       </footer>
-</body>
+      <script src="https://www.google.com/recaptcha/api.js"></script>
+    </body>
+
 </html>
