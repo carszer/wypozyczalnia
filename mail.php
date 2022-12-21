@@ -28,9 +28,9 @@ session_start();
                            CURLOPT_FOLLOWLOCATION => true,
                            CURLOPT_POSTFIELDS => http_build_query
                            ([
-                              "recipient" => $_POST['email'],
+                              "recipient" => $_POST['mail'],
                               "subject"   => $subject,
-                              "body"      => $kod
+                              "body"      => "Twój kod odzyskiwania hasła do carszer to: ".$kod
                            ])
                         ]);
                         $result = curl_exec($ch);

@@ -1,11 +1,13 @@
 <?php
+/*
     $connect = new mysqli("localhost", "root", "", "testowa");
     session_start();
     if (isset($_POST['kod']))
     {
+        $addremail = $_POST['email'];
         $validation = true;
         $kod = $_POST['kod'];
-        $kodBaza = $connect->query("SELECT kod FROM users WHERE email=".$addremail);
+        $kodBaza = $connect->query("SELECT kod FROM users WHERE email='$addremail'");
         $numKod = $kodBaza->num_rows;
         if ($numKod>0)
         {
@@ -13,43 +15,74 @@
           {
             $validation = false;
             $_SESSION['error_kod'] = "Podany kod jest błędny!";
-          }
-        }
+          }else{
+        
+            $emailIstnieje = $connect->query("SELECT id FROM users WHERE email='$addremail'");
+            $numEmail = $emailIstnieje->num_rows;
+            if ($numEmail==0)
+            {
+              $validation = false;
+              $_SESSION['error_email'] = "Podany adres email jest nieprawidłowy!";
+            }
+            $newpass1 = $_POST['newpass1'];
+            $newpass2 = $_POST['newpass2'];
+            if ((strlen($newpass1)<6) || (strlen($newpass1)>16))
+            {
+                $validation = false;
+                $_SESSION['error_pass1'] = "Hasło musi składać się z 6 do 16 znaków!";
+            }
 
-        $addremail = $_POST['email'];
-        $emailIstnieje = $connect->query("SELECT id FROM users WHERE email=".$addremail);
-        $numEmail = $emailIstnieje->num_rows;
-        if ($numEmail==0)
-        {
-          $validation = false;
-          $_SESSION['error_email'] = "Podany adres email jest nieprawidłowy!";
-        }
+            if ($newpass1!=$newpass2)
+            {
+                $validation = false;
+                $_SESSION['error_pass2'] = "Podane hasła są różne!";
+            }
 
-        $newpass1 = $_POST['newpass1'];
-        $newpass2 = $_POST['newpass2'];
-        if ((strlen($newpass1)<6) || (strlen($newpass1)>16))
-        {
-            $validation = false;
-            $_SESSION['error_pass1'] = "Hasło musi składać się z 6 do 16 znaków!";
-        }
-
-        if ($newpass1!=$newpass2)
-        {
-            $validation = false;
-            $_SESSION['error_pass2'] = "Podane hasła są różne!";
-        }
-
-        if ($validation==true)
-        {
-          if ($connect->query("UPDATE users SET password = '$newpass1' WHERE email = ".$addremail))
-          {
-            $_SESSION['passChange'] = true;
-            $_SESSION['potwierdzenie'] = "Hasło zostało zmienione.";
+            if ($validation==true)
+            {
+              if ($connect->query("UPDATE users SET password = '$newpass1' WHERE email = '$addremail'"))
+              {
+                $_SESSION['passChange'] = true;
+                $_SESSION['potwierdzenie'] = "Hasło zostało zmienione.";
+              }
+            }
           }
         }
     }
-        $connect->close();
+        $connect->close(); 
+        */
 ?>
+<?php
+session_start();
+    require_once "connect.php";
+    $poloczenie = new mysqli($host,$db_user,$db_pass,$db_name);  
+    if($poloczenie->connect_errno!=0)   
+    {
+    echo "Error: ".$poloczenie->connect_errno." Opis: ".$poloczenie->connect_error;
+    }else{
+      
+          $email = $_POST['email'];
+          $kod = $_POST['kod'];
+          $pass1 = $_POST['newpass1'];
+          $pass2 = $_POST['newpass2'];
+         $sql = "SELECT * from users where kod='$kod'"; 
+          if($rezultat = @$poloczenie->query($sql)){
+            $zalogowane = $rezultat->num_rows;
+                    if($zalogowane>0)
+                    { $_SESSION['newPass'] = true;
+                      unset($_SESSION['error2']);
+                      $sql2="UPDATE users SET password='$pass1' WHERE email='$email'";                    
+                      $rezultat2 = @$poloczenie->query($sql2); 
+                      $rezultat->free_result();  
+                      header('Location:passChangedSuccess.php');
+                    }else{
+                      $_SESSION['error2'] = 'źle coś wpisałeś';    
+                      header('Location: changePass.php');
+                  }
+                  }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -105,12 +138,12 @@
       <main>  
         <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
           <div class="col-md-5 p-lg-5 mx-auto my-5 "> 
-            <form method="POST">
+            <form action="changePass.php" method="POST">
               <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
               <h1 class="h1 mb-3 fw-normal m-md-3">Uwtórz nowe hasło</h1>
           
               <div class="form-floating m-md-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="kod">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="kod">
                 <label for="floatingInput">Kod z maila</label>
               </div>
               <?php
@@ -165,6 +198,14 @@
                 }
               ?>
             </form>
+            <?php
+              if(isset($_SESSION['error2']))
+              { 
+                echo '<div class="alert alert-danger" role="alert">';
+                  echo $_SESSION['error2'];
+                echo '</div>';
+              }
+            ?>
           </div>
           <div class="product-device shadow-sm d-none d-md-block"></div>
           <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
