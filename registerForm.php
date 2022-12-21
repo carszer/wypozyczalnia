@@ -9,19 +9,6 @@
         $password2 = $_POST['pass2'];
 
 
-      if (isset($_POST['utworz'])) {
-        $recaptcha = $_POST['g-recaptcha-response'];
-        $secret_key = "6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j";
-        $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
-        $response = file_get_contents($url);
-        $response = json_decode($response);
-        if ($response->success == true) {
-          echo '<script>alert("Google reCAPTACHA verified")</script>';
-        } else {
-          echo '<script>alert("Error in Google reCAPTACHA")</script>';
-        }
-      }
-
         if ((strlen($password1)<6) || (strlen($password1)>16))
         {
             $validation = false;
@@ -47,12 +34,7 @@
 
         if ($validation==true)
         {
-            if($connect->query("INSERT INTO users (ID, email, password) VALUES (NULL, '$addremail', '$password1')"))
-            {
-              $_SESSION['zarejestrowany'] = true;
-              $_SESSION['witamy'] = 'Zarejestrowano pomyślnie!</br><a href="loginForm.php">Zaloguj się</a>';
-
-            }
+          header("Location: registationSuccess.html");
         }
         
     }   
@@ -153,20 +135,9 @@
                     unset($_SESSION['error_pass2']);
                 }
               ?>
-        
-              <div class = "form-floating m-md-3">
-                  <div  class="mx-auto g-recaptcha"  data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
-              </div>
              
-              <button class="w-50 btn btn-lg btn-primary g-recaptcha" name="utworz">Utwórz konto</button>
-              <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
-              <?php
-                if (isset($_SESSION['witamy']))
-                {
-                    echo '<div class="error">'.$_SESSION['witamy'].'</div>';
-                    unset($_SESSION['witamy']);
-                }
-              ?>
+              <button class="w-50 btn btn-lg btn-primary" name="utworz">Utwórz konto</button>
+              <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
             </form>
           </div>
           <div class="product-device shadow-sm d-none d-md-block"></div>
