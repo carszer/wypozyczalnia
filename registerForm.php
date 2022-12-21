@@ -35,6 +35,7 @@
             if($connect->query("INSERT INTO users (ID, email, password) VALUES (NULL, '$addremail', '$password1')"))
             {
               $_SESSION['zarejestrowany'] = true;
+              $_SESSION['witamy'] = 'Zarejestrowano pomyślnie!</br><a href="loginForm.php">Zaloguj się</a>';
             }
         }
         
@@ -137,6 +138,13 @@
             </br>
               <button class="w-50 btn btn-lg btn-primary" type="submit" name="utworz">Utwórz konto</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
+              <?php
+                if (isset($_SESSION['witamy']))
+                {
+                    echo '<div class="error">'.$_SESSION['witamy'].'</div>';
+                    unset($_SESSION['witamy']);
+                }
+              ?>
             </form>
           </div>
           <div class="product-device shadow-sm d-none d-md-block"></div>
