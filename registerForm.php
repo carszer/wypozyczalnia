@@ -7,17 +7,20 @@
 
         $password1 = $_POST['pass1'];
         $password2 = $_POST['pass2'];
-        
-        $token = $_POST["g-recaptcha-response"];
-        $secret = "6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j";
-        $ip = $_SERVER["REMOTE_ADDR"];
-        $url = "https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$token."&remoteip=".$ip;
-        $request = file_get_contents($url);
-        $response = json_decode($request);
-        if(!($response->success)){
-          $_SESSION['error_captcha']="Uzupełnij captche";
-          $validation = false;
-       }
+
+
+      if (isset($_POST['utworz'])) {
+        $recaptcha = $_POST['g-recaptcha-response'];
+        $secret_key = "6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j";
+        $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
+        $response = file_get_contents($url);
+        $response = json_decode($response);
+        if ($response->success == true) {
+          echo '<script>alert("Google reCAPTACHA verified")</script>';
+        } else {
+          echo '<script>alert("Error in Google reCAPTACHA")</script>';
+        }
+      }
 
         if ((strlen($password1)<6) || (strlen($password1)>16))
         {
@@ -152,16 +155,10 @@
               ?>
         
               <div class = "form-floating m-md-3">
-                  <div  class="mx-auto g-recaptcha" onload="onloadCallback()" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
+                  <div  class="mx-auto g-recaptcha"  data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
               </div>
-              <?php
-                if (isset($_SESSION['error_captcha']))
-                {
-                    echo '<div class="error">'.$_SESSION['error_captcha'].'</div>';
-                    unset($_SESSION['witamy']);
-                }
-              ?>
-              <button class="w-50 btn btn-lg btn-primary g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j" data-callback='onSubmit' data-action='submit' type="submit" name="utworz">Utwórz konto</button>
+             
+              <button class="w-50 btn btn-lg btn-primary g-recaptcha" name="utworz">Utwórz konto</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               <?php
                 if (isset($_SESSION['witamy']))
@@ -227,15 +224,6 @@
         </div>
       </footer>
       <script src="https://www.google.com/recaptcha/api.js"></script>
-                <script>
-                  function onSubmit(token){
-                  var login = $('#login').val();
-                  var password = $('#password').val();
-                  $.post('script.php', {login: login, password: password, g-recaptcha-response:token}, function(output){
-                      $(#info).html(output);
-                 }
-                </script>
-
     </body>
 
 </html>
