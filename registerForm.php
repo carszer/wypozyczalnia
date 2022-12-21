@@ -36,6 +36,7 @@
             {
               $_SESSION['zarejestrowany'] = true;
               $_SESSION['witamy'] = 'Zarejestrowano pomyślnie!</br><a href="loginForm.php">Zaloguj się</a>';
+              
             }
         }
         
