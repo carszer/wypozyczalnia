@@ -81,11 +81,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav m-auto mb-2 justify-content-center mb-md-0">
                 <li class="nav-item">
-<<<<<<< HEAD
                   <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
-=======
-                  <a class="nav-link active" aria-current="page" href="index.html">Strona główna</a>
->>>>>>> d53030694862957450df49110e1535abf7c57832
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="oferta.html">Oferta</a>
