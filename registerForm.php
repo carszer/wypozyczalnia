@@ -150,9 +150,16 @@
                 }
               ?>
         
-            <div class = "form-floating m-md-3">
-              <div  class="mx-auto g-recaptcha" onload="onloadCallback()" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
+              <div class = "form-floating m-md-3">
+                  <div  class="mx-auto g-recaptcha" onload="onloadCallback()" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
               </div>
+              <?php
+                if (isset($_SESSION['error_captcha']))
+                {
+                    echo '<div class="error">'.$_SESSION['error_captcha'].'</div>';
+                    unset($_SESSION['error_captcha']);
+                }
+              ?>
               <button class="w-50 btn btn-lg btn-primary" type="submit" name="utworz">Utwórz konto</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               <?php
