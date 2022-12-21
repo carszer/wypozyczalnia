@@ -1,3 +1,7 @@
+<?php 
+  session_start();
+  ?>
+
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -13,44 +17,8 @@
 
    </style>
     <title>CarSzer</title>
-    <script type="text/javascript">
-      function delete_cookie(name) {
-      document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-      }
 
-      function logged(){
-      let username = getCookie("odwiedziny");
-        if (username != "") {
-          let logButton = document.getElementById("logButton")
-          let registerButton = document.getElementById("registerButton")
-          logButton.innerHTML = "Panel użytkownika";
-          registerButton.innerHTML = "Wyloguj";
-          registerButton.setAttribute( "onClick", "logout()" );
-        } 
-    }
-
-    function logout(){
-      delete_cookie("odwiedziny");
-      location.reload();
-    }
-
-      function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-          let c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
-        }
-        return "";
-      }
-  </script>
-    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body onload ="logged()">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -65,7 +33,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav m-auto mb-2 justify-content-center mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="index.html">Strona główna</a>
+                  <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="oferta.html">Oferta</a>
@@ -81,11 +49,11 @@
                 </li>  
               </ul>
               <div class="text-end">
-                <button class="btn btn-outline-light me-2" type="button" onclick="window.location='loginForm.php'" id="logButton">Zaloguj się</button>
+                <button class="btn btn-outline-light me-2" type="button" onclick="window.location='#'" id="logButton">Panel użytkownika</button>
                 <!--<a class="btn btn-warning me-2" href="logowanie.html">Zaloguj się</a> -->
 
-                 <button class="btn btn-warning" type="button" onclick="window.location='registerForm.php'" id="registerButton">Zarejestruj się</button>
-                 <!--<a class="btn btn-outline-light me-2" href="registerForm.html">Zarejestruj się</a>-->
+                 <!-- <button class="btn btn-warning" type="button" onclick="window.location='wyloguj.php'" id="registerButton">Wyloguj</button> -->
+                 <a class="btn btn-warning" type="submit" href="wyloguj.php">Wyloguj się</a>
               </div>
             </div>
           </div>
@@ -160,7 +128,6 @@
     <div class="col-md-5 p-lg-3 mx-auto ">
         <p class="h2 text-black">Skontaktuj sie z nami</p>
     </div>
-
     <div class="col-md-5 p-lg-5 mx-auto ">
         <form>
             <div class="form-floating m-md-3">
@@ -178,14 +145,12 @@
             </div>
             </br>
             </br>
+            <div class="g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
             <button class="w-50 btn btn-lg btn-primary" type="submit">Wyślij</button>
         </form>
     </div>
 </div>
       </main>
-
-
-
 
     <footer class="container py-5">
       <div class="row">

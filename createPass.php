@@ -1,44 +1,7 @@
 <?php
     $connect = new mysqli("localhost", "root", "", "testowa");
     session_start();
-    if (isset($_POST['email']))
-    {
-        $validation = true;
-
-        $password1 = $_POST['pass1'];
-        $password2 = $_POST['pass2'];
-        if ((strlen($password1)<6) || (strlen($password1)>16))
-        {
-            $validation = false;
-            $_SESSION['error_pass1'] = "Hasło musi składać się z 6 do 16 znaków!";
-        }
-
-        $addremail = $_POST['email'];
-
-        if ($password1!=$password2)
-        {
-            $validation = false;
-            $_SESSION['error_pass2'] = "Podane hasła są różne!";
-        }
-        
-        //$hashPass = password_hash($password1, PASSWORD_DEFAULT);
-        $emailIstnieje = $connect->query("SELECT id FROM users WHERE email='$addremail'");
-        $numEmail = $emailIstnieje->num_rows;
-        if ($numEmail>0)
-        {
-            $validation = false;
-            $_SESSION['error_email'] = "Użytkownik o podanym emailu istnieje.";
-        }
-
-        if ($validation==true)
-        {
-            if($connect->query("INSERT INTO users (ID, email, password) VALUES (NULL, '$addremail', '$password1')"))
-            {
-              $_SESSION['zarejestrowany'] = true;
-            }
-        }
-        
-    }   
+   
         $connect->close();
 ?>
 <!DOCTYPE html>
@@ -54,7 +17,6 @@
             color: red;
         }
     </style>
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -99,45 +61,36 @@
           <div class="col-md-5 p-lg-5 mx-auto my-5 "> 
             <form method="POST">
               <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-              <h1 class="h1 mb-3 fw-normal m-md-3">Utwórz konto</h1>
+              <h1 class="h1 mb-3 fw-normal m-md-3">Uwtórz nowe hasło</h1>
           
               <div class="form-floating m-md-3">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
-                <label for="floatingInput">Adres E-mail</label>
+                <label for="floatingInput">Kod z maila</label>
               </div>
-              <?php
-                if (isset($_SESSION['error_email']))
-                {
-                    echo '<div class="error">'.$_SESSION['error_email'].'</div>';
-                    unset($_SESSION['error_email']);
-                }
-              ?>
+
+              <div class="form-floating m-md-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+                <label for="floatingInput">E-mail</label>
+              </div>
+
               <div class="form-floating m-md-3">
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass1">
-                <label for="floatingPassword">Hasło</label>
+                <label for="floatingPassword">Nowe hasło</label>
               </div>
               <?php
-                if (isset($_SESSION['error_pass1']))
-                {
-                    echo '<div class="error">'.$_SESSION['error_pass1'].'</div>';
-                    unset($_SESSION['error_pass1']);
-                }
+               
               ?>
               <div class="form-floating m-md-3">
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass2">
                 <label for="floatingPassword">Powtórz Hasło</label>
               </div>
               <?php
-                if (isset($_SESSION['error_pass2']))
-                {
-                    echo '<div class="error">'.$_SESSION['error_pass2'].'</div>';
-                    unset($_SESSION['error_pass2']);
-                }
+               
+                
               ?>
             </br>
-            <div  class="g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
-              </br>
-              <button class="w-50 btn btn-lg btn-primary" type="submit" name="utworz">Utwórz konto</button>
+            </br>
+            <input class="w-50 btn btn-lg btn-primary" type="submit" value = "Ustaw hasło">
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
             </form>
           </div>

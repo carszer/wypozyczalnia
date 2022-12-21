@@ -1,3 +1,12 @@
+<?php 
+  session_start();
+  if ((isset($_SESSION['zaloogowany'])) && ($_SESSION['zalogowany']==true))
+  {
+    header('Location: userIndex.php');
+    exit();
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -6,9 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>CarSzer</title>
-    <?php
-    include('function.php');
-    ?>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -23,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav m-auto mb-2 justify-content-center mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="index.html">Strona główna</a>
+                  <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="oferta.html">Oferta</a>
@@ -52,7 +58,7 @@
       <main>  
         <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
           <div class="col-md-5 p-lg-5 mx-auto my-5 "> 
-            <form action="loginForm.php" method="POST">
+            <form action="zaloguj.php" method="POST">
               <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
               <h1 class="h1 mb-3 fw-normal m-md-3">Zaloguj się</h1>
           
@@ -64,52 +70,25 @@
                 <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                 <label for="floatingPassword">Hasło</label>
                 <small id="registerHelp" class="">Nie masz konta? Zarejestruj się klikajac <a href="registerForm.php">Tutaj</a></small>
+                </br>
+                <small id="registerHelp" class="">Nie pamiętasz hasła? Odzyskaj je klikajac <a href="recoverPass.php">Tutaj</a></small>
               </div>
-            
             </br>
             </br>
-            
-              <input class="w-50 btn btn-lg btn-primary" type="submit" value = "Zalguj się">
-            </form>
+              <input class="w-50 btn btn-lg btn-primary" type="submit" value = "Zaloguj się">
+            </form> 
             <?php
-        $conn = mysqli_connect("localhost","root","","testowa");
-        if(mysqli_connect_errno()) { 
-            echo "Connnection failed: ".mysqli_connect_error();
-        }
-
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-              $email = test_input($_POST["email"]);
-              $password = test_input($_POST["password"]);
-
-
-              if ($query = mysqli_query($conn, 'SELECT password from users where email = "' . $email . '";')) {
-                if (mysqli_num_rows($query) > 0) {
-                  $row = mysqli_fetch_assoc($query);
-                  $passwordb = $row['password'];
-                  if ($password == $passwordb) {
-                    setcookie("odwiedziny", "0", time()+60, "/"); 
-                    echo $_COOKIE["odwiedziny"];
-                    header("Location: index.html");
-                  } else {
-                    echo "Nieprawidłowe hasło";
-                  }
-                } else {
-                  echo "Email nie istnieje";
-                }
-              } else
-                echo "Query failed";
-            }
-            
-            
-            function test_input($data) {
-              $data = trim($data);
-              $data = stripslashes($data);
-              $data = htmlspecialchars($data);
-              return $data;
-            }
+              if(isset($_SESSION['blad']))
+              { 
+                echo '<div class="alert alert-danger" role="alert">';
+                  echo $_SESSION['blad'];
+                echo '</div>';
+              }
             ?>
-        
+         
+          </div>
+          <div class="alert alert-primary" role="alert">
+            Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
           </div>
           <div class="product-device shadow-sm d-none d-md-block"></div>
           <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
