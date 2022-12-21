@@ -1,7 +1,8 @@
 <?php
     $connect = new mysqli("localhost", "root", "", "testowa");
     session_start();
-    if (isset($_POST['register_btn']))
+    if(isset($_POST['register_btn']))
+    if (isset($_POST['email']))
     {
         $validation = true;
 
