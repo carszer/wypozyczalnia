@@ -64,7 +64,7 @@
                 <label for="floatingInput">Adres E-mail</label>
               </br>
                 </br>
-                <button class="w-50 btn btn-lg btn-primary" type="submit" name="submit">Wyślij kod odzyskiwania</button>
+                <button class="w-50 btn btn-lg btn-primary" type="submit" name="send_btn">Wyślij kod odzyskiwania</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               </div>
             </form>
