@@ -2,7 +2,7 @@
 session_start();
     require_once "connect.php";
     $poloczenie = new mysqli($host,$db_user,$db_pass,$db_name);
-    if(isset($_POST['login_btm']))    
+    if(isset($_POST['login_btn']))    
     if($poloczenie->connect_errno!=0)
         {
                 echo "Error: ".$poloczenie->connect_errno." Opis: ".$poloczenie->connect_error;
