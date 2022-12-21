@@ -1,7 +1,7 @@
 <?php
     $connect = new mysqli("localhost", "root", "", "testowa");
     session_start();
-    if (isset($_POST['email']))
+    if (isset($_POST['register_btn']))
     {
         $validation = true;
 
@@ -136,7 +136,7 @@
                 }
               ?>
              
-              <button class="w-50 btn btn-lg btn-primary" name="utworz">Utwórz konto</button>
+              <button class="w-50 btn btn-lg btn-primary" name="register_btn">Utwórz konto</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
             </form>
           </div>
