@@ -69,9 +69,14 @@
               <div class="form-floating m-md-3">
                 <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                 <label for="floatingPassword">Hasło</label>
+<<<<<<< HEAD
                 <small id="registerHelp" class="">Nie masz konta? Zarejestruj się klikajac <a href="registerForm.php">Tutaj</a></small>
                 </br>
                 <small id="registerHelp" class="">Nie pamiętasz hasła? Odzyskaj je klikajac <a href="recoverPass.php">Tutaj</a></small>
+=======
+                <small id="registerHelp" class="">Nie masz konta? Zarjestruj się klikajac <a href="registerForm.php">Tutaj</a></small>
+                <small id="recoverHelp" class="">Zapomniałeś hasło? Zresetuj je klikając <a href="recoverPass.php">Tutaj</a></small>
+>>>>>>> d53030694862957450df49110e1535abf7c57832
               </div>
             </br>
             </br>
