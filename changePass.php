@@ -1,7 +1,53 @@
 <?php
     $connect = new mysqli("localhost", "root", "", "testowa");
     session_start();
-   
+    if (isset($_POST['kod']))
+    {
+        $validation = true;
+        $kod = $_POST['kod'];
+        $kodBaza = $connect->query("SELECT kod FROM users WHERE email='$addremail'");
+        $numKod = $kodBaza->num_rows;
+        if ($numKod>0)
+        {
+          if ($kod!=$kodBaza)
+          {
+            $validation = false;
+            $_SESSION['error_kod'] = "Podany kod jest błędny!";
+          }
+        }
+
+        $addremail = $_POST['email'];
+        $emailIstnieje = $connect->query("SELECT id FROM users WHERE email='$addremail'");
+        $numEmail = $emailIstnieje->num_rows;
+        if ($numEmail==0)
+        {
+          $validation = false;
+          $_SESSION['error_email'] = "Podany adres email jest nieprawidłowy!";
+        }
+
+        $newpass1 = $_POST['newpass1'];
+        $newpass2 = $_POST['newpass2'];
+        if ((strlen($newpass1)<6) || (strlen($newpass1)>16))
+        {
+            $validation = false;
+            $_SESSION['error_pass1'] = "Hasło musi składać się z 6 do 16 znaków!";
+        }
+
+        if ($newpass1!=$newpass2)
+        {
+            $validation = false;
+            $_SESSION['error_pass2'] = "Podane hasła są różne!";
+        }
+
+        if ($validation==true)
+        {
+          if ($connect->query("UPDATE users SET password = '$newpass1' WHERE email = '$addremail'"))
+          {
+            $_SESSION['passChange'] = true;
+            $_SESSION['potwierdzenie'] = "Hasło zostało zmienione.";
+          }
+        }
+    }
         $connect->close();
 ?>
 <!DOCTYPE html>
@@ -64,34 +110,60 @@
               <h1 class="h1 mb-3 fw-normal m-md-3">Uwtórz nowe hasło</h1>
           
               <div class="form-floating m-md-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="kod">
                 <label for="floatingInput">Kod z maila</label>
               </div>
-
+              <?php
+                if (isset($_SESSION['error_kod']))
+                {
+                    echo '<div class="error">'.$_SESSION['error_kod'].'</div>';
+                    unset($_SESSION['error_kod']);
+                }
+              ?>
               <div class="form-floating m-md-3">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
                 <label for="floatingInput">E-mail</label>
               </div>
-
+              <?php
+                if (isset($_SESSION['error_email']))
+                {
+                    echo '<div class="error">'.$_SESSION['error_email'].'</div>';
+                    unset($_SESSION['error_email']);
+                }
+              ?>
               <div class="form-floating m-md-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass1">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="newpass1">
                 <label for="floatingPassword">Nowe hasło</label>
               </div>
               <?php
-               
+                if (isset($_SESSION['error_pass1']))
+                {
+                    echo '<div class="error">'.$_SESSION['error_pass1'].'</div>';
+                    unset($_SESSION['error_pass1']);
+                }
               ?>
               <div class="form-floating m-md-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass2">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="newpass2">
                 <label for="floatingPassword">Powtórz Hasło</label>
               </div>
               <?php
-               
-                
+                if (isset($_SESSION['error_pass2']))
+                {
+                    echo '<div class="error">'.$_SESSION['error_pass2'].'</div>';
+                    unset($_SESSION['error_pass2']);
+                }
               ?>
             </br>
             </br>
             <input class="w-50 btn btn-lg btn-primary" type="submit" value = "Ustaw hasło">
-              <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
+            <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
+              <?php
+                if (isset($_SESSION['potwierdzenie']))
+                {
+                    echo '<div class="error">'.$_SESSION['potwierdzenie'].'</div>';
+                    unset($_SESSION['potwierdzenie']);
+                }
+              ?>
             </form>
           </div>
           <div class="product-device shadow-sm d-none d-md-block"></div>
