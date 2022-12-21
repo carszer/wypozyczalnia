@@ -7,6 +7,7 @@ session_start();
     echo "Error: ".$poloczenie->connect_errno." Opis: ".$poloczenie->connect_error;
     }else{
           $email = $_POST['mail'];
+          $subject = "Kod odzyskiwania hasła";
           $sql = "SELECT * from users where email='$email'"; 
                 if($rezultat = @$poloczenie->query($sql)){
                     $zalogowane = $rezultat->num_rows;
@@ -16,7 +17,26 @@ session_start();
                      unset($_SESSION['error']);
                      $kod = mt_rand(100000,999999);
                      $sql2="UPDATE users SET kod='$kod' WHERE email='$email'";
-                     $rezultat2 = @$poloczenie->query($sql2);    
+                     $rezultat2 = @$poloczenie->query($sql2); 
+                     
+                     if(isset($_POST['submit'])){
+                        $url = "https://script.google.com/macros/s/AKfycbwj3BNwGNiRVG33O8m_ToNYUa_v7-ihRAbc-2A9mWOhBwFPR-3dFOtXxkaYC2oKRU0/exec";
+                        $ch = curl_init($url);
+                        curl_setopt_array($ch, 
+                        [
+                           CURLOPT_RETURNTRANSFER => true,
+                           CURLOPT_FOLLOWLOCATION => true,
+                           CURLOPT_POSTFIELDS => http_build_query
+                           ([
+                              "recipient" => $_POST['email'],
+                              "subject"   => $subject,
+                              "body"      => $kod
+                           ])
+                        ]);
+                        $result = curl_exec($ch);
+                        }
+
+
                      $rezultat->free_result();     
                      header('Location:createPass.php');
                      }else{
