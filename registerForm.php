@@ -55,8 +55,21 @@
         .error {
             color: red;
         }
+        .g-recaptcha{
+          width: min-content;
+        }
     </style>
+      
       <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      <script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+          'sitekey' : 'your_site_key'
+        });
+      };
+    </script>
+
+
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -136,9 +149,10 @@
                     unset($_SESSION['error_pass2']);
                 }
               ?>
-            </br>
-            <div  class="g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
-              </br>
+        
+            <div class = "form-floating m-md-3">
+              <div  class="mx-auto g-recaptcha" onload="onloadCallback()" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
+              </div>
               <button class="w-50 btn btn-lg btn-primary" type="submit" name="utworz">Utwórz konto</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               <?php
@@ -154,7 +168,7 @@
           <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
          
         </div>
-        <div class="alert alert-primary" role="alert">
+        <div class="alert alert-primary text-center" role="alert">
             Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
           </div>
       </main>

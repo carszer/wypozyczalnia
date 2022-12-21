@@ -1,5 +1,7 @@
 <?php
     $connect = new mysqli("localhost", "root", "", "testowa");
+    $sprawdzemail = null;
+    $newPassword = null;
     session_start();
     if (isset($_POST['email']))
     {
@@ -40,9 +42,9 @@
           function wysylanieMaila()
           {
             $header = "From: CarSzer@gmail.com \nContent-Type:".' text/plain;charset="UTF-8"'."\nContent-Transfer-Encoding: 8bit";
-            $to = "$sprawdzemail";
+            $to = $sprawdzemail;
             $subject = "Zmiana hasła";
-            $message = "Witaj, twoje nowe hasło to: $newPassword. Pozdrawiamy, zespół CarSzer.";
+            $message = "Witaj, twoje nowe hasło to:".$newPassword.". Pozdrawiamy, zespół CarSzer.";
             mail($to, $subject, $message, $header);
             if(mail($to, $subject, $message, $header))
               {

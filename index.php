@@ -11,7 +11,9 @@
       width:100%;
      
     }
-
+    .g-recaptcha{
+          width: min-content;
+        }
    </style>
     <title>CarSzer</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -139,9 +141,9 @@
                 <textarea class="form-control" name="message" placeholder="Message"></textarea>
                 <label for="floatingPassword">W czym możemy ci pomóc?</label>
             </div>
-            </br>
-            </br>
-            <div class="g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
+            <div class="form-floating m-md-3">
+            <div class="mx-auto g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
+            </div>
             <button class="w-50 btn btn-lg btn-primary" type="submit">Wyślij</button>
         </form>
     </div>
