@@ -135,11 +135,11 @@
             </form>
 
           <div class="product-device shadow-sm d-none d-md-block"></div>
-          <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-          <div class="alert alert-primary" role="alert">
+          <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>   
+        </div>
+        <div class="alert alert-primary" role="alert">
             Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
           </div>
-        </div>
       </main>
 
       <footer class="container py-5">
