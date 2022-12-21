@@ -14,10 +14,9 @@
         $url = "https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$token."&remoteip=".$ip;
         $request = file_get_contents($url);
         $response = json_decode($request);
-        if($response->success){
-          /* Kontynuj działanie skryptu */
-       } else {
-          die("Nieprawidłowa odpowiedź CAPTCHA");
+        if(!($response->success)){
+          $_SESSION['error_captcha']="Uzupełnij captche";
+          $validation = false;
        }
 
         if ((strlen($password1)<6) || (strlen($password1)>16))
@@ -72,10 +71,6 @@
           width: min-content;
         }
     </style>
-      
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -159,8 +154,14 @@
               <div class = "form-floating m-md-3">
                   <div  class="mx-auto g-recaptcha" onload="onloadCallback()" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
               </div>
-
-              <button class="w-50 btn btn-lg btn-primary" type="submit" name="utworz">Utwórz konto</button>
+              <?php
+                if (isset($_SESSION['error_captcha']))
+                {
+                    echo '<div class="error">'.$_SESSION['error_captcha'].'</div>';
+                    unset($_SESSION['witamy']);
+                }
+              ?>
+              <button class="w-50 btn btn-lg btn-primary g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j" data-callback='onSubmit' data-action='submit' type="submit" name="utworz">Utwórz konto</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               <?php
                 if (isset($_SESSION['witamy']))
@@ -225,5 +226,16 @@
           </div>
         </div>
       </footer>
-</body>
+      <script src="https://www.google.com/recaptcha/api.js"></script>
+                <script>
+                  function onSubmit(token){
+                  var login = $('#login').val();
+                  var password = $('#password').val();
+                  $.post('script.php', {login: login, password: password, g-recaptcha-response:token}, function(output){
+                      $(#info).html(output);
+                 }
+                </script>
+
+    </body>
+
 </html>
