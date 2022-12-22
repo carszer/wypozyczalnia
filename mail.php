@@ -41,7 +41,7 @@ session_start();
                      $rezultat->free_result();     
                      header('Location:changePass.php');
                      }else{
-                        $_SESSION['error'] = 'nie ma takiego maila w bazie';    
+                        $_SESSION['error'] = 'Nie ma takiego maila w bazie';    
                         header('Location: recoverPass.php');
                     }
                 }

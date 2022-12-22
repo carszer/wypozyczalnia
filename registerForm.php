@@ -1,15 +1,12 @@
 <?php
     $connect = new mysqli("localhost", "root", "", "testowa");
     session_start();
-    if(isset($_POST['register_btn']))
     if (isset($_POST['email']))
     {
         $validation = true;
 
         $password1 = $_POST['pass1'];
         $password2 = $_POST['pass2'];
-
-
         if ((strlen($password1)<6) || (strlen($password1)>16))
         {
             $validation = false;
@@ -35,9 +32,13 @@
 
         if ($validation==true)
         {
-          header("Location: registrationSuccess.html");
-        }
-        
+            if($connect->query("INSERT INTO users (ID, email, password) VALUES (NULL, '$addremail', '$password1')"))
+            {
+              $_SESSION['zarejestrowany'] = true;
+              header('Location:regOK.html');
+
+            }
+        }        
     }   
         $connect->close();
 ?>
@@ -137,7 +138,7 @@
                 }
               ?>
              
-              <button class="w-50 btn btn-lg btn-primary" name="register_btn">Utwórz konto</button>
+              <button class="w-50 btn btn-lg btn-primary" type="submit" name="submit">Utwórz konto</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
             </form>
           </div>

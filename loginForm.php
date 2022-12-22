@@ -1,9 +1,10 @@
 <?php 
   session_start();
-  if ((isset($_SESSION['zaloogowany'])) && ($_SESSION['zalogowany']==true))
+  if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
   {
+    unset($_SESSION['blad']);
     header('Location: userIndex.php');
-    exit();
+    
   }
 
 ?>
@@ -82,6 +83,7 @@
               { 
                 echo '<div class="alert alert-danger" role="alert">';
                   echo $_SESSION['blad'];
+                  unset($_SESSION['blad']);
                 echo '</div>';
               }
             ?>

@@ -1,6 +1,3 @@
-<?php 
-  session_start();
-?>
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -23,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav m-auto mb-2 justify-content-center mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
+                  <a class="nav-link active" aria-current="page" href="index.html">Strona główna</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="oferta.html">Oferta</a>
@@ -53,37 +50,36 @@
       <main>  
         <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
           <div class="col-md-5 p-lg-5 mx-auto my-5 "> 
-
-            
+            <form>
               <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-              <h1 class="h1 mb-3 fw-normal m-md-3">Odzyskiwanie hasła</h1>
+              <h1 class="h1 mb-3 fw-normal m-md-3">Odzyskaj hasło</h1>
           
-              <form action="mail.php" method="post">
               <div class="form-floating m-md-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="mail">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                 <label for="floatingInput">Adres E-mail</label>
-              </br>
-                </br>
-                <button class="w-50 btn btn-lg btn-primary" type="submit" name="send_btn">Wyślij kod odzyskiwania</button>
-              <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
               </div>
+              <p><small id="registerHelp" class="">Podaj adres e-mail na który jest zarejestrowane konto</small></p>
+              <div class="form-floating m-md-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Hasło</label>
+              </div>
+              <div class="form-floating m-md-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Powtórz Hasło</label>
+              </div>
+
+            </br>
+            </br>
+              <button class="w-50 btn btn-lg btn-primary" type="submit">Odzyskaj hasło</button>
+              <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
             </form>
-            <?php
-              if(isset($_SESSION['error']))
-              { 
-                echo '<div class="alert alert-danger" role="alert">';
-                  echo $_SESSION['error'];
-                  
-                echo '</div>';
-                unset($_SESSION['error']);
-              }
-            ?>
+          </div>
           <div class="product-device shadow-sm d-none d-md-block"></div>
-          <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>   
-        </div>
-        <div class="alert alert-primary" role="alert">
+          <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+          <div class="alert alert-primary" role="alert">
             Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
           </div>
+        </div>
       </main>
 
       <footer class="container py-5">
