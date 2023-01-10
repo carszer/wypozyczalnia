@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title>CarSzer_password changed</title>
+    <title>CarSzer_registerSucess</title>
     <style>
         .error {
             color: red;
@@ -55,12 +55,12 @@
           <div class="col-md-5 p-lg-5 mx-auto my-5 "> 
             <form method="POST">
               <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-              <h1 class="h1 mb-3 fw-normal m-md-3">Odzyskiwanie hasła powiodło się!</h1>
+              <h1 class="h1 mb-3 fw-normal m-md-3">Rejestracja ukończona pomyślnie!</h1>
               <p>Teraz możesz zalogować się na swoje konto klikając przycisk poniżej</p>
 
             </br>
             </br>
-            <button type="button" class="w-50 btn btn-lg btn-primary" onclick="window.location='loginForm.php'">Zaloguj się</button>
+              <button type="button" class="w-50 btn btn-lg btn-primary" onclick="window.location='loginForm.php'">Zaloguj się</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
             </form>
           </div>
@@ -72,87 +72,8 @@
       <!-- Remove the container if you want to extend the Footer to full width. -->
 
     <!-- Footer -->
-    <footer
-            class="text-center text-lg-start text-white"
-            style="background-color: #1c2331"
-            >
-      <!-- Section: Links  -->
-      <section class="">
-        <div class="container text-center text-md-start mt-5">
-          <!-- Grid row -->
-          <div class="row mt-3">
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-              <!-- Content -->
-              <h6 class="text-uppercase fw-bold">CarSher</h6>
-              <hr
-                  class="mb-4 mt-0 d-inline-block mx-auto"
-                  style="width: 80px; background-color: #9b1a1a; height: 3px"
-                  />
-              <p>
-                Jesteśmy świeżą wschodzącą marką na polskim rynku aut prawie luksusowych.
-                CarSher, z nami stać Cię na wynajem! 
-              </p>
-            </div>
-  
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold">Przydatne linki</h6>
-              <hr
-                  class="mb-4 mt-0 d-inline-block mx-auto"
-                  style="width: 80px; background-color: #9b1a1a; height: 3px"
-                  />
-              <p>
-                <a href="#!" class="text-white">O nas</a>
-              </p>
-              <p>
-                <a href="#!" class="text-white">Promocje</a>
-              </p>
-              <p>
-                <a href="#!" class="text-white">Wynajem aut - ważne</a>
-              </p>
-              <p>
-                <a href="#!" class="text-white">Klauzula informacyjna</a>
-              </p>
-              <p>
-                <a href="#!" class="text-white">Polityka prywatności</a>
-              </p>
-            </div>
-            <!-- Grid column -->
-  
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold">Kontakt</h6>
-              <hr
-                  class="mb-4 mt-0 d-inline-block mx-auto"
-                  style="width: 80px; background-color: #9b1a1a; height: 3px"
-                  />
-              <p><i class="fas fa-home mr-3"></i> Siedziba: Gdynia, Akademia Małych Wymagań, PL</p>
-              <p><i class="fas fa-envelope mr-3"></i> E-mail: CarSher@gmail.com</p>
-              <p><i class="fas fa-phone mr-3"></i> Tel: + 48 555-111-222</p>
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row -->
-        </div>
-      </section>
-      <!-- Section: Links  -->
-  
-      <!-- Copyright -->
-      <div
-           class="text-center p-3"
-           style="background-color: rgba(0, 0, 0, 0.2)"
-           >
-        © 2022-2023 Carszer
-        <a class="text-white" href="https://CarSzer.com/"
-           >Strona główna</a
-          >
-      </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+       <!-- Stopka -->
+       <?php include("footer.php"); ?>
   
 
   <!-- End of .container -->
