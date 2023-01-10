@@ -220,9 +220,9 @@ if(isset($_POST['submit'])){
                 <label for="floatingPassword">W czym możemy ci pomóc?</label>
             </div>
             <div class="form-floating m-md-3">
-                <div class="mx-auto g-recaptcha" data-sitekey="6LfWsukjAAAAAC2hSiSZOJsf3UeZFMOfmPu21Kae"></div>
+                <div class="mx-auto g-recaptcha" data-sitekey="6LfWsukjAAAAAC2hSiSZOJsf3UeZFMOfmPu21Kae" data-callback='onSubmit' data-action='submit'></div>
             </div>
-            <button class="w-50 btn btn-lg btn-aler g-recaptcha" data-sitekey="6LfWsukjAAAAAC2hSiSZOJsf3UeZFMOfmPu21Kae" data-callback='onSubmit' data-action='submit' type="submit" name="submit">Wyślij</button>
+            <button class="w-50 btn btn-lg btn-alert" type="submit" name="submit">Wyślij</button>
         </form>
         <?php if(!empty($statusMsg)){ ?>
            <p class="status-msg <?php echo $status; ?>"><?php echo $statusMsg; ?></p>
