@@ -224,9 +224,10 @@ if(isset($_POST['submit'])){
             </div>
             <button class="w-50 btn btn-lg btn-alert" type="submit" name="submit">Wyślij</button>
         </form>
-        <?php if(!empty($statusMsg)){ ?>
-           <p class="status-msg <?php echo $status; ?>"><?php echo $statusMsg; ?></p>
-        <?php } ?>
+        <?php if(!empty($statusMsg)){
+           echo "<p class='status-msg'".$status."; </p>"
+          } 
+        ?>
     </div>
 </div>
       </main>
