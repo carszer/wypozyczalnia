@@ -74,6 +74,7 @@ if(isset($_POST['submit'])){
 }  
   
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -222,7 +223,7 @@ if(isset($_POST['submit'])){
             <div class="form-floating m-md-3">
                 <div class="mx-auto g-recaptcha" data-sitekey="6LfWsukjAAAAAC2hSiSZOJsf3UeZFMOfmPu21Kae" data-callback='onSubmit' data-action='submit'></div>
             </div>
-            <button class="w-50 btn btn-lg btn-alert" type="submit" name="submit">Wyślij</button>
+            <button class="w-50 btn btn-lg btn-warning" type="submit" name="submit">Wyślij</button>
         </form>
         
     </div>
