@@ -1,6 +1,80 @@
 
 <!DOCTYPE html>
 <html lang="pl-PL">
+<?php  
+  
+// Google reCAPTCHA API keys settings  
+$secretKey = '6LfWsukjAAAAAFxwhV05nJAVi6eFW1K_W9VMBwFs';  
+$postData = $valErr = $statusMsg = ''; 
+$status = 'error'; 
+ 
+// If the form is submitted 
+if(isset($_POST['submit'])){  
+    // Retrieve value from the form input fields 
+    $postData = $_POST;  
+    $topic = trim($_POST['text']);  
+    $email = trim($_POST['email']);  
+    $message = trim($_POST['message']);  
+  
+    // Validate input fields  
+    if(empty($topic)){  
+        $valErr .= 'Please enter your name.<br/>';  
+    }  
+    if(empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) === false){  
+        $valErr .= 'Please enter a valid email.<br/>';  
+    }  
+    if(empty($message)){  
+        $valErr .= 'Please enter message.<br/>';  
+    }  
+  
+    // Check whether submitted input data is valid  
+    if(empty($valErr)){  
+        // Validate reCAPTCHA response  
+        if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){  
+  
+            // Google reCAPTCHA verification API Request  
+            $api_url = 'https://www.google.com/recaptcha/api/siteverify';  
+            $resq_data = array(  
+                'secret' => $secretKey,  
+                'response' => $_POST['g-recaptcha-response'],  
+                'remoteip' => $_SERVER['REMOTE_ADDR']  
+            );  
+  
+            $curlConfig = array(  
+                CURLOPT_URL => $api_url,  
+                CURLOPT_POST => true,  
+                CURLOPT_RETURNTRANSFER => true,  
+                CURLOPT_POSTFIELDS => $resq_data  
+            );  
+  
+            $ch = curl_init();  
+            curl_setopt_array($ch, $curlConfig);  
+            $response = curl_exec($ch);  
+            curl_close($ch);  
+  
+            // Decode JSON data of API response in array  
+            $responseData = json_decode($response);  
+  
+            // If the reCAPTCHA API response is valid  
+            if($responseData->success){
+                echo '<script>alert(dziala)</script>';
+                $status = 'success';  
+                $statusMsg = 'Thank you! Your contact request has been submitted successfully.';  
+                $postData = '';  
+            }else{  
+                $statusMsg = 'The reCAPTCHA verification failed, please try again.';  
+            }  
+        }else{  
+            $statusMsg = 'Something went wrong, please try again.';  
+        }  
+    }else{  
+        $valErr = !empty($valErr)?'<br/>'.trim($valErr, '<br/>'):'';  
+        $statusMsg = 'Please fill all the mandatory fields:'.$valErr;  
+    }  
+}  
+  
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,10 +89,15 @@
           width: min-content;
         }
    </style>
+   <script>
+        function onSubmit(token) {
+            document.getElementById("contactForm").submit();
+        }
+  </script>
     <title>CarSzer</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
-<body onload ="logged()">
+<body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <header>
         <!-- Fixed navbar -->
@@ -127,7 +206,7 @@
         <p class="h2 text-black">Skontaktuj sie z nami</p>
     </div>
     <div class="col-md-5 p-lg-5 mx-auto ">
-        <form>
+        <form action= "index.php" id="contactForm">
             <div class="form-floating m-md-3">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                 <label for="floatingInput">Adres E-mail</label>
@@ -142,10 +221,11 @@
                 <label for="floatingPassword">W czym możemy ci pomóc?</label>
             </div>
             <div class="form-floating m-md-3">
-            <div class="mx-auto g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
+                <div class="mx-auto g-recaptcha" data-sitekey="6LfWsukjAAAAAC2hSiSZOJsf3UeZFMOfmPu21Kae" data-callback='onSubmit' data-action='submit'></div>
             </div>
-            <button class="w-50 btn btn-lg btn-primary" type="submit">Wyślij</button>
+            <button class="w-50 btn btn-lg btn-warning" type="submit" name="submit">Wyślij</button>
         </form>
+        
     </div>
 </div>
       </main>
