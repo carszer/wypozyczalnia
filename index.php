@@ -226,7 +226,7 @@ if(isset($_POST['submit'])){
         </form>
         <?php 
         if(!empty($statusMsg)){
-           echo "<p class='status-msg'".$status."; </p>";
+           echo "<p class='status-msg'>".$status."; </p>";
           };
         ?>
     </div>
