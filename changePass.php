@@ -50,8 +50,7 @@ if (isset($_POST['kod'])) {
     if ((strlen($newpass1) < 6) || (strlen($newpass1) > 16)) {
       $validation = false;
       $_SESSION['error_pass1'] = "Hasło musi składać się z 6 do 16 znaków!";
-    }
-    ;
+    };
 
     if ($newpass1 != $newpass2) {
       $validation = false;
