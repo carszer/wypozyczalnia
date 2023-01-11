@@ -1,5 +1,6 @@
 <?php
-    $connect = new mysqli("localhost", "root", "", "testowa");
+    require_once "connect.php";
+    $connect = new mysqli($host,$db_user,$db_pass,$db_name);
     session_start();
     if (isset($_POST['email']))
     {
@@ -35,7 +36,7 @@
             if($connect->query("INSERT INTO users (ID, email, password) VALUES (NULL, '$addremail', '$password1')"))
             {
               $_SESSION['zarejestrowany'] = true;
-              header('Location:regOK.html');
+              header('Location:regOK.php');
 
             }
         }        

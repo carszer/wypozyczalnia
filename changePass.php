@@ -1,6 +1,8 @@
 
 <?php
-    $connect = new mysqli("localhost", "root", "", "testowa");
+ require_once "connect.php";
+    $connect = new mysqli($host,$db_user,$db_pass,$db_name);
+    //$connect = new mysqli("localhost", "root", "", "testowa");
     session_start();
 if (isset($_POST['kod'])) {
   $validation = true;
