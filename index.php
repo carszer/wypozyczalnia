@@ -83,24 +83,17 @@ if(isset($_POST['submit'])){
     <style>
     .carousel-inner{
       width:100%;
-     
     }
+    .carousel .carousel-item {
+          height: 950px;
+              }
+ .carousel-item img {
+  object-fit: cover;
+}
     .g-recaptcha{
           width: min-content;
         }
-        .carousel .carousel-item {
-          height: 600px;
-          object-position: 50% 50%;
-      }
-
-      .carousel-item img {
-          position: absolute;
-          object-fit: cover;
-          top: 50%;
-          left: 0;
-          min-height: 600px;
-          object-position: 50% 50%;
-      }
+      
    </style>
    <script>
         function onSubmit(token) {
@@ -161,7 +154,7 @@ if(isset($_POST['submit'])){
               </div>
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG4IfUoTVyRUNkBjCgdXLFUnHycKDh9iSXQAdE1EHCwfNl8iJQYZORM7b3xUAQgoHWNN"  class="d-block w-100" alt="...">
+                <img src="https://www.tapeteos.pl/data/media/521/big/ferrari_f8_tributo_2020_023.jpg" height="950px" class="d-block w-100" alt="...">
                   <div class="carousel-caption d-none d-md-block">
                     <h5>Dełu matiz</h5>
                     <p>Super samochód na rodzinne wyprawy</p>
@@ -169,7 +162,7 @@ if(isset($_POST['submit'])){
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG5_YkxfSDVJeQBiE0UPPVQxXGIbRB5iEDFVKlVYTX1Ddh8pGw4PIhUeXSwOAgJjEDFVKlgW" class="d-block w-100" alt="...">
+                <img src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG5_YkxfSDVJeQBiE0UPPVQxXGIbRB5iEDFVKlVYTX1Ddh8pGw4PIhUeXSwOAgJjEDFVKlgW" height="950px" class="d-block w-100" alt="...">
                   <div class="carousel-caption d-none d-md-block">
                     <h5>Dełu matiz</h5>
                     <p>Super samochód na rodzinne wyprawy</p>
@@ -177,7 +170,7 @@ if(isset($_POST['submit'])){
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img src="https://th.bing.com/th/id/OIP.H7ishNCs4PTUl1nV6fBn7QHaES?pid=ImgDet&rs=1" class="d-block w-100" alt="...">
+                <img src="https://th.bing.com/th/id/OIP.H7ishNCs4PTUl1nV6fBn7QHaES?pid=ImgDet&rs=1" height="950px" class="d-block w-100" alt="...">
                   <div class=" bg-dark carousel-caption d-md-block ">
                     <h5>Dełu matiz</h5>
                     <p>Super samochód na rodzinne wyprawy</p>
