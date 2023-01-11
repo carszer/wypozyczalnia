@@ -1,7 +1,7 @@
 <?php 
   session_start();
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pl-PL">
 <head>
     <meta charset="UTF-8">
@@ -46,7 +46,6 @@
               </ul>
               <div class="text-end">
               <a class="btn btn-outline-light me-2" href="loginForm.php">Zaloguj się</a>
-                 <!--<a class="btn btn-warning me-2" href="logowanie.html">Zaloguj się</a> -->
 
                   <a class="btn btn-warning" href="registerForm.php">Zarejestruj się</a>
                   <!--<a class="btn btn-outline-light me-2" href="registerForm.html">Zarejestruj się</a>-->
