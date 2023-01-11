@@ -12,7 +12,7 @@ $status = 'error';
 if(isset($_POST['submit'])){  
     // Retrieve value from the form input fields 
     $postData = $_POST;  
-    $topic = trim($_POST['text']);  
+    $topic = trim($_POST['submit']);  
     $email = trim($_POST['email']);  
     $message = trim($_POST['message']);  
   
@@ -206,19 +206,19 @@ if(isset($_POST['submit'])){
         <p class="h2 text-black">Skontaktuj sie z nami</p>
     </div>
     <div class="col-md-5 p-lg-5 mx-auto ">
-        <form action= "index.php" id="contactForm">
+        <form id="contactForm" action="contactUs.php" method="POST">
             <div class="form-floating m-md-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required >
                 <label for="floatingInput">Adres E-mail</label>
             </div>
             <div class="form-floating m-md-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="Subject">
-                <label for="floatingPassword">Temat</label>
+                <input name="subject" type="text" class="form-control" id="floatingInput" placeholder="Subject" required>
+                <label for="subjectd">Temat</label>
             </div>
 
             <div class="form-floating m-md-3">
-                <textarea class="form-control" name="message" placeholder="Message"></textarea>
-                <label for="floatingPassword">W czym możemy ci pomóc?</label>
+                <textarea  class="form-control" name="message" placeholder="Message" required></textarea>
+                <label for="message">W czym możemy ci pomóc?</label>
             </div>
             <div class="form-floating m-md-3">
                 <div class="mx-auto g-recaptcha" data-sitekey="6LfWsukjAAAAAC2hSiSZOJsf3UeZFMOfmPu21Kae" data-callback='onSubmit' data-action='submit'></div>
