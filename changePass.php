@@ -61,7 +61,7 @@ if (isset($_POST['kod'])) {
     $q2 = "UPDATE users SET password = '$newpass1' WHERE email = '$email'";
     if ($validation == true) {
       if ($connect->query($q2)) {
-        header("Location: passChangeOK.html");
+        header("Location: passChangeOK.php");
       }
     }
   }
@@ -101,7 +101,7 @@ if (isset($_POST['kod'])) {
                   <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="oferta.html">Oferta</a>
+                  <a class="nav-link" href="oferta.php">Oferta</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Rezerwuj</a>
@@ -115,9 +115,9 @@ if (isset($_POST['kod'])) {
               </ul>
               <div class="text-end">
               <a class="btn btn-outline-light me-2" href="loginForm.php">Zaloguj się</a>
-                 <!--<a class="btn btn-warning me-2" href="logowanie.html">Zaloguj się</a> -->
+                 <!--<a class="btn btn-warning me-2" href="logowanie.php">Zaloguj się</a> -->
                   <a class="btn btn-warning" href="registerForm.php">Zarejestruj się</a>
-                  <!--<a class="btn btn-outline-light me-2" href="registerForm.html">Zarejestruj się</a>-->
+                  <!--<a class="btn btn-outline-light me-2" href="registerForm.php">Zarejestruj się</a>-->
               </div>
             </div>
           </div>

@@ -113,7 +113,7 @@ if(isset($_POST['submit'])){
                   <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="oferta.html">Oferta</a>
+                  <a class="nav-link" href="oferta.php">Oferta</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Rezerwuj</a>
@@ -127,10 +127,10 @@ if(isset($_POST['submit'])){
               </ul>
               <div class="text-end">
                 <button class="btn btn-outline-light me-2" type="button" onclick="window.location='loginForm.php'" id="logButton">Zaloguj się</button>
-                <!--<a class="btn btn-warning me-2" href="logowanie.html">Zaloguj się</a> -->
+                <!--<a class="btn btn-warning me-2" href="logowanie.php">Zaloguj się</a> -->
 
                  <button class="btn btn-warning" type="button" onclick="window.location='registerForm.php'" id="registerButton">Zarejestruj się</button>
-                 <!--<a class="btn btn-outline-light me-2" href="registerForm.html">Zarejestruj się</a>-->
+                 <!--<a class="btn btn-outline-light me-2" href="registerForm.php">Zarejestruj się</a>-->
               </div>
             </div>
           </div>
@@ -193,7 +193,7 @@ if(isset($_POST['submit'])){
           <div class="position-relative text-center bg-danger ">
           <div class="col-md-5 p-lg-3 mx-auto">
             <h1 class="display-4 fw-normal text-white">Jedziemy w drogę?</h1>
-            <a class="btn btn-outline-secondary bg-dark" href="oferta.html"><h4>Przeglądaj ofertę</h4></a>
+            <a class="btn btn-outline-secondary bg-dark" href="oferta.php"><h4>Przeglądaj ofertę</h4></a>
           </div>
           </div>
    <!-- Mapa kontakt -->
