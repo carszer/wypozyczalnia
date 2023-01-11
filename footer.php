@@ -4,52 +4,46 @@
             class="text-center text-lg-start text-white"
             style="background-color: #1c2331"
             >
-      <section class="">
-        <div class="container text-center text-md-start mt-5">
-          <div class="row mt-3">
+      <section class="border-top border-warning">
+        <div class="container text-center text-md-start ">
+          <div class="row">
             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-              <h6 class="text-uppercase fw-bold">CarSzer</h6>
-                <hr
-                    class="mb-4 mt-0 d-inline-block mx-auto"
-                   style="width: 80px; background-color: #9b1a1a; height: 3px"
-                  />
+              <h6 class="text-uppercase fw-bold border-bottom border-light py-2">CarSzer</h6>
+                
                   <p>
                     Jesteśmy świeżą wschodzącą marką na polskim rynku aut prawie luksusowych.
                     CarSzer, z nami stać Cię na wynajem!
                     
-                    <img src='img\matiz.png'>
+                    
                    </p>
+            <div width="100%">
+                   <img class="mx-auto" src='img\matiz.png'>
+            </div>
             </div>
   
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-              <h6 class="text-uppercase fw-bold">Przydatne linki</h6>
-                <hr
-                 class="mb-4 mt-0 d-inline-block mx-auto"
-                  style="width: 80px; background-color: #9b1a1a; height: 3px"
-                />
+              <h6 class="text-uppercase fw-bold border-bottom border-light py-2">Przydatne linki</h6>
+                
                 <p>
-                  <a href="#!" class="text-white">O nas</a>
+                  <a href="#!" class="text-white text-decoration-none">O nas</a>
                 </p>
                 <p>
-                  <a href="#!" class="text-white">Promocje</a>
+                  <a href="#!" class="text-white text-decoration-none">Promocje</a>
                 </p>
                 <p>
-                  <a href="#!" class="text-white">Wynajem aut - ważne</a>
+                  <a href="#!" class="text-white text-decoration-none">Wynajem aut - ważne</a>
                 </p>
                 <p>
-                  <a href="#!" class="text-white">Klauzula informacyjna</a>
+                  <a href="#!" class="text-white text-decoration-none">Klauzula informacyjna</a>
                 </p>
                 <p>
-                  <a href="#!" class="text-white">Polityka prywatności</a>
+                  <a href="#!" class="text-white text-decoration-none">Polityka prywatności</a>
                 </p>
             </div>
 
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 ">
-              <h6 class="text-uppercase fw-bold">Kontakt</h6>
-                <hr
-                  class="mb-4 mt-0 d-inline-block mx-auto"
-                  style="width: 80px; background-color: #9b1a1a; height: 3px"
-                />
+              <h6 class="text-uppercase fw-bold border-bottom border-light py-2">Kontakt</h6>
+                
                 <p><i class="fas fa-home mr-3"></i>ul.Śmidowicza 69<br>
                 81-127 Gdynia
                 <br>Polska</p>

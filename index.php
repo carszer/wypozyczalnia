@@ -80,6 +80,7 @@ if(isset($_POST['submit'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="shortcut icon" href="img/favicon.ico"/>
     <style>
     .carousel-inner{
       width:100%;
@@ -87,8 +88,8 @@ if(isset($_POST['submit'])){
     .carousel .carousel-item {
           height: 950px;
               }
- .carousel-item img {
-  object-fit: cover;
+    .carousel-item img {
+      object-fit: cover;
 }
     .g-recaptcha{
           width: min-content;
@@ -107,9 +108,10 @@ if(isset($_POST['submit'])){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <header>
         <!-- Fixed navbar -->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom border-warning" style="background-color: #1c2331">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">CarSzer</a>
+          <img src='img/matizB.png' height="15px" class="m-1"> 
+          <a class="navbar-brand" href="#">CarSzer</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -155,26 +157,26 @@ if(isset($_POST['submit'])){
               <div class="carousel-inner">
                 <div class="carousel-item active">
                 <img src="https://www.tapeteos.pl/data/media/521/big/ferrari_f8_tributo_2020_023.jpg" height="950px" class="d-block w-100" alt="...">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5>Dełu matiz</h5>
-                    <p>Super samochód na rodzinne wyprawy</p>
-                    <a class="btn btn-outline-secondary bg-danger text-white px-5 rounded" href="#"><h4>Rezerwuj</h4></a>
+                  <div class="carousel-caption d-md-block">
+                    <h5>Fełałi</h5>
+                    <p>Za drogie żeby wynająć</p>
+                    <button class="btn btn-outline-dark bg-warning text-white px-5 rounded" onclick="#">Rezerwuj</button>
                   </div>
                 </div>
                 <div class="carousel-item">
                 <img src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG5_YkxfSDVJeQBiE0UPPVQxXGIbRB5iEDFVKlVYTX1Ddh8pGw4PIhUeXSwOAgJjEDFVKlgW" height="950px" class="d-block w-100" alt="...">
-                  <div class="carousel-caption d-none d-md-block">
+                  <div class="carousel-caption d-md-block">
                     <h5>Dełu matiz</h5>
                     <p>Super samochód na rodzinne wyprawy</p>
-                    <a class="btn btn-outline-secondary bg-danger text-white px-5 rounded" href="#"><h4>Rezerwuj</h4></a>
+                    <button class="btn btn-outline-dark bg-warning text-white px-5 rounded" onclick="#">Rezerwuj</button>
                   </div>
                 </div>
                 <div class="carousel-item">
                 <img src="https://th.bing.com/th/id/OIP.H7ishNCs4PTUl1nV6fBn7QHaES?pid=ImgDet&rs=1" height="950px" class="d-block w-100" alt="...">
-                  <div class=" bg-dark carousel-caption d-md-block ">
+                  <div class="carousel-caption d-md-block ">
                     <h5>Dełu matiz</h5>
                     <p>Super samochód na rodzinne wyprawy</p>
-                    <a class="btn btn-outline-secondary bg-warning text-white px-5 rounded" href="#"><h4>Rezerwuj</h4></a>
+                    <button class="btn btn-outline-dark bg-warning text-white px-5 rounded" onclick="#">Rezerwuj</button>
                   </div>
                 </div>
               </div>
@@ -196,37 +198,37 @@ if(isset($_POST['submit'])){
               <a class="btn btn-outline-secondary" href="#">Rezerwację zrobisz później</a>
               </div>
             -->
-          <div class="position-relative text-center bg-danger ">
-          <div class="col-md-5 p-lg-3 mx-auto">
-            <h1 class="display-4 fw-normal text-white">Jedziemy w drogę?</h1>
-            <a class="btn btn-outline-secondary bg-dark" href="oferta.php"><h4>Przeglądaj ofertę</h4></a>
+          <div class="position-relative text-center bg-dark ">
+          <div class="col-md-5 p-3 mx-auto">
+            <h2 class="fw-light text-white">Jedziemy w drogę?</h2>
+            <button class="btn btn-outline-dark bg-warning text-white px-5 rounded" onclick="#">Przeglądaj ofertę</button>
           </div>
           </div>
    <!-- Mapa kontakt -->
 
-   <div class="pb-5 pt-0 text-center bg-light px-5">
-    <div class="container-fluid p-5 pb-3">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9257.850752069942!2d18.5461962!3d54.5429687!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6144d17db5b3ddb1!2sAkademia%20Marynarki%20Wojennej%20im.%20Bohater%C3%B3w%20Westerplatte!5e0!3m2!1spl!2spl!4v1671020353761!5m2!1spl!2spl" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+   <div class="text-center bg-dark bg-gradient">
+    <div class="container-fluid p-5 pb-5">
+        <iframe  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9257.850752069942!2d18.5461962!3d54.5429687!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6144d17db5b3ddb1!2sAkademia%20Marynarki%20Wojennej%20im.%20Bohater%C3%B3w%20Westerplatte!5e0!3m2!1spl!2spl!4v1671020353761!5m2!1spl!2spl" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-    <div class="col-md-5 p-lg-3 mx-auto ">
-        <p class="h2 text-black">Skontaktuj sie z nami</p>
+    <div class="col-md-5 p-3 mx-auto ">
+        <p class="h2 text-light fw-light">Skontaktuj sie z nami</p>
     </div>
-    <div class="col-md-5 p-lg-5 mx-auto ">
+    <div class="col-md-5 pb-3 mx-auto ">
         <form id="contactForm" action="contactUs.php" method="POST">
-            <div class="form-floating m-md-3">
+            <div class="form-floating m-3">
                 <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required >
                 <label for="floatingInput">Adres E-mail</label>
             </div>
-            <div class="form-floating m-md-3">
+            <div class="form-floating m-3">
                 <input name="subject" type="text" class="form-control" id="floatingInput" placeholder="Subject" required>
                 <label for="subjectd">Temat</label>
             </div>
 
-            <div class="form-floating m-md-3">
+            <div class="form-floating m-3">
                 <textarea  class="form-control" name="message" placeholder="Message" required></textarea>
                 <label for="message">W czym możemy ci pomóc?</label>
             </div>
-            <div class="form-floating m-md-3">
+            <div class="form-floating m-3">
                 <div class="mx-auto g-recaptcha" data-sitekey="6LfWsukjAAAAAC2hSiSZOJsf3UeZFMOfmPu21Kae" data-callback='onSubmit' data-action='submit'></div>
             </div>
             <button class="w-50 btn btn-lg btn-warning" type="submit" name="submit">Wyślij</button>
