@@ -208,15 +208,15 @@ if(isset($_POST['submit'])){
 
    <div class="text-center bg-dark bg-gradient">
     <div class="container-fluid p-5 pb-5">
-        <iframe  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9257.850752069942!2d18.5461962!3d54.5429687!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6144d17db5b3ddb1!2sAkademia%20Marynarki%20Wojennej%20im.%20Bohater%C3%B3w%20Westerplatte!5e0!3m2!1spl!2spl!4v1671020353761!5m2!1spl!2spl" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    <div class="col-md-5 p-3 mx-auto ">
-        <p class="h2 text-light fw-light">Skontaktuj sie z nami</p>
+        <iframe style="filter: invert(90%) hue-rotate(180deg)" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9257.850752069942!2d18.5461962!3d54.5429687!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6144d17db5b3ddb1!2sAkademia%20Marynarki%20Wojennej%20im.%20Bohater%C3%B3w%20Westerplatte!5e0!3m2!1spl!2spl!4v1671020353761!5m2!1spl!2spl" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div class="col-md-5 pb-3 mx-auto ">
+        <p class="h2 text-light fw-light">Skontaktuj sie z nami</p>
+    </div>
+    <div class="col-md-5 pb-5 mx-auto ">
         <form id="contactForm" action="contactUs.php" method="POST">
             <div class="form-floating m-3">
-                <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required >
+                <input name="email" type="email" class="form-control bg-light" id="floatingInput" placeholder="name@example.com" required >
                 <label for="floatingInput">Adres E-mail</label>
             </div>
             <div class="form-floating m-3">
