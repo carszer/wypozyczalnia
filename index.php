@@ -160,7 +160,7 @@ if(isset($_POST['submit'])){
                   <div class="carousel-caption d-md-block">
                     <h5>Fełałi</h5>
                     <p>Za drogie żeby wynająć</p>
-                    <button class="btn btn-outline-dark bg-warning text-white px-5 rounded" onclick="#">Rezerwuj</button>
+                    <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded" onclick="#">Rezerwuj</button>
                   </div>
                 </div>
                 <div class="carousel-item">
@@ -168,7 +168,7 @@ if(isset($_POST['submit'])){
                   <div class="carousel-caption d-md-block">
                     <h5>Dełu matiz</h5>
                     <p>Super samochód na rodzinne wyprawy</p>
-                    <button class="btn btn-outline-dark bg-warning text-white px-5 rounded" onclick="#">Rezerwuj</button>
+                    <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded" onclick="#">Rezerwuj</button>
                   </div>
                 </div>
                 <div class="carousel-item">
@@ -176,7 +176,7 @@ if(isset($_POST['submit'])){
                   <div class="carousel-caption d-md-block ">
                     <h5>Dełu matiz</h5>
                     <p>Super samochód na rodzinne wyprawy</p>
-                    <button class="btn btn-outline-dark bg-warning text-white px-5 rounded" onclick="#">Rezerwuj</button>
+                    <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded" onclick="#">Rezerwuj</button>
                   </div>
                 </div>
               </div>
@@ -201,7 +201,7 @@ if(isset($_POST['submit'])){
           <div class="position-relative text-center bg-dark ">
           <div class="col-md-5 p-3 mx-auto">
             <h2 class="fw-light text-white">Jedziemy w drogę?</h2>
-            <button class="btn btn-outline-dark bg-warning text-white px-5 rounded" onclick="#">Przeglądaj ofertę</button>
+            <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded" onclick="window.location='oferta.php'">Przeglądaj ofertę</button>
           </div>
           </div>
    <!-- Mapa kontakt -->
