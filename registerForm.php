@@ -67,8 +67,8 @@ $connect->close();
     <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom border-warning"
       style="background-color: #1c2331">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">CarSzer</a>
         <img src='img/matizB.png' height="15px" class="m-1">
+        <a class="navbar-brand" href="#">CarSzer</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
