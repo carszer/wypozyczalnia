@@ -28,6 +28,7 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
     <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom border-warning"
       style="background-color: #1c2331">
       <div class="container-fluid">
+        <img src='img/matizB.png' height="15px" class="m-1">
         <a class="navbar-brand" href="#">CarSzer</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,32 +64,30 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
   </header>
 
   <main>
-    <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
-      <div class="col-md-5 p-lg-5 mx-auto my-5 ">
+    <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-dark bg-gradient">
+      <div class="col-md-5 p-5 mx-auto mt-5 ">
         <form action="zaloguj.php" method="POST">
-          <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-          <h1 class="h1 mb-3 fw-normal m-md-3">Zaloguj się</h1>
+          <img class="mb-4" src="img/matiz.png" alt="" width="150">
+          <h1 class="h1 mb-5 fw-light text-light m-3">Zaloguj się</h1>
 
-          <div class="form-floating m-md-3">
+          <div class="form-floating m-3">
             <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Adres E-mail</label>
           </div>
-          <div class="form-floating m-md-3">
+          <div class="form-floating m-3">
             <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Hasło</label>
-            <small id="registerHelp" class="">Nie masz konta? Zarejestruj się klikajac <a
-                href="registerForm.php">Tutaj</a></small>
+            <small id="registerHelp" class="text-light mt-1">Nie masz konta? Zarejestruj się klikajac <a
+                class="text-light" href="registerForm.php">Tutaj</a></small>
             </br>
-            <small id="registerHelp" class="">Nie pamiętasz hasła? Odzyskaj je klikajac <a
-                href="recoverPass.php">Tutaj</a></small>
+            <small id="registerHelp" class="text-light mb-1">Nie pamiętasz hasła? Odzyskaj je klikajac <a
+                class="text-light" href="recoverPass.php">Tutaj</a></small>
           </div>
-          </br>
-          </br>
-          <input class="w-50 btn btn-lg btn-primary" type="submit" name="login_btn" value="Zaloguj się">
+          <input class="w-50 btn btn-lg btn-warning m-3" type="submit" name="login_btn" value="Zaloguj się">
         </form>
         <?php
         if (isset($_SESSION['blad'])) {
-          echo '<div class="alert alert-danger" role="alert">';
+          echo '<div class="alert alert-danger mt-3" role="alert">';
           echo $_SESSION['blad'];
           unset($_SESSION['blad']);
           echo '</div>';
@@ -96,11 +95,10 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
         ?>
 
       </div>
-      <div class="alert alert-primary" role="alert">
+      <div class="alert alert-dark" role="alert">
         Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
       </div>
-      <div class="product-device shadow-sm d-none d-md-block"></div>
-      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+      <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
     </div>
   </main>
 
