@@ -216,16 +216,16 @@ if(isset($_POST['submit'])){
     <div class="col-md-5 pb-5 mx-auto ">
         <form id="contactForm" action="contactUs.php" method="POST">
             <div class="form-floating m-3">
-                <input name="email" type="email" class="form-control bg-light" id="floatingInput" placeholder="name@example.com" required >
+                <input name="email" type="email" class="form-control bg-light" id="floatingInput" required >
                 <label for="floatingInput">Adres E-mail</label>
             </div>
             <div class="form-floating m-3">
-                <input name="subject" type="text" class="form-control" id="floatingInput" placeholder="Subject" required>
+                <input name="subject" type="text" class="form-control" id="floatingInput"  required>
                 <label for="subjectd">Temat</label>
             </div>
 
             <div class="form-floating m-3">
-                <textarea  class="form-control" name="message" placeholder="Message" required></textarea>
+                <textarea  class="form-control" name="message"  required></textarea>
                 <label for="message">W czym możemy ci pomóc?</label>
             </div>
             <div class="form-floating m-3">

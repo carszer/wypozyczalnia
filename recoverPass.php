@@ -65,7 +65,7 @@
           
               <form action="mail.php" method="post">
               <div class="form-floating m-md-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="mail">
+                <input type="email" class="form-control" id="floatingInput" name="mail" required>
                 <label for="floatingInput">Adres E-mail</label>
               </div>
               <div class="form-floating m-md-3">
