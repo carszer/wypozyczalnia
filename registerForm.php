@@ -68,6 +68,7 @@ $connect->close();
       style="background-color: #1c2331">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">CarSzer</a>
+        <img class="mb-4" src="img/matiz.png" alt="" width="150">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -101,13 +102,13 @@ $connect->close();
     </nav>
   </header>
   <main>
-    <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
-      <div class="col-md-5 p-lg-5 mx-auto my-5 ">
+    <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-dark bg-gradient">
+      <div class="col-md-5 p-5 mx-auto mt-5">
         <form method="POST">
-          <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-          <h1 class="h1 mb-3 fw-normal m-md-3">Utwórz konto</h1>
+          <img class="mb-4" src="img/matiz.png" alt="" width="150">
+          <h1 class="h1 mb-5 fw-light text-light m-3">Utwórz konto</h1>
 
-          <div class="form-floating m-md-3">
+          <div class="form-floating m-3">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
             <label for="floatingInput">Adres E-mail</label>
           </div>
@@ -117,7 +118,7 @@ $connect->close();
             unset($_SESSION['error_email']);
           }
           ?>
-          <div class="form-floating m-md-3">
+          <div class="form-floating m-3">
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass1">
             <label for="floatingPassword">Hasło</label>
           </div>
@@ -127,7 +128,7 @@ $connect->close();
             unset($_SESSION['error_pass1']);
           }
           ?>
-          <div class="form-floating m-md-3">
+          <div class="form-floating m-3 mb-5">
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass2">
             <label for="floatingPassword">Powtórz Hasło</label>
           </div>
@@ -138,17 +139,17 @@ $connect->close();
           }
           ?>
 
-          <button class="w-50 btn btn-lg btn-primary" type="submit" name="submit">Utwórz konto</button>
-          <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
+          <button class="w-50 btn btn-lg btn-warning" type="submit" name="submit">Utwórz konto</button>
+
         </form>
       </div>
-      <div class="product-device shadow-sm d-none d-md-block"></div>
-      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
 
+      <div class="alert alert-dark text-center" role="alert">
+        Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
+      </div>
+      <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
     </div>
-    <div class="alert alert-primary text-center" role="alert">
-      Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
-    </div>
+
   </main>
   <!-- Stopka -->
   <?php include("footer.php"); ?>
