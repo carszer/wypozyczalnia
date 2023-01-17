@@ -22,19 +22,20 @@ class Calendar {
         $m_pol = array("Styczen", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec");
         $num_days = date('t', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year));
         $num_days_last_month = date('j', strtotime('last day of previous month', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year)));
-        $days = [0 => 'Niedziela', 1 => 'Poniedzialek', 2 => 'Wtorek', 3 => 'Sroda', 4 => 'Czwartek', 5 => 'Piatek', 6 => 'Sobota'];
+        $days = [0 => 'Ndz', 1 => 'Pon', 2 => 'Wt', 3 => 'Sr', 4 => 'Czw', 5 => 'Pi', 6 => 'Sob'];
         $first_day_of_week = array_search(date('D', strtotime($this->active_year . '-' . $this->active_month . '-1')), $days);
         $html = '<div class="calendar">';
         $html .= '<div class="header">';
         $html .= '<div class="month-year">';
         $html .= str_replace($m_en, $m_pol, (date('F', strtotime($this->active_year . '-' . $this->active_month . '-' . $this->active_day))));
+        $html .= date(' Y', strtotime($this->active_year . '-' . $this->active_month . '-' . $this->active_day));
         $html .= '</div>';
         $html .= '</div>';
         $html .= '<div class="days">';
         foreach ($days as $day) {
             $html .= '
                 <div class="day_name">
-                    ' . $day . '
+                    <span>' . $day . '</span>
                 </div>
             ';
         }
@@ -55,9 +56,9 @@ class Calendar {
             foreach ($this->events as $event) {
                 for ($d = 0; $d <= ($event[2]-1); $d++) {
                     if (date('y-m-d', strtotime($this->active_year . '-' . $this->active_month . '-' . $i . ' -' . $d . ' day')) == date('y-m-d', strtotime($event[1]))) {
-                        $html .= '<div class="event' . $event[3] . '">';
+                        $html .= '<span>';
                         $html .= $event[0];
-                        $html .= '</div>';
+                        $html .= '</span>';
                     }
                 }
             }

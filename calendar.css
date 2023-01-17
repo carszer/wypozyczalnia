@@ -5,27 +5,26 @@
 .calendar .header .month-year {
     font-size: 20px;
     font-weight: bold;
-    color: #636e73;
-    padding: 20px 0;
+    color: white;
 }
 .calendar .days {
     display: flex;
     flex-flow: wrap;
+    text-align: center;
 }
 .calendar .days .day_name {
     width: calc(100% / 7);
-    border-right: 1px solid #2c7aca;
-    padding: 20px;
-    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid white;
+    padding-top: 20px;
+    padding-bottom:20px;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: light;
     color: #818589;
     color: #fff;
-    background-color: #448cd6;
 }
-.calendar .days .day_name:nth-child(7) {
-    border: none;
-}
+
 .calendar .days .day_num {
     display: flex;
     flex-flow: column;
@@ -36,7 +35,7 @@
     font-weight: bold;
     color: #7c878d;
     cursor: pointer;
-    min-height: 100px;
+    min-height: 40px;
 }
 .calendar .days .day_num span {
     display: inline-flex;
