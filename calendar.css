@@ -1,10 +1,11 @@
 .calendar {
     display: flex;
     flex-flow: column;
+    font-family: var(--bs-body-font-family);
 }
 .calendar .header .month-year {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: light;
     color: white;
 }
 .calendar .days {
@@ -19,7 +20,7 @@
     border: 1px solid white;
     padding-top: 20px;
     padding-bottom:20px;
-    font-size: 12px;
+    font-size: 14px;
     background-color: #ffc107;
     font-weight: bold;
     color: rgb(0, 0, 0);

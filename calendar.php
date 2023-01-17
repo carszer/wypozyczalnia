@@ -21,7 +21,7 @@ class Calendar {
         $m_en = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");  
         $m_pol = array("Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień");
         $d_en = ['Sun','Mon','Tue','Wed', 'Thu', 'Fri', 'Sat'];
-        $d_pol = ['Ndz','Pon','Wt', 'Śr','Czw', 'Pi', 'Sob'];
+        $d_pol = ['Ndz','Pon','Wt', 'Śr','Czw', 'Pt', 'Sob'];
         $num_days = date('t', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year));
         $num_days_last_month = date('j', strtotime('last day of previous month', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year)));
         $days = [0 => 'Sun', 1 => 'Mon', 2 => 'Tue', 3 => 'Wed', 4 => 'Thu', 5 => 'Fri', 6 => 'Sat']; 
