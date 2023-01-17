@@ -1,7 +1,7 @@
 <?php
 $idcar = 1;
 include 'Calendar.php';
-$calendar = new Calendar(date("Y-m-d"));
+$calendar = new Calendar(date('Y-m-d'));
 require_once "connect.php";
 $connect = new mysqli($host, $db_user, $db_pass, $db_name);
 $sql = "SELECT data_start, ile_dni FROM reservation where idcar = $idcar";
