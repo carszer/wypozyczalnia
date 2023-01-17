@@ -1,5 +1,6 @@
 <?php
 session_start();
-session_unset();
-header('Location: index.php');
+unset($_SESSION['zalogowany']);
+session_destroy();
+header('Location:index.php');
 ?>

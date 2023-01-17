@@ -14,9 +14,10 @@ if (isset($_POST['email'])) {
             $zalogowane = $rezultat->num_rows;
             if ($zalogowane > 0) {
                 $_SESSION['zalogowany'] = true;
+                $_SESSION['zalogowany'] = htmlspecialchars($_POST['email']);
                 unset($_SESSION['blad']);
                 $rezultat->free_result();
-                header('Location:userIndex.php');
+                header('Location:index.php');
 
             } else {
                 $_SESSION['blad'] = 'Nieprawidłowy login lub hasło!!!';

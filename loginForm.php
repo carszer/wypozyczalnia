@@ -2,8 +2,7 @@
 session_start();
 if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
   unset($_SESSION['blad']);
-  header('Location: userIndex.php');
-
+  header('Location: index.php');
 }
 
 ?>
@@ -17,6 +16,13 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <title>CarSzer</title>
+  <?php include("logo.php"); ?>
+
+  <style>
+  main{
+      min-height: 1000px;
+    }
+    </style>
 </head>
 
 <body>
@@ -49,7 +55,7 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
               <a class="nav-link" href="#">Kontakt</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">O nas</a>
+              <a class="nav-link" href="oNas.php">O nas</a>
             </li>
           </ul>
           < <a class="btn btn-outline-light me-2" href="loginForm.php">Zaloguj się</a>
@@ -63,9 +69,10 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
     </nav>
   </header>
 
-  <main>
-    <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-dark bg-gradient">
+  <main class=" bg-dark bg-gradient"">
+    <div class="position-relative overflow-hidden p-3 p-md-5 text-center">
       <div class="col-md-5 p-5 mx-auto mt-5 ">
+        <?php if(empty($_SESSION['zalogowany'])): ?>
         <form action="zaloguj.php" method="POST">
           <img class="mb-4" src="img/matiz.png" alt="" width="150">
           <h1 class="h1 mb-5 fw-light text-light m-3">Zaloguj się</h1>
@@ -85,6 +92,7 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
           </div>
           <input class="w-50 btn btn-lg btn-warning m-3" type="submit" name="login_btn" value="Zaloguj się">
         </form>
+          <?php endif;?>
         <?php
         if (isset($_SESSION['blad'])) {
           echo '<div class="alert alert-danger mt-3" role="alert">';

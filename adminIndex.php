@@ -4,79 +4,6 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="pl-PL">
-<?php
-
-// Google reCAPTCHA API keys settings  
-$secretKey = '6LfWsukjAAAAAFxwhV05nJAVi6eFW1K_W9VMBwFs';
-$postData = $valErr = $statusMsg = '';
-$status = 'error';
-
-// If the form is submitted 
-if (isset($_POST['submit'])) {
-  // Retrieve value from the form input fields 
-  $postData = $_POST;
-  $topic = trim($_POST['submit']);
-  $email = trim($_POST['email']);
-  $message = trim($_POST['message']);
-
-  // Validate input fields  
-  if (empty($topic)) {
-    $valErr .= 'Please enter your name.<br/>';
-  }
-  if (empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-    $valErr .= 'Please enter a valid email.<br/>';
-  }
-  if (empty($message)) {
-    $valErr .= 'Please enter message.<br/>';
-  }
-
-  // Check whether submitted input data is valid  
-  if (empty($valErr)) {
-    // Validate reCAPTCHA response  
-    if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
-
-      // Google reCAPTCHA verification API Request  
-      $api_url = 'https://www.google.com/recaptcha/api/siteverify';
-      $resq_data = array(
-        'secret' => $secretKey,
-        'response' => $_POST['g-recaptcha-response'],
-        'remoteip' => $_SERVER['REMOTE_ADDR']
-      );
-
-      $curlConfig = array(
-        CURLOPT_URL => $api_url,
-        CURLOPT_POST => true,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POSTFIELDS => $resq_data
-      );
-
-      $ch = curl_init();
-      curl_setopt_array($ch, $curlConfig);
-      $response = curl_exec($ch);
-      curl_close($ch);
-
-      // Decode JSON data of API response in array  
-      $responseData = json_decode($response);
-
-      // If the reCAPTCHA API response is valid  
-      if ($responseData->success) {
-        echo '<script>alert(dziala)</script>';
-        $status = 'success';
-        $statusMsg = 'Thank you! Your contact request has been submitted successfully.';
-        $postData = '';
-      } else {
-        $statusMsg = 'The reCAPTCHA verification failed, please try again.';
-      }
-    } else {
-      $statusMsg = 'Something went wrong, please try again.';
-    }
-  } else {
-    $valErr = !empty($valErr) ? '<br/>' . trim($valErr, '<br/>') : '';
-    $statusMsg = 'Please fill all the mandatory fields:' . $valErr;
-  }
-}
-
-?>
 
 <head>
   <meta charset="UTF-8">
@@ -84,11 +11,12 @@ if (isset($_POST['submit'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <?php include("logo.php"); ?>
   <style>
     .carousel-inner {
       width: 100%;
+
     }
+
 
     .carousel .carousel-item {
       height: 50vw;
@@ -102,35 +30,30 @@ if (isset($_POST['submit'])) {
       max-height: 800px;
       object-fit: cover;
     }
-
     .g-recaptcha {
       width: min-content;
     }
   </style>
-  <script>
+    <script>
     function onSubmit(token) {
       document.getElementById("contactForm").submit();
     }
   </script>
   <title>CarSzer</title>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <?php include("logo.php"); ?>
 </head>
 
-<body>
+<body onload="logged()">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
-
-    <?php if(isset($_SESSION['zalogowany'])):{
-          include("userNav.php");
-      }?>
-      <?php else: ?>
-        <header>
+  <header>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom border-warning"
       style="background-color: #1c2331">
       <div class="container-fluid">
-        <img src='img/matizB.png' height="15px" class="m-1">
+      <img src='img/matizB.png' height="15px" class="m-1">
         <a class="navbar-brand" href="#">CarSzer</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -155,19 +78,17 @@ if (isset($_POST['submit'])) {
             </li>
           </ul>
           <div class="text-end">
-            <button class="btn btn-outline-light me-2" type="button" onclick="window.location='loginForm.php'"
-              id="logButton">Zaloguj się</button>
-            <!--<a class="btn btn-warning me-2" href="logowanie.php">Zaloguj się</a> -->
+            <button class="btn btn-outline-light me-2" type="button" onclick="window.location=''" id="logButton">Panel
+              Administratora</button>
+            <!--<a class="btn btn-warning me-2" href="logowanie.html">Zaloguj się</a> -->
 
-            <button class="btn btn-warning" type="button" onclick="window.location='registerForm.php'"
-              id="registerButton">Zarejestruj się</button>
-            <!--<a class="btn btn-outline-light me-2" href="registerForm.php">Zarejestruj się</a>-->
+            <!-- <button class="btn btn-warning" type="button" onclick="window.location='wyloguj.php'" id="registerButton">Wyloguj</button> -->
+            <a class="btn btn-warning" type="submit" href="wyloguj.php">Wyloguj się</a>
           </div>
         </div>
       </div>
     </nav>
   </header>
-  <?php endif;?>
 
   <main>
     <!-- Tittle -->

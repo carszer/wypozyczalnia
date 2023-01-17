@@ -87,6 +87,7 @@ $connect->close();
       color: red;
     }
   </style>
+  <?php include("logo.php"); ?>
 </head>
 
 <body>
@@ -98,6 +99,7 @@ $connect->close();
     <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom border-warning"
       style="background-color: #1c2331">
       <div class="container-fluid">
+      <img src='img/matizB.png' height="15px" class="m-1">
         <a class="navbar-brand" href="#">CarSzer</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +120,7 @@ $connect->close();
               <a class="nav-link" href="#">Kontakt</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">O nas</a>
+              <a class="nav-link" href="oNas.php">O nas</a>
             </li>
           </ul>
           <div class="text-end">
