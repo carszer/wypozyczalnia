@@ -62,9 +62,7 @@ session_start();
             <!-- <a class="btn btn-outline-light me-2" href="loginForm.php">Zaloguj się</a> -->
             <a class="btn btn-outline-light me-2" href="loginForm.php">Zaloguj się</a>
             <!--<a class="btn btn-warning me-2" href="logowanie.html">Zaloguj się</a> -->
-
             <a class="btn btn-warning" href="registerForm.php">Zarejestruj się</a>
-            <!--<a class="btn btn-outline-light me-2" href="registerForm.html">Zarejestruj się</a>-->
           </div>
         </div>
       </div>
