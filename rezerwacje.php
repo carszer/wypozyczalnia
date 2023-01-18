@@ -15,56 +15,47 @@ session_start();
   if (isset($_POST['marka'])) {
     $validation = true;
 
-    $marka = $_POST['marka'];
-    if (isset($_POST['marka'])) {
-      $validation = true;
-    }
-
-    $model = $_POST['model'];
-    if (isset($_POST['model'])) {
-      $validation = true;
-    }
-
-    $cena = $_POST['cena'];
-    if (isset($_POST['cena'])) {
-      $validation = true;
-    }
-
     $imie = $_POST['name'];
-    if (isset($_POST['name'])) {
-      $validation = true;
+    if (strlen($imie) < 3) {
+      $validation = false;
+      $_SESSION['error_imie'] = "Imie musi składać się z co najmniej 3 liter!";
     }
 
     $nazwisko = $_POST['nazwisko'];
-    if (isset($_POST['nazwisko'])) {
-      $validation = true;
+    if (empty($nazwisko)) {
+      $validation = false;
+      $_SESSION['error_nazwisko'] = "Podaj nazwisko!";
     }
 
     $nrTel = $_POST['telefon'];
     if (strlen($nrTel) < 9) {
-      $validation = true;
+      $validation = false;
+      $_SESSION['error_tel'] = "Numer telefonu musi składać się z 9 cyfr!";
     }
 
     $miasto = $_POST['miasto'];
-    if (isset($_POST['miasto'])) {
-      $validation = true;
+    if (empty($miasto)) {
+      $validation = false;
+      $_SESSION['error_miasto'] = "Pole miasto nie może być puste!";
     }
 
     $ulica = $_POST['ulica'];
-    if (isset($_POST['ulica'])) {
-      $validation = true;
+    if (empty($ulica)) {
+      $validation = false;
+      $_SESSION['error_ulica'] = "Pole ulica nie może być puste!";
     }
 
     $nrLok = $_POST['numer'];
-    if (isset($_POST['numer'])) {
-      $validation = true;
+    if (empty($nrLok)) {
+      $validation = false;
+      $_SESSION['error_lokal'] = "Pole numer lokalu nie może być puste";
     }
 
     $prawojazdy = $_POST['prawojazdy'];
-    if (isset($_POST['prawojazdy'])) {
-      $validation = true;
+    if (empty($prawojazdy)) {
+      $validation = false;
+      $_SESSION['error_prawko'] = "Pole prawo jazdy nie może być puste";
     }
-
 
     if (!isset($_POST['dataod'])) {
       $validation = false;
@@ -276,36 +267,78 @@ session_start();
                   <input type="text" class="form-control" id="name" name="name" required>
                   <label for="name">Imię</label>
                 </div>
+                <?php
+                if(isset($_SESSION['error_imie'])) {
+                  echo '<div class="error">' .$_SESSION['error_imie'] . '</div>';
+                  unset($_SESSION['error_imie']);
+                }
+                ?>
 
                 <div class="form-floating m-3">
                   <input type="text" class="form-control" id="nazwisko" name="nazwisko" required>
                   <label for="nazwisko">Nazwisko</label>
                 </div>
+                <?php
+                if(isset($_SESSION['error_nazwisko'])) {
+                  echo '<div class="error">' .$_SESSION['error_nazwisko'] . '</div>';
+                  unset($_SESSION['error_nazwisko']);
+                }
+                ?>
 
                 <div class="form-floating m-3">
                   <input type="text" class="form-control" id="telefon" name="telefon" pattern="^\d{9}" required>
                   <label for="telefon">Nr. telefonu</label>
                 </div>
+                <?php
+                if(isset($_SESSION['error_tel'])) {
+                  echo '<div class="error">' .$_SESSION['error_tel'] . '</div>';
+                  unset($_SESSION['error_tel']);
+                }
+                ?>
 
                 <div class="form-floating m-3">
                   <input type="text" class="form-control" id="miasto" name="miasto" required>
                   <label for="miasto">Miasto</label>
                 </div>
+                <?php
+                if(isset($_SESSION['error_miast'])) {
+                  echo '<div class="error">' .$_SESSION['error_miasto'] . '</div>';
+                  unset($_SESSION['error_miasto']);
+                }
+                ?>
 
                 <div class="form-floating m-3">
                   <input type="text" class="form-control" id="ulica" name="ulica" required>
                   <label for="ulica">Ulica</label>
                 </div>
+                <?php
+                if(isset($_SESSION['error_ulica'])) {
+                  echo '<div class="error">' .$_SESSION['error_ulica'] . '</div>';
+                  unset($_SESSION['error_ulica']);
+                }
+                ?>
 
                 <div class="form-floating m-3">
                   <input type="text" class="form-control" id="numer" name="numer" required>
                   <label for="numer">Numer lokalu</label>
                 </div>
+                <?php
+                if(isset($_SESSION['error_lokal'])) {
+                  echo '<div class="error">' .$_SESSION['error_lokal'] . '</div>';
+                  unset($_SESSION['error_lokal']);
+                }
+                ?>
 
                 <div class="form-floating m-3">
                   <input type="text" class="form-control" id="prawojazdy" name="prawojazdy" required>
                   <label for="prawojazdy">Nr. prawa jazdy</label>
                 </div>
+                <?php
+                if(isset($_SESSION['error_prawko'])) {
+                  echo '<div class="error">' .$_SESSION['error_prawko'] . '</div>';
+                  unset($_SESSION['error_prawko']);
+                }
+                ?>
 
                 <div class="form-floating m-3">
                   <input type="date" class="form-control" id="dataod" name="dataod" required>
