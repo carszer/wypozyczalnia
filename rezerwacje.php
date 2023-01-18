@@ -59,22 +59,27 @@ session_start();
 
     if (!isset($_POST['dataod'])) {
       $validation = false;
+      $_SESSION['error_data'] = "Data nie poprawna";  
     }
 
     if (!isset($_POST['datado'])) {
       $validation = false;
+      $_SESSION['error_data'] = "Data nie poprawna";
     }
 
     if ($_POST['dataod'] < date('Y-m-d')) {
       $validation = false;
+      $_SESSION['error_data'] = "Data nie poprawna";
     }
 
     if ($_POST['datado'] > date('Y-m-31')) {
       $validation = false;
+      $_SESSION['error_koniec'] = "Samochody wynajmujemy na bieżący miesiąc, spróbuj w następnym miesiącu";
     }
 
     if ($_POST['dataod'] > $_POST['datado']) {
       $validation = false;
+      $_SESSION['error_data'] = "Data nie poprawna";
     }
 
     if ($validation == true) {
@@ -111,6 +116,9 @@ session_start();
         mysqli_query($connect, $sql);
         $_SESSION['reservation'] = true;
         header('Location:rezerwacjeOK.php');
+      }
+      else{
+        $_SESSION['error_zajety'] = "W wybranym terminie samochód jest już zarezerwowany";
       }
     }
   }
@@ -301,7 +309,7 @@ session_start();
                   <label for="miasto">Miasto</label>
                 </div>
                 <?php
-                if(isset($_SESSION['error_miast'])) {
+                if(isset($_SESSION['error_miasto'])) {
                   echo '<div class="error">' .$_SESSION['error_miasto'] . '</div>';
                   unset($_SESSION['error_miasto']);
                 }
@@ -349,6 +357,20 @@ session_start();
                   <input type="date" class="form-control" id="datado" name="datado" required>
                   <label for="datado">Wynajmij do:</label>
                 </div>
+                <?php
+                if(isset($_SESSION['error_zajety'])) {
+                  echo '<div class="error">' .$_SESSION['error_zajety'] . '</div>';
+                  unset($_SESSION['error_zajety']);
+                }
+                if(isset($_SESSION['error_data'])) {
+                  echo '<div class="error">' .$_SESSION['error_data'] . '</div>';
+                  unset($_SESSION['error_data']);
+                }
+                if(isset($_SESSION['error_koniec'])) {
+                  echo '<div class="error">' .$_SESSION['error_koniec'] . '</div>';
+                  unset($_SESSION['error_koniec']);
+                }
+                ?>
 
                 <button class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit">Rezerwuj</button>
 
