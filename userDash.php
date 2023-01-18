@@ -37,7 +37,7 @@ session_start();
   <script>
     function DeleteConfirm() {
       confirm("Jesteś pewien że nie chcesz wynająć tak wspaniałego auta?");
-      window.location('userDash.php');
+      location.reload(true); 
      }
  </script>
 </head>
@@ -120,7 +120,7 @@ session_start();
               die();
             }
             $zmienna = $_SESSION['rezerwacja'];
-            $sql = "SELECT c.marka, c.model, c.cena, r.data_start, r.data_koniec, r.data_koniec-r.data_start+1,r.idreservation as dni FROM car as c 
+            $sql = "SELECT c.marka, c.model, c.cena, r.data_start, r.data_koniec, r.ile_dni ,r.idreservation as dni FROM car as c 
             INNER JOIN reservation as r ON c.idcar=r.idcar
             INNER JOIN user as u ON u.iduser=r.iduser WHERE u.email = '$zmienna'";
             $result = mysqli_query($connect, $sql);
@@ -141,6 +141,7 @@ session_start();
               <td>{$pole['dni']}</td>
             </tr>";
             */
+            
             }
         $connect->close();
         ?>
