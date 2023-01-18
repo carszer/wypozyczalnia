@@ -8,9 +8,12 @@ $connect = new mysqli($host, $db_user, $db_pass, $db_name);
 $sql = "SELECT data_start, ile_dni FROM reservation where idcar = $idcar";
 $result = mysqli_query($connect, $sql);
 while ($pole = $result->fetch_assoc()) {
-    $calendar->add_event('Zajety', $pole['data_start'], $pole['ile_dni']);
+    $calendar->add_event('Zajęty', $pole['data_start'], $pole['ile_dni']);
 }
 ?>
+
+//do heada css bo kalendarz spadnie z rowerka
+<link href="calendar.css" rel="stylesheet" type="text/css">
 
 //do diva w którym ma się wyświetlić kalendarz
 <?=$calendar?> 
