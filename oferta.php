@@ -48,9 +48,7 @@ session_start();
             <li class="nav-item">
               <a class="nav-link" href="oferta.php">Oferta</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Rezerwuj</a>
-            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="#">Kontakt</a>
             </li>
@@ -79,7 +77,7 @@ session_start();
 <?php
  require_once "connect.php";
  $connect = new mysqli($host, $db_user, $db_pass, $db_name);
- $sql = "SELECT idcar, marka, model, cena,img FROM car";
+ $sql = "SELECT idcar, marka, model, moc_km,pojemnosc,moment,cena,img,opis FROM car";
  $result = mysqli_query($connect, $sql);
 while($pole = $result->fetch_assoc()){
 echo "
@@ -89,13 +87,16 @@ echo "
                 src={$pole["img"]}
                 alt=...>
               <div class='card-body'>
-                <p class='h4 card-text'>
+                <p class='h4 card-text text-uppercase'>
 
                 {$pole ['marka']}
                 {$pole ['model']}
                 </p>
                 <p class='card-text'>Cena: {$pole["cena"]} zł</p>
-                <p class='card-text'></p>
+                <p>Pojemność: {$pole["pojemnosc"]} cm&#179;<br>
+                Moc: {$pole["moc_km"]} KM<br>
+                Moment obrotowy: {$pole["moment"]} nm</p>
+                <p>{$pole["opis"]}</p>
                 <div class='d-flex justify-content-center align-items-center'>
                   <div class='btn-group jus'>
                     <button type='button' class='btn btn-sm btn-outline-secondary' onclick=window.location='rezerwacje.php?idcar={$pole["idcar"]}'>Rezerwuj</button>

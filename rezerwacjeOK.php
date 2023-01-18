@@ -1,6 +1,11 @@
 <?php
 session_start();
 ?>
+<?php if(empty($_SESSION['zalogowany']) && empty($_SESSION['userid'])):{
+   header('Location: loginForm.php');
+}
+?>
+<?php else: ?>
 <!DOCTYPE html>
 <html lang="pl-PL">
 
@@ -28,44 +33,11 @@ session_start();
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
   <header>
+  <?php if(isset($_SESSION['zalogowany'])):{
+          include("userNav.php");
+      }?>
+      <?php endif;?>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom border-warning"
-      style="background-color: #1c2331">
-      <div class="container-fluid">
-            <img src='img/matizB.png' height="15px" class="m-1">
-        <a class="navbar-brand" href="#">CarSzer</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav m-auto mb-2 justify-content-center mb-md-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="oferta.php">Oferta</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Rezerwuj</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Kontakt</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="oNas.php">O nas</a>
-            </li>
-          </ul>
-          <div class="text-end">
-            <a class="btn btn-outline-light me-2" href="loginForm.php">Zaloguj się</a>
-            <!--<a class="btn btn-warning me-2" href="logowanie.html">Zaloguj się</a> -->
-            <a class="btn btn-warning" href="registerForm.php">Zarejestruj się</a>
-            <!--<a class="btn btn-outline-light me-2" href="registerForm.html">Zarejestruj się</a>-->
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
   <main>
     <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-dark bg-gradient">
       <div class="col-md-5 p-lg-5 mx-auto my-5 ">
@@ -92,3 +64,4 @@ session_start();
   <!-- End of .container -->
 </body>
 </html>
+<?php endif;?>
