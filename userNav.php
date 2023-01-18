@@ -18,13 +18,10 @@
               <a class="nav-link" href="oferta.php">Oferta</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Rezerwuj</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#">Kontakt</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="oNas.php">O nas</a>
+              <a class="nav-link" href="#">O nas</a>
             </li>
           </ul>
           <div class="text-end">

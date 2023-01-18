@@ -78,117 +78,38 @@ session_start();
     <p class="h1 text-center text-light py-4">Ekskluzywne marki w naszej ofercie</p>
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
+<?php
+ require_once "connect.php";
+ $connect = new mysqli($host, $db_user, $db_pass, $db_name);
+ $sql = "SELECT idcar, marka, model, cena,img FROM car";
+ $result = mysqli_query($connect, $sql);
+while($pole = $result->fetch_assoc()){
+echo "
+          <div class='col'>
+            <div class='card bg-dark text-light'>
+              <img width='100%' height='225'
+                src={$pole["img"]}
+                alt=...>
+              <div class='card-body'>
+                <p class='h4 card-text'>
 
-          <div class="col">
-            <div class="card bg-dark text-light">
-              <img width="100%" height="225"
-                src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG4IfUoTVyRUNkBjCgdXLFUnHycKDh9iSXQAdE1EHCwfNl8iJQYZORM7b3xUAQgoHWNN"
-                alt="...">
-              <div class="card-body">
-                <p class="h4 card-text">To jest matiz matiz jest szybki</p>
-                <p class="card-text">Cena: 99zł</p>
-                <p class="card-text"></p>
-                <div class="d-flex justify-content-center align-items-center">
-                  <div class="btn-group jus">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick= "window.location='rezerwacje.php'">Rezerwuj</button>
+                {$pole ['marka']}
+                {$pole ['model']}
+                </p>
+                <p class='card-text'>Cena: {$pole["cena"]} zł</p>
+                <p class='card-text'></p>
+                <div class='d-flex justify-content-center align-items-center'>
+                  <div class='btn-group jus'>
+                    <button type='button' class='btn btn-sm btn-outline-secondary' onclick=window.location='rezerwacje.php?idcar={$pole["idcar"]}'>Rezerwuj</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col">
-            <div class="card bg-dark text-light">
-              <img width="100%" height="225"
-                src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG4IfUoTVyRUNkBjCgdXLFUnHycKDh9iSXQAdE1EHCwfNl8iJQYZORM7b3xUAQgoHWNN"
-                alt="...">
-              <div class="card-body">
-                <p class="h4 card-text">To jest matiz matiz jest szybki</p>
-                <p class="card-text">Cena: 99zł</p>
-                <div class="d-flex justify-content-center align-items-center">
-                  <div class="btn-group jus">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Rezerwuj</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card bg-dark text-light">
-              <img width="100%" height="225"
-                src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG4IfUoTVyRUNkBjCgdXLFUnHycKDh9iSXQAdE1EHCwfNl8iJQYZORM7b3xUAQgoHWNN"
-                alt="...">
-              <div class="card-body">
-                <p class="h4 card-text">To jest matiz matiz jest szybki</p>
-                <p class="card-text">Cena: 99zł</p>
-                <div class="d-flex justify-content-center align-items-center">
-                  <div class="btn-group jus">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Rezerwuj</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-  
-          <div class="col">
-            <div class="card bg-dark text-light">
-              <img width="100%" height="225"
-                src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG4IfUoTVyRUNkBjCgdXLFUnHycKDh9iSXQAdE1EHCwfNl8iJQYZORM7b3xUAQgoHWNN"
-                alt="...">
-              <div class="card-body">
-                <p class="h4 card-text">To jest matiz matiz jest szybki</p>
-                <p class="card-text">Cena: 99zł</p>
-                <p class="card-text"></p>
-                <div class="d-flex justify-content-center align-items-center">
-                  <div class="btn-group jus">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Rezerwuj</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-          <div class="col">
-            <div class="card bg-dark text-light">
-              <img width="100%" height="225"
-                src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG4IfUoTVyRUNkBjCgdXLFUnHycKDh9iSXQAdE1EHCwfNl8iJQYZORM7b3xUAQgoHWNN"
-                alt="...">
-              <div class="card-body">
-                <p class="h4 card-text">To jest matiz matiz jest szybki</p>
-                <p class="card-text">Cena: 99zł</p>
-                <p class="card-text"></p>
-                <div class="d-flex justify-content-center align-items-center">
-                  <div class="btn-group jus">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Rezerwuj</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-          <div class="col">
-            <div class="card bg-dark text-light">
-              <img width="100%" height="225"
-                src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG4IfUoTVyRUNkBjCgdXLFUnHycKDh9iSXQAdE1EHCwfNl8iJQYZORM7b3xUAQgoHWNN"
-                alt="...">
-              <div class="card-body">
-                <p class="h4 card-text">To jest matiz matiz jest szybki</p>
-                <p class="card-text">Cena: 99zł</p>
-                <p class="card-text"></p>
-                <div class="d-flex justify-content-center align-items-center">
-                  <div class="btn-group jus">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Rezerwuj</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-          
-
-        </div>
-      </div>
-    </div>
-
+    ";
+  }
+   $connect->close() 
+   ?>
   </main>
   <!-- Stopka -->
   <?php include("footer.php"); ?>

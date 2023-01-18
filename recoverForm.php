@@ -57,17 +57,17 @@
   </header>
 
   <main>
-    <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
-      <div class="col-md-5 p-lg-5 mx-auto my-5 ">
+    <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-dark bg-gradient">
+      <div class="col-md-5 p-5 mx-auto mt-5">
         <form>
-          <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-          <h1 class="h1 mb-3 fw-normal m-md-3">Odzyskaj hasło</h1>
+          <img class="mb-4" src="img/matiz.png" alt="" width="150">
+          <h1 class="h1 mb-5 fw-light text-light m-3">Odzyskaj hasło</h1>
 
           <div class="form-floating m-md-3">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Adres E-mail</label>
           </div>
-          <p><small id="registerHelp" class="">Podaj adres e-mail na który jest zarejestrowane konto</small></p>
+          <p class="p mb-2 fw-light text-light m-3"><small id="registerHelp" class="">Podaj adres e-mail na który jest zarejestrowane konto</small></p>
           <div class="form-floating m-md-3">
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Hasło</label>
@@ -79,8 +79,8 @@
 
           </br>
           </br>
-          <button class="w-50 btn btn-lg btn-primary" type="submit">Odzyskaj hasło</button>
-          <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
+          <button class="w-50 btn btn-lg btn-warning" type="submit">Odzyskaj hasło</button>
+          <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
         </form>
       </div>
       <div class="product-device shadow-sm d-none d-md-block"></div>

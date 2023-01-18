@@ -1,14 +1,18 @@
 <?php
 session_start();
 ?>
-<?php if(empty($_SESSION['zalogowany'])):{
-   header('Location: loginForm.php');
+<?php if(empty($_SESSION['zalogowany']) && empty($_SESSION['rezerwacja']) && empty($_SESSION['userid'])):{
+  header('Location: loginForm.php');
 }
 ?>
 <?php else: ?>
 <?php
+$zmienna = $_SESSION['rezerwacja'];
+$user = $_SESSION['userid'];
+$car = $_GET['idcar'];
 require_once "connect.php";
 $connect = new mysqli($host, $db_user, $db_pass, $db_name);
+$conn = new mysqli($host, $db_user, $db_pass, $db_name);
 if (isset($_POST['marka'])) {
   $validation = true;
 
@@ -61,14 +65,24 @@ if (isset($_POST['marka'])) {
   if (isset($_POST['prawojazdy'])) {
     $validation = true;
   }
+  $dataod = $_POST['dataod'];
+  if (isset($_POST['dataod'])) {
+    $validation = true;
+  }
+
+  $datado = $_POST['datado'];
+  if (isset($_POST['datado'])) {
+    $validation = true;
+  }
 
   if ($validation == true) {
-    if ($connect->query("INSERT INTO rezerwacje (ID, marka, model, cena, imie, nazwisko, nr_tel, miasto, ulica, nr_lokalu,
-    nr_praw) VALUES (NULL, '$marka', '$model', '$cena', '$imie', '$nazwisko', '$nrTel', '$miasto', '$ulica', '$nrLok', '$prawojazdy')")) {
-      $_SESSION['rezerwacja'] = true;
-    }
-  }
+    $connect->query("UPDATE user SET imie='$imie', nazwisko='$nazwisko', nrtelefon='$nrTel', miasto='$miasto', ulica='$ulica', lokal='$nrLok', nrprawojazdy='$prawojazdy' WHERE email='$zmienna'");
+    $conn = "INSERT INTO reservation (data_start, data_koniec, idcar, iduser) VALUES ('$dataod','$datado','$car','$user')";
+    mysqli_query($connect,$conn);
+  } 
+
 }
+
 $connect->close();
 ?>
 <!DOCTYPE html>
@@ -147,33 +161,60 @@ $connect->close();
     <p class="h1 text-center text-light py-4">Zarezerwuj auto!!</p>
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
-          <div class="col">
-            <div class="card bg-dark text-light">
-              <img width="100%" height="225"
-                src="https://v.wpimg.pl/MzkxMzA0YhsKGjtJbktvDklCbxMoEmFYHlp3WG4IfUoTVyRUNkBjCgdXLFUnHycKDh9iSXQAdE1EHCwfNl8iJQYZORM7b3xUAQgoHWNN"
-                alt="...">
-              <div class="card-body">
-                <p class="h4 card-text">To jest matiz matiz jest szybki</p>
-                <p class="card-text">Cena: 99zł</p>
+        <?php
+        $car = $_GET['idcar'];
+        require_once "connect.php"; 
+        $connect = new mysqli($host, $db_user, $db_pass, $db_name);
+        $sql = "SELECT idcar, marka, model, cena,img FROM car where idcar = $car";
+        $result = mysqli_query($connect, $sql);
+
+        while($pole = $result->fetch_assoc()){
+        echo "
+          <div class='col'>
+            <div class='card bg-dark text-light'>
+              <img width='100%' height='225'
+                src={$pole["img"]}
+                alt=...>
+              <div class='card-body'>
+                <p class='h4 card-text'>
+                {$pole ['marka']}
+                {$pole ['model']}
+                </p>
+                <p class='card-text'>Cena: {$pole["cena"]} zł</p>
+                <p class='card-text'></p>
+                <div class='d-flex justify-content-center align-items-center'>
+                </div>
               </div>
             </div>
           </div>
-          <!-- REZERWACJA AUTA -->
+    ";}
+    ?>
+ <?php
+  $sql = "SELECT idcar, marka, model, cena,img FROM car where idcar = $car";
+  $result = mysqli_query($connect, $sql);
+  while($row = $result->fetch_assoc()){
+    $marka = $row ['marka'];
+    $model = $row ['model'];
+    $cena = $row ['cena'];
+  };
+ ?>
 
+
+          <!-- REZERWACJA AUTA -->
           <div class="col-md-5 mx-auto text-center">
             <form method="POST">
             <div class="form-floating m-3">
-              <input type="text" class="form-control" id="marka" name="marka" value="Dełu" readonly >
+              <input type="text" class="form-control" id="marka" name="marka" value="<?php echo"$marka" ?>" readonly >
               <label for="Marka">Marka</label>
             </div>
 
             <div class="form-floating m-3">
-              <input type="text" class="form-control" id="model" name="model" value="Matiz" readonly>
+              <input type="text" class="form-control" id="model" name="model" value="<?php echo"$model" ?>" readonly>
               <label for="model">Model</label>
             </div>
 
             <div class="form-floating m-3">
-              <input type="text" class="form-control" id="cena" name="cena" value="99 PLN" readonly>
+              <input type="text" class="form-control" id="cena" name="cena" value="<?php echo"$cena" ?>" readonly>
               <label for="cena">Cena</label>
             </div>
 
@@ -210,6 +251,16 @@ $connect->close();
             <div class="form-floating m-3">
             <input type="text" class="form-control" id="prawojazdy" name="prawojazdy" required>
               <label for="prawojazdy">Nr. prawa jazdy</label>
+            </div>
+
+            <div class="form-floating m-3">
+            <input type="date" class="form-control" id="dataod" name="dataod" required>
+              <label for="dataod">Wynajmij od:</label>
+            </div>
+
+            <div class="form-floating m-3">
+            <input type="date" class="form-control" id="datado" name="datado" required>
+              <label for="datado">Wynajmij do:</label>
             </div>
 
             <button class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit">Rezerwuj</button>

@@ -60,16 +60,16 @@
     </nav>
   </header>
   <main>
-    <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
+    <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-dark bg-gradient">
       <div class="col-md-5 p-lg-5 mx-auto my-5 ">
         <form method="POST">
-          <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-          <h1 class="h1 mb-3 fw-normal m-md-3">Odzyskiwanie hasła powiodło się!</h1>
-          <p>Teraz możesz zalogować się na swoje konto klikając przycisk poniżej</p>
+          <img class="mb-4" src="img/matiz.png" alt="" width="150">
+          <h1 class="h1 mb-5 fw-light text-light m-3">Odzyskiwanie hasła powiodło się!</h1>
+          <p class="p mb-5 fw-light text-light m-3">Teraz możesz zalogować się na swoje konto klikając przycisk poniżej</p>
 
           </br>
           </br>
-          <button type="button" class="w-50 btn btn-lg btn-primary" onclick="window.location='loginForm.php'">Zaloguj
+          <button type="button" class="w-50 btn btn-lg btn-warning" onclick="window.location='loginForm.php'">Zaloguj
             się</button>
           <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
         </form>

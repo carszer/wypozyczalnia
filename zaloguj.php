@@ -8,13 +8,21 @@ if (isset($_POST['email'])) {
     } else {
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $sql = "SELECT * from users where email='$email' AND password='$password'";
-
+        $sql = "SELECT * from user where email='$email' AND password='$password'";
         if ($rezultat = @$poloczenie->query($sql)) {
             $zalogowane = $rezultat->num_rows;
             if ($zalogowane > 0) {
                 $_SESSION['zalogowany'] = true;
                 $_SESSION['zalogowany'] = htmlspecialchars($_POST['email']);
+                $_SESSION['rezerwacja'] = true;
+                $_SESSION['rezerwacja'] = ($_POST['email']);
+
+                $_SESSION['userid'] = true;
+                $wynik = mysqli_query($poloczenie,"SELECT iduser FROM user WHERE email='$email'");
+                while($row = mysqli_fetch_array($wynik)){
+                $_SESSION['userid'] = $row['iduser'];
+                }
+                
                 unset($_SESSION['blad']);
                 $rezultat->free_result();
                 header('Location:index.php');

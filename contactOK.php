@@ -60,13 +60,13 @@
     </nav>
   </header>
   <main>
-    <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
-      <div class="col-md-5 p-lg-5 mx-auto my-5 ">
+    <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-dark bg-gradient">
+      <div class="col-md-5 p-5 mx-auto mt-5 ">
         <form method="POST">
-          <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-          <h1 class="h1 mb-3 fw-normal m-md-3">Twoje pytanie zostało wysłane!! Czekaj na odpowiedź może ją dostaniesz
+          <img class="mb-4" src="img/matiz.png" alt="" width="150">
+          <h1 class="h1 mb-5 fw-light text-light m-3">Twoje pytanie zostało wysłane!! Czekaj na odpowiedź może ją dostaniesz
           </h1>
-          <p>Wróć do strony głównej klikając <a href="index.php">Tutaj</a></p>
+          <p class="p mb-5 fw-light text-light m-3">Wróć do strony głównej klikając <a href="index.php">Tutaj</a></p>
 
           </br>
           </br>

@@ -1,12 +1,26 @@
 <?php
-require_once "connect.php";
-$connect = new mysqli($host, $db_user, $db_pass, $db_name);
+$connect = new mysqli("localhost", "root", "", "testowa");
 session_start();
 if (isset($_POST['email'])) {
   $validation = true;
 
   $password1 = $_POST['pass1'];
   $password2 = $_POST['pass2'];
+
+
+  if (isset($_POST['utworz'])) {
+    $recaptcha = $_POST['g-recaptcha-response'];
+    $secret_key = "6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j";
+    $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
+    $response = file_get_contents($url);
+    $response = json_decode($response);
+    if ($response->success == true) {
+      echo '<script>alert("Google reCAPTACHA verified")</script>';
+    } else {
+      echo '<script>alert("Error in Google reCAPTACHA")</script>';
+    }
+  }
+
   if ((strlen($password1) < 6) || (strlen($password1) > 16)) {
     $validation = false;
     $_SESSION['error_pass1'] = "Hasło musi składać się z 6 do 16 znaków!";
@@ -20,7 +34,7 @@ if (isset($_POST['email'])) {
   }
 
   //$hashPass = password_hash($password1, PASSWORD_DEFAULT);
-  $emailIstnieje = $connect->query("SELECT iduser FROM user WHERE email='$addremail'");
+  $emailIstnieje = $connect->query("SELECT id FROM users WHERE email='$addremail'");
   $numEmail = $emailIstnieje->num_rows;
   if ($numEmail > 0) {
     $validation = false;
@@ -28,12 +42,13 @@ if (isset($_POST['email'])) {
   }
 
   if ($validation == true) {
-    if ($connect->query("INSERT INTO user (iduser, email, password) VALUES (NULL, '$addremail', '$password1')")) {
+    if ($connect->query("INSERT INTO users (ID, email, password) VALUES (NULL, '$addremail', '$password1')")) {
       $_SESSION['zarejestrowany'] = true;
-      header('Location:regOK.php');
+      $_SESSION['witamy'] = 'Zarejestrowano pomyślnie!</br><a href="loginForm.php">Zaloguj się</a>';
 
     }
   }
+
 }
 $connect->close();
 ?>
@@ -65,11 +80,8 @@ $connect->close();
     crossorigin="anonymous"></script>
   <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom border-warning"
-      style="background-color: #1c2331">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-      <img src='img/matizB.png' height="15px" class="m-1">
-        <img src='img/matizB.png' height="15px" class="m-1">
         <a class="navbar-brand" href="#">CarSzer</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +93,7 @@ $connect->close();
               <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="oferta.php">Oferta</a>
+              <a class="nav-link" href="oferta.html">Oferta</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Rezerwuj</a>
@@ -104,13 +116,13 @@ $connect->close();
     </nav>
   </header>
   <main>
-    <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-dark bg-gradient">
-      <div class="col-md-5 p-5 mx-auto mt-5">
+    <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
+      <div class="col-md-5 p-lg-5 mx-auto my-5 ">
         <form method="POST">
-          <img class="mb-4" src="img/matiz.png" alt="" width="150">
-          <h1 class="h1 mb-5 fw-light text-light m-3">Utwórz konto</h1>
+          <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
+          <h1 class="h1 mb-3 fw-normal m-md-3">Utwórz konto</h1>
 
-          <div class="form-floating m-3">
+          <div class="form-floating m-md-3">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
             <label for="floatingInput">Adres E-mail</label>
           </div>
@@ -120,7 +132,7 @@ $connect->close();
             unset($_SESSION['error_email']);
           }
           ?>
-          <div class="form-floating m-3">
+          <div class="form-floating m-md-3">
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass1">
             <label for="floatingPassword">Hasło</label>
           </div>
@@ -130,7 +142,7 @@ $connect->close();
             unset($_SESSION['error_pass1']);
           }
           ?>
-          <div class="form-floating m-3 mb-5">
+          <div class="form-floating m-md-3">
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass2">
             <label for="floatingPassword">Powtórz Hasło</label>
           </div>
@@ -141,20 +153,29 @@ $connect->close();
           }
           ?>
 
-          <button class="w-50 btn btn-lg btn-warning" type="submit" name="submit">Utwórz konto</button>
+          <div class="form-floating m-md-3">
+            <div class="mx-auto g-recaptcha" data-sitekey="6LdN85YjAAAAADdo-i0iuRdV6fAaeICNpWRQDA2j"></div>
+          </div>
 
+          <button class="w-50 btn btn-lg btn-primary g-recaptcha" name="utworz">Utwórz konto</button>
+          <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
+          <?php
+          if (isset($_SESSION['witamy'])) {
+            echo '<div class="error">' . $_SESSION['witamy'] . '</div>';
+            unset($_SESSION['witamy']);
+          }
+          ?>
         </form>
       </div>
+      <div class="product-device shadow-sm d-none d-md-block"></div>
+      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
 
-      <div class="alert alert-dark text-center" role="alert">
-        Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
-      </div>
-      <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
     </div>
-
+    <div class="alert alert-primary text-center" role="alert">
+      Utwórz konto lub zaloguj się aby móc w pełni korzystać z serwisu!!!
+    </div>
   </main>
   <!-- Stopka -->
   <?php include("footer.php"); ?>
-</body>
 
 </html>
