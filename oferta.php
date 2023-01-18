@@ -105,8 +105,7 @@ echo "
                 </div>
               </div>
             </div>
-          </div>
-    ";
+          </div>";
   }
    $connect->close() 
    ?>
