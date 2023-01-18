@@ -24,7 +24,7 @@ $validation = true;
     }
 
     if ($validation == true) {
-        $arr = array_fill(0,31,0);
+        $arr = array_fill(0,32,0);
         $idcar = 1;
         $connect = new mysqli($host, $db_user, $db_pass, $db_name);
         $sql = "SELECT data_start, ile_dni FROM reservation where idcar = $idcar and (data_start between'" . date('Y-m-d' - 1) . "' and '" . date('Y-m-31') . "')";
