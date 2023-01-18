@@ -1,0 +1,70 @@
+//do php w rezerwacji obsługa kalendarza
+<?php
+$idcar = 1;
+include 'Calendar.php';
+$calendar = new Calendar(date('Y-m-d'));
+require_once "connect.php";
+$connect = new mysqli($host, $db_user, $db_pass, $db_name);
+$sql = "SELECT data_start, ile_dni FROM reservation where idcar = $idcar";
+$result = mysqli_query($connect, $sql);
+while ($pole = $result->fetch_assoc()) {
+    $calendar->add_event('Zajety', $pole['data_start'], $pole['ile_dni']);
+}
+?>
+
+//do diva w którym ma się wyświetlić kalendarz
+<?=$calendar?> 
+
+//walidacja czy samochód jest wolny w zadanym terminie i czy terminy zgodne (brak komunikatów!!!! trzeba dorobić!!!!)
+<?php
+require_once "connect.php";
+$validation = true;
+
+    if (!isset($_POST['dataod'])) {
+        $validation = false;
+    }
+
+    if (!isset($_POST['datado'])) {
+        $validation = false;
+    }
+
+    if ($_POST['dataod'] < date('Y-m-d')) {
+        $validation = false;
+    }
+
+    if ($_POST['datado'] > date('Y-m-31')) {
+        $validation = false;
+    }
+
+    if($_POST['dataod']>$_POST['datado']){
+        $validation = false;
+    }
+
+    if ($validation == true) {
+        $arr = array_fill(0,31,0);
+        $idcar = 1;
+        $connect = new mysqli($host, $db_user, $db_pass, $db_name);
+        $sql = "SELECT data_start, ile_dni FROM reservation where idcar = $idcar and (data_start between'" . date('Y-m-d' - 1) . "' and '" . date('Y-m-31') . "')";
+        $result = mysqli_query($connect, $sql);
+        while ($pole = $result->fetch_assoc()) {
+            $date = strtotime($pole['data_start']);
+            $day = idate('d', $date);
+            $ile = $pole['ile_dni'];
+            for ($i = 0; $i < $ile; $i++){
+                $arr[$day + $i] = 1;
+                }
+        }
+
+        $datefrom = strtotime($_POST['dataod']);
+        $dayfrom = idate('d', $datefrom);
+        $dateto = strtotime($_POST['datado']);
+        $dayto = idate('d', $dateto);
+        $clear = true;
+        for($i = $dayfrom; $i <= $dayto; $i++){
+        if ($arr[$i] == 1) {
+            $clear = false; //Zmienna walidacyjna czy samochóch wolny(true = wolny tj można rezerwować)
+        }
+    }
+}
+
+?>
