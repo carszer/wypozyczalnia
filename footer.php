@@ -21,20 +21,16 @@
           <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
             <h6 class="text-uppercase fw-bold border-bottom border-light py-2">Przydatne linki</h6>
 
-            <p>
-              <a href="#!" class="text-white text-decoration-none">O nas</a>
+              <a href="promocjeForm.php" class="text-white text-decoration-none">Promocje</a>
             </p>
             <p>
-              <a href="#!" class="text-white text-decoration-none">Promocje</a>
+              <a href="WynajemAutForm.php" class="text-white text-decoration-none">Wynajem aut - ważne</a>
             </p>
             <p>
-              <a href="#!" class="text-white text-decoration-none">Wynajem aut - ważne</a>
+              <a href="klauzuraInformacyjnaForm.php" class="text-white text-decoration-none">Klauzula informacyjna</a>
             </p>
             <p>
-              <a href="#!" class="text-white text-decoration-none">Klauzula informacyjna</a>
-            </p>
-            <p>
-              <a href="#!" class="text-white text-decoration-none">Polityka prywatności</a>
+              <a href="politykaPrywatnosciForm.php" class="text-white text-decoration-none">Polityka prywatności</a>
             </p>
           </div>
 
@@ -60,5 +56,4 @@
     </div>
   </footer>
 </body>
-
 </html>
