@@ -1,7 +1,13 @@
 <?php
+session_unset();
 session_start();
+if (isset($_SESSION['admin'])) {
+  unset($_SESSION['admin']);
+  unset($_SESSION['zalogowany']);
+  session_destroy();
+  header('Location: index.php');
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -25,9 +31,11 @@ session_start();
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
 
-    <?php if(isset($_SESSION['zalogowany'])):{
+    <?php 
+    if(isset($_SESSION['zalogowany'])):{
           include("userNav.php");
-      }?>
+      }    
+      ?>
       <?php else: ?>
   <header>
     <!-- Fixed navbar -->
@@ -48,7 +56,9 @@ session_start();
             <li class="nav-item">
               <a class="nav-link" href="oferta.php">Oferta</a>
             </li>
-
+            <li class="nav-item">
+              <a class="nav-link" href="#">Rezerwuj</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Kontakt</a>
             </li>
@@ -71,7 +81,7 @@ session_start();
     <!-- Tittle -->
     <!-- Oferta galeria -->
     <div class="album py-5">
-    <p class="h1 text-center text-light py-4">Ekskluzywne marki w naszej ofercie</p>
+    <p class="h1 text-center text-light py-4">Ekskluzywne maxdrki w naszej ofercie</p>
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
 <?php
