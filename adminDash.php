@@ -75,7 +75,7 @@ if(empty($_SESSION['admin'])):{
             <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="adminDash.php">Podgląd rezerwacji</a>   
           </li>  
           <li class="nav-item">
-            <a style="color: white" class="nav-link btn btn-secondary m-2" role="button" href="userDash.php">Podgląd rezerwacji</a>   
+            <a style="color: white" class="nav-link btn btn-secondary m-2" role="button" href="przerwa.php">Przerwy Techniczne</a>   
           </li>
       </div>
     </nav>
