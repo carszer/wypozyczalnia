@@ -1,7 +1,6 @@
 <?php
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="pl-PL">
 <?php
@@ -145,9 +144,6 @@ if (isset($_POST['submit'])) {
               <a class="nav-link" href="oferta.php">Oferta</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Rezerwuj</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#">Kontakt</a>
             </li>
             <li class="nav-item">
@@ -188,7 +184,7 @@ if (isset($_POST['submit'])) {
           <div class="carousel-caption d-md-block">
             <h5>Fełałi</h5>
             <p>Za drogie żeby wynająć</p>
-            <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded" onclick="#">Rezerwuj</button>
+            <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded" onclick="window.location='rezerwacje.php?idcar=4'">Rezerwuj</button>
           </div>
         </div>
         <div class="carousel-item">

@@ -8,14 +8,14 @@ if (isset($_POST['send_btn']))
    } else {
       $email = $_POST['mail'];
       $subject = "Kod odzyskiwania hasła";
-      $sql = "SELECT * from users where email='$email'";
+      $sql = "SELECT * from user where email='$email'";
       if ($rezultat = @$poloczenie->query($sql)) {
          $zalogowane = $rezultat->num_rows;
          if ($zalogowane > 0) {
             $_SESSION['resetowany'] = true;
             unset($_SESSION['error']);
             $kod = mt_rand(100000, 999999);
-            $sql2 = "UPDATE users SET kod='$kod' WHERE email='$email'";
+            $sql2 = "UPDATE user SET kod='$kod' WHERE email='$email'";
             $rezultat2 = @$poloczenie->query($sql2);
 
             if (isset($_POST['send_btn'])) {

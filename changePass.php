@@ -33,7 +33,7 @@ if (isset($_POST['kod'])) {
     $_SESSION['error_pass2'] = "Podaj hasło!";
   }
 
-  $q1 = "SELECT kod from users where email='$email'";
+  $q1 = "SELECT kod from user where email='$email'";
   if ($validation == true) {
     if ($query = mysqli_query($connect, $q1)) {
       if (mysqli_num_rows($query) > 0) {
@@ -43,11 +43,11 @@ if (isset($_POST['kod'])) {
           $validation = false;
           $_SESSION['error_kod'] = "Podany kod jest błędny!";
         }
+      }else {
+        $_SESSION['error_email'] = "Podany adres email jest nieprawidłowy!";
+        $validation = false;
       }
-    } else {
-      $_SESSION['error_email'] = "Podany adres email jest nieprawidłowy!";
-      $validation = false;
-    }
+    } 
     if ((strlen($newpass1) < 6) || (strlen($newpass1) > 16)) {
       $validation = false;
       $_SESSION['error_pass1'] = "Hasło musi składać się z 6 do 16 znaków!";
@@ -59,7 +59,7 @@ if (isset($_POST['kod'])) {
       $_SESSION['error_pass2'] = "Podane hasła są różne!";
     }
     ;
-    $q2 = "UPDATE users SET password = '$newpass1' WHERE email = '$email'";
+    $q2 = "UPDATE user SET password = '$newpass1' WHERE email = '$email'";
     if ($validation == true) {
       if ($connect->query($q2)) {
         header("Location: passChangeOK.php");
@@ -114,9 +114,6 @@ $connect->close();
               <a class="nav-link" href="oferta.php">Oferta</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Rezerwuj</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#">Kontakt</a>
             </li>
             <li class="nav-item">
@@ -133,12 +130,12 @@ $connect->close();
       </div>
     </nav>
   </header>
-  <main>
-    <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
+  <main class="bg-dark bg-gradient">
+    <div class="position-relative overflow-hidden p-3 p-md-5  text-center">
       <div class="col-md-5 p-lg-5 mx-auto my-5 ">
         <form action="changePass.php" method="POST">
-          <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-          <h1 class="h1 mb-3 fw-normal m-md-3">Utwórz nowe hasło</h1>
+        <img class="mb-4" src="img/matiz.png" alt="" width="150">
+          <h1 class="h1 mb-3 fw-normal m-md-3 text-white">Utwórz nowe hasło</h1>
 
           <div class="form-floating m-md-3">
             <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="kod">
@@ -182,7 +179,7 @@ $connect->close();
           ?>
           </br>
           </br>
-          <input class="w-50 btn btn-lg btn-primary" type="submit" value="Ustaw hasło">
+          <input class="w-50 btn btn-lg btn-warning" type="submit" value="Ustaw hasło">
           <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
         </form>
       </div>

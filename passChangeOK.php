@@ -22,8 +22,7 @@
     crossorigin="anonymous"></script>
   <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom border-warning">
-    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom border-warning"
       style="background-color: #1c2331">
       <div class="container-fluid">
       <img src='img/matizB.png' height="15px" class="m-1">

@@ -44,9 +44,6 @@ session_start();
               <a class="nav-link" href="oferta.php">Oferta</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Rezerwuj</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#">Kontakt</a>
             </li>
             <li class="nav-item">
@@ -63,13 +60,13 @@ session_start();
     </nav>
   </header>
 
-  <main>
-    <div class="position-relative overflow-hidden p-3 p-md-5  text-center bg-light">
+  <main class="bg-dark bg-gradient">
+    <div class="position-relative overflow-hidden p-3 p-md-5  text-center">
       <div class="col-md-5 p-lg-5 mx-auto my-5 ">
 
 
-        <img class="mb-4" src="img/small-logo.png" alt="" width="150" height="100">
-        <h1 class="h1 mb-3 fw-normal m-md-3">Odzyskiwanie hasła</h1>
+      <img class="mb-4" src="img/matiz.png" alt="" width="150">
+        <h1 class="h1 mb-3 fw-normal m-md-3 text-white">Odzyskiwanie hasła</h1>
 
         <form action="mail.php" method="post">
           <div class="form-floating m-md-3">
@@ -80,7 +77,7 @@ session_start();
             <div class="mx-auto g-recaptcha" data-sitekey="6LfWsukjAAAAAC2hSiSZOJsf3UeZFMOfmPu21Kae"
               data-callback='onSubmit' data-action='submit'></div>
           </div>
-          <button class="w-50 btn btn-lg btn-primary" type="submit" name="send_btn">Wyślij kod odzyskiwania</button>
+          <button class="w-50 btn btn-lg btn-warning" type="submit" name="send_btn">Wyślij kod odzyskiwania</button>
           <p class="mt-5 mb-3 text-muted">&copy; 2022–2022</p>
         </form>
 

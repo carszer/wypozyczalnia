@@ -33,4 +33,5 @@ if ($poloczenie->connect_errno != 0) {
     }
   }
 }
+$connect->close();
 ?>

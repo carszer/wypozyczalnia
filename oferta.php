@@ -81,7 +81,7 @@ if (isset($_SESSION['admin'])) {
     <!-- Tittle -->
     <!-- Oferta galeria -->
     <div class="album py-5">
-    <p class="h1 text-center text-light py-4">Ekskluzywne maxdrki w naszej ofercie</p>
+    <p class="h1 text-center text-light py-4">Ekskluzywne marki w naszej ofercie</p>
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
 <?php

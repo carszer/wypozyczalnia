@@ -1,7 +1,14 @@
 <?php
+session_unset();
 session_start();
 ?>
 
+<?php
+if(empty($_SESSION['status'])):{
+  header('Location: loginForm.php');
+}
+?>
+<?php else: ?>
 <!DOCTYPE html>
 <html lang="pl-PL">
 
@@ -68,9 +75,6 @@ session_start();
               <a class="nav-link" href="oferta.php">Oferta</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Rezerwuj</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#">Kontakt</a>
             </li>
             <li class="nav-item">
@@ -78,7 +82,7 @@ session_start();
             </li>
           </ul>
           <div class="text-end">
-            <button class="btn btn-outline-light me-2" type="button" onclick="window.location=''" id="logButton">Panel
+            <button class="btn btn-outline-light me-2" type="button" onclick="window.location='adminDash.php'" id="logButton">Panel
               Administratora</button>
             <!--<a class="btn btn-warning me-2" href="logowanie.html">Zaloguj się</a> -->
 
@@ -202,3 +206,4 @@ session_start();
 </body>
 
 </html>
+<?php endif;?>

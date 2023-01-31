@@ -74,9 +74,6 @@ if(empty($_SESSION['admin'])):{
           <li class="nav-item">
             <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="adminDash.php">Podgląd rezerwacji</a>   
           </li>  
-          <li class="nav-item">
-            <a style="color: white" class="nav-link btn btn-secondary m-2" role="button" href="przerwa.php">Przerwy Techniczne</a>   
-          </li>
       </div>
     </nav>
 
@@ -111,6 +108,7 @@ if(empty($_SESSION['admin'])):{
             $result = mysqli_query($connect, $sql);
             //while ($pole = $result->fetch_row()) {
               while($pole = $result->fetch_assoc()){
+                echo '<form action="deleteadmin.php" method="post" onsubmit="return submitForm(this);">';
                 echo"
                 <tr>
                 <td>{$pole ['imie']}</td>
@@ -125,11 +123,10 @@ if(empty($_SESSION['admin'])):{
                 <td><input type='submit' class='btn btn-danger' name='deletebutton2' value='Usuń'></td>
                 </tr>
                 <input type='hidden' name='idreservation' value='{$pole ['idreservation']}'>
-                ";     
+                </form>";     
             }
         $connect->close();
         ?>
-        </form>
          <script>
 	          function submitForm(form) {
                 swal({
