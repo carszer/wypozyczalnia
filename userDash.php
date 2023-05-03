@@ -90,6 +90,8 @@ if (isset($_SESSION['admin'])) {
         <ul class="nav flex-column">
           <li class="nav-item">
             <a style="color: white" class="nav-link btn btn-secondary me-2" role="button" href="userDash.php">Moje rezerwacje</a>   
+            <br>
+            <a style="color: white" class="nav-link btn btn-secondary me-2" role="button" href="userDashDaneKontaktowe.php">Dane kontaktowe</a>   
           </li>
       </div>
     </nav>

@@ -73,6 +73,8 @@ if(empty($_SESSION['admin'])):{
         <ul class="nav flex-column">
           <li class="nav-item">
             <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="adminDash.php">Podgląd rezerwacji</a>   
+            <br>
+            <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="adminDashPrzerwaTech.php">Przerwy techniczne</a>
           </li>  
       </div>
     </nav>
