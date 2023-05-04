@@ -38,6 +38,14 @@ if(empty($_SESSION['admin'])):{
   <title>CarSzer-Panel administratora</title>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="sweetalert.min.js"></script>
+
+  <script>
+    function changeImg() {
+        car = document.getElementById("car").value;
+        document.getElementById("imgFrame").src = car;
+    }
+    </script>
+
 </head>
 <body>
     <header >
@@ -84,12 +92,12 @@ if(empty($_SESSION['admin'])):{
         <h1 class="h2">Panel Administratora | Hi admin</h1>
       </div>
 
-      <h2>Dodaj przerwę techniczną</h2>
+      <h2 class="col-md-5 mx-auto text-center">Dodaj przerwę techniczną</h2>
                 <!--DODAWANIE PRZERWY TECH -->
       <?php
       require_once "connect.php";
       $connect = new mysqli($host, $db_user, $db_pass, $db_name);
-      $sql = "SELECT idcar, marka, model FROM car";
+      $sql = "SELECT img, marka, model FROM car";
       $result = $connect->query($sql);
       if($result->num_rows > 0) {
         $options = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -97,19 +105,20 @@ if(empty($_SESSION['admin'])):{
 
       $connect->close();
    ?>
-    <div class="col-md-5 mx-left text-center">
+    <div class="col-md-5 mx-auto text-center">
+      <img id= "imgFrame" class="img-thumbnail" src="<?php echo $options[0]['img']?>">
     <form method="post">
         <div class="form-floating m-3 text-dark">
-        <select class="form-select text-dark" name="car" required>
-        <option  disabled selected hidden>Wybierz auto</option>
+        <select class="form-select text-dark" name="car" id= "car" onchange="changeImg()" required>
           <?php
             foreach ($options as $option) {
               ?>
-              <option value=<?php $option['marka']?>><?php echo $option['marka']. " " . $option['model']; ?> </option>
+              <option value="<?php echo $option['img'] ?>"> <?php echo $option['marka']. " " . $option['model']; ?> </option>
               <?php
             }
             ?>
         </select>
+        <label for="car">Wybierz auto:</label>
         </div>
 
         <div class="form-floating m-3 text-dark">
