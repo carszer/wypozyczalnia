@@ -194,7 +194,7 @@ if (isset($_POST['submit'])) {
           <div class="carousel-caption d-md-block">
             <h5>Dełu matiz</h5>
             <p>Super samochód na rodzinne wyprawy</p>
-            <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded" onclick="#">Rezerwuj</button>
+            <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded" >Rezerwuj</button>
           </div>
         </div>
         <div class="carousel-item">
@@ -203,7 +203,7 @@ if (isset($_POST['submit'])) {
           <div class="carousel-caption d-md-block ">
             <h5>Dełu matiz</h5>
             <p>Super samochód na rodzinne wyprawy</p>
-            <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded" onclick="#">Rezerwuj</button>
+            <button class="btn btn-outline-dark bg-warning text-dark px-5 rounded">Rezerwuj</button>
           </div>
         </div>
       </div>

@@ -28,6 +28,58 @@ if (isset($_SESSION['admin'])) {
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
   <style>
+    label {
+  margin-bottom: .5rem;
+  text-align: right;
+  display: block;
+  letter-spacing: 2px;
+  color: #adb5bd;
+  text-transform: uppercase;
+}
+
+.form-control {
+  color: white;
+  border: none;
+  background: none;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.2);
+  transition: border-color .4s ease-out;
+  border-radius: 0;
+}
+
+.form-control:active,
+.form-control:focus,
+.btn.focus,
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: black;
+}
+
+.form-control.valid {
+  border-color: green;
+}
+
+.form-control.invalid {
+  border-color: red;
+}
+
+.form-control + small {
+  color: red;
+  opacity: 0;
+  height: 0;
+  transition: opacity .4s ease-out;
+}
+
+.form-control.invalid + small {
+  opacity: 1;
+  height: auto;
+  margin-bottom: 20px;
+  transition: opacity .4s ease-out;
+}
+
+*:disabled {
+  color: black;
+}
     .g-recaptcha {
       width: min-content;
     }
@@ -39,6 +91,9 @@ if (isset($_SESSION['admin'])) {
     }
     table,td{
       font-size: 18px;
+    }
+    .buttony{
+      display: flex;
     }
   </style>
   <title>CarSzer-Panel użytkownika</title>
@@ -110,6 +165,7 @@ if (isset($_SESSION['admin'])) {
         2. linia 154 (miasto) można mieć dwa pattern lub je złączyć?-->
 
 <?php
+/*
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
           require_once "connect.php";
 
@@ -127,18 +183,19 @@ if (isset($_SESSION['admin'])) {
           $connect->close();
 
           }
-   
+   */
           ?>
 
         
 
-<div class="col-md-5 mx-left text-dark ">
+<div class="col-md-5 mx-auto text-dark ">
 <?php
+
 //połączenie do bazy
-             require_once "connect.php";
-             $connect = new mysqli($host, $db_user, $db_pass, $db_name);
-             $sql = "SELECT imie,nazwisko,nrtelefon,miasto,ulica,lokal,nrprawojazdy FROM `user` WHERE iduser=$userid";
-           $result = mysqli_query($connect, $sql);
+              require_once "connect.php";
+              $connect = new mysqli($host, $db_user, $db_pass, $db_name);
+              $sql = "SELECT imie,nazwisko,nrtelefon,miasto,ulica,lokal,nrprawojazdy FROM `user` WHERE iduser=$userid";
+              $result = mysqli_query($connect, $sql);
               while($pole = $result->fetch_assoc()){
                $imie = $pole ['imie'];
                $nazwisko = $pole ['nazwisko'];
@@ -149,8 +206,75 @@ if (isset($_SESSION['admin'])) {
                $nrPrawaJazdy = $pole ['nrprawojazdy'];
               };
               $connect->close();
+              
 ?>
         
+<?php
+require_once "connect.php";
+$connect = new mysqli($host, $db_user, $db_pass, $db_name);
+
+if (isset($_POST['name'])) {
+  $validation = true;
+  $_SESSION['user'] = true;
+  $imie = $_POST['name'];
+if (strlen($imie) < 3) {
+  echo "$imie";
+  $validation = false;
+  $_SESSION['user'] = 'Nieprawidłowe dane!!!';
+}
+
+$nazwisko = $_POST['nazwisko'];
+if (strlen($nazwisko) < 3) {
+  echo "$nazwisko";
+  $validation = false;
+  $_SESSION['user'] = 'Nieprawidłowe dane!!!';
+}
+$telefon = $_POST['telefon'];   
+if (strlen($telefon) != 9 ){
+  echo "$telefon";
+  $validation = false;
+  $_SESSION['user'] = 'Nieprawidłowe dane!!!';
+}
+
+$miasto = $_POST['miasto'];   
+if (strlen($miasto) < 3 ){
+  echo "$miasto";
+  $validation = false;
+  $_SESSION['user'] = 'Nieprawidłowe dane!!!';
+}
+
+$ulica = $_POST['ulica'];   
+if (strlen($ulica < 3 )){
+  echo "$ulica";
+  $validation = false;
+  $_SESSION['user'] = 'Nieprawidłowe dane!!!';
+}
+
+$lokal = $_POST['numer'];   
+if (strlen($lokal == 0)){
+  echo "$lokal";
+  $validation = false;
+  $_SESSION['user'] = 'Nieprawidłowe dane!!!';
+}
+
+$nrprawojazdy = $_POST['prawojazdy'];   
+if (strlen($nrprawojazdy <  11) && strlen($nrprawojazdy > 11)){
+  echo "$nrprawojazdy";
+  $validation = false;
+  $_SESSION['user'] = 'Nieprawidłowe dane!!!';
+}
+/*
+*/
+if ($validation == true && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
+  $sql = "UPDATE user SET imie='$imie', nazwisko='$nazwisko', nrtelefon='$telefon', miasto='$miasto', ulica='$ulica', lokal='$lokal', nrprawojazdy='$nrprawojazdy' WHERE iduser='$userid'";
+          $result = mysqli_query($connect, $sql); 
+          $connect->close();
+
+}
+
+}
+
+?>
           <form method="POST">
           <div class="form-check form-switch text-light">
           <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" 
@@ -161,94 +285,91 @@ if (isset($_SESSION['admin'])) {
           this.form.elements['ulica'].disabled  = 
           this.form.elements['numer'].disabled  = 
           this.form.elements['prawojazdy'].disabled  = 
+          this.form.elements['submit'].disabled  =
           !this.checked" >
           <label class="form-check-label" for="flexSwitchCheckDefault">Edytuj dane</label>
             </div>
           <div class="form-floating m-3">
-            <input type="text" class="form-control" id="name" name="name" <?php echo"value= $imie"; ?> pattern="[A-Za-zęóąśłżźćńĘÓĄŚŁŻŹĆŃ ]+" required disabled >
+            <input type="text" class="form-control" id="name" name="name" pattern="[A-Za-z]{3,20}" <?php echo"value= $imie"; ?> required disabled >
             <label for="name">Imię</label>
+            <small id="nameHelp" class="form-text">Imie musi zawierać przynajmniej 3 znaki.</small>
           </div>
 
-         <?php
-         if(isset($_SESSION['error_imie'])) {
-          echo '<div class="error">' .$_SESSION['error_imie'] . '</div>';
-          unset($_SESSION['error_imie']);
-         }
-         ?>
 
         <div class="form-floating m-3">
-            <input type="text" class="form-control" id="nazwisko" name="nazwisko"<?php echo"value= $nazwisko"; ?>  pattern="[A-Za-zęóąśłżźćńĘÓĄŚŁŻŹĆŃ ]+"  required disabled>
+            <input type="text" class="form-control" id="nazwisko" name="nazwisko" pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,20}" <?php echo"value= $nazwisko"; ?>  required disabled>
              <label for="nazwisko">Nazwisko</label>
+             <small id="nazwiskoHelp" class="form-text">Nazwisko musi zawierać przynajmniej 3 znaki.</small>
         </div>
-        <?php
-        if(isset($_SESSION['error_nazwisko'])) {
-          echo '<div class="error">' .$_SESSION['error_nazwisko'] . '</div>';
-          unset($_SESSION['error_nazwisko']);
-        }
-        ?>
 
                 <div class="form-floating m-3">
-                  <input type="text" class="form-control" id="telefon" name="telefon" <?php echo"value= $nrTelefonu"; ?> pattern="^\d{9}" required disabled>
+                  <input type="text" class="form-control" id="telefon" name="telefon" pattern="[0-9]{9}" <?php echo"value= $nrTelefonu"; ?> required disabled>
                   <label for="telefon">Nr. telefonu</label>
+                  <small id="telefonHelp" class="form-text">Numer telefonu musi mieć 9 cyfr.</small>
                 </div>
-                <?php
-                if(isset($_SESSION['error_tel'])) {
-                  echo '<div class="error">' .$_SESSION['error_tel'] . '</div>';
-                  unset($_SESSION['error_tel']);
-                }
-                ?>
 
                 <div class="form-floating m-3">
-                  <input type="text" class="form-control" id="miasto" <?php echo"value= $miasto";?> pattern="^\w{3,50}"  pattern="[A-Za-zęóąśłżźćńĘÓĄŚŁŻŹĆŃ ]+" name="miasto"  required disabled>
+                  <input type="text" class="form-control" id="miasto" pattern="[A-Za-z]{3,20}" <?php echo"value= $miasto";?> name="miasto"  required disabled>
                   <label for="miasto">Miasto</label>
+                  <small id="miastoHelp" class="form-text">Miasto musi zawierać przynajmniej 3 znaki.</small>
                 </div>
-                <?php
-                if(isset($_SESSION['error_miasto'])) {
-                  echo '<div class="error">' .$_SESSION['error_miasto'] . '</div>';
-                  unset($_SESSION['error_miasto']);
-                }
-                ?>
 
                 <div class="form-floating m-3">
-                  <input type="text" class="form-control" id="ulica"  name="ulica"<?php echo"value= $ulica"; ?>  required disabled>
+                  <input type="text" class="form-control" id="ulica" name="ulica" pattern="(?!\.)(?!(0))[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9.-]{3,20}" <?php echo"value= $ulica"; ?>  required disabled>
                   <label for="ulica">Ulica</label>
+                  <small id="ulicaHelp" class="form-text">Ulica musi zawierać przynajmniej 3 znaki.</small>
                 </div>
-                <?php
-                if(isset($_SESSION['error_ulica'])) {
-                  echo '<div class="error">' .$_SESSION['error_ulica'] . '</div>';
-                  unset($_SESSION['error_ulica']);
-                }
-                ?>
 
                 <div class="form-floating m-3">
-                  <input type="text" class="form-control" id="numer" name="numer"<?php echo"value= $lokal"; ?> required disabled>
-                  <label for="numer">Numer lokalu</label>
+                  <input type="text" class="form-control" id="numer" name="numer" pattern="(?!(0))[0-9A-Za-z/]{1,7}" <?php echo"value= $lokal"; ?> required disabled>
+                  <label for="numer">Lokal</label>
+                  <small id="numerHelp" class="form-text">Podaj numer lokalu np. '10B/12', '10'</small>
                 </div>
-                <?php
-                if(isset($_SESSION['error_lokal'])) {
-                  echo '<div class="error">' .$_SESSION['error_lokal'] . '</div>';
-                  unset($_SESSION['error_lokal']);
-                }
-                ?>
 
                 <div class="form-floating m-3">
-                  <input type="text" class="form-control" id="prawojazdy" name="prawojazdy"<?php echo"value= $nrPrawaJazdy"; ?> disabled>  
+                  <input type="text" class="form-control" id="prawojazdy" name="prawojazdy" pattern="(?!\.)[0-9]{5}/[0-9]{2}/[0-9]{4}" <?php echo"value= $nrPrawaJazdy"; ?> required disabled>  
                   <label for="prawojazdy">Nr. prawa jazdy</label>
+                  <small id="prawojazdyHelp" class="form-text">Numer prawa jazdy musi składać się z 11 znaków i wygląda nastepująco 12345/12/1234</small>
                 </div>
-                <?php
-                if(isset($_SESSION['error_prawko'])) {
-                  echo '<div class="error">' .$_SESSION['error_prawko'] . '</div>';
-                  unset($_SESSION['error_prawko']);
-                }
-                ?>
-                <button class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit">Zatwierdź zmiany</button>
 
+                <div class="buttony">
+                <button class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" disabled >Zatwierdź zmiany</button>
+                <button class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="refresh" onClick="window.location.reload();" >Odśwież</button>
+                </div>
+                
          </form>      
-
         </div>
       </div>
     </main>
   </div>
+  <script>
+    const inputs = document.querySelectorAll('input');
+
+    const patterns = {
+      name: /^[A-Za-z]{3,20}$/i,
+      nazwisko: /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,20}$/i,
+      telefon: /^[0-9]{9}$/,
+      miasto: /^[A-Za-z]{3,20}$/i,
+      ulica: /^(?!\.)(?!(0))[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9.-]{3,20}$/i,
+      numer: /^(?!(0))[0-9A-Za-z/]{1,7}$/i,
+      prawojazdy: /^(?!\.)[0-9]{5}\/[0-9]{2}\/[0-9]{4}$/
+    };
+
+    inputs.forEach((input) => {
+      input.addEventListener('keyup', (e) => {
+        validate(e.target, patterns[e.target.attributes.id.value]);
+      });
+    });
+
+    function validate(field, regex) {
+      if (regex.test(field.value)) {
+        field.className = 'form-control valid';
+      } else {
+        field.className = 'form-control invalid';
+      }
+    }
+
+  </script>
   </body>
   <!-- Stopka -->
   <?php include("footer.php"); ?>
