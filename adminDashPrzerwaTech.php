@@ -29,7 +29,7 @@ if(empty($_SESSION['admin'])):{
       color: white;
     }
     main{
-      min-height: 1000px;
+      min-height: 1000px;F
     }
     table,td{
       font-size: 18px;
