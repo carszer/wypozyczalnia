@@ -184,7 +184,7 @@ if(empty($_SESSION['admin'])):{
                   <label for="datado">Przerwa do:</label>
                 </div>
 
-               <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Akceptuj"></input>
+               <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Dodaj przerwę"></input>
      </form>
 
      <h2>Przerwy techniczne</h2>
