@@ -110,6 +110,8 @@ if(empty($_SESSION['admin'])):{
             $result = mysqli_query($connect, $sql);
             //while ($pole = $result->fetch_row()) {
               while($pole = $result->fetch_assoc()){
+              if($pole['imie']!="przerwa"){
+
                 echo '<form action="deleteadmin.php" method="post" onsubmit="return submitForm(this);">';
                 echo"
                 <tr>
@@ -127,6 +129,7 @@ if(empty($_SESSION['admin'])):{
                 <input type='hidden' name='idreservation' value='{$pole ['idreservation']}'>
                 </form>";     
             }
+          }
         $connect->close();
         ?>
          <script>
