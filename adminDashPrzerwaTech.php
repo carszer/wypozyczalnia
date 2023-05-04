@@ -115,32 +115,27 @@ if(empty($_SESSION['admin'])):{
 
         if (!isset($_POST['car'])) {
           $validation = false;
-          echo "1";
           $_SESSION['error_data'] = "Podaj datę rozpoczęcia";  
         }
         
         if (!isset($_POST['dataod'])) {
           $validation = false;
-          echo "2";
           $_SESSION['error_data'] = "Podaj datę rozpoczęcia";  
         }
 
         if (!isset($_POST['datado'])) {
           $validation = false;
-          echo "3";
           $_SESSION['error_data'] = "Podaj datę zakończenia";
         }
 
         if ($_POST['dataod'] < date('Y-m-d')) {
           $validation = false;
-          echo "4";
           $_SESSION['error_data'] = "Data rozpoczęcia < aktualna";
         }
 
         if ($_POST['dataod'] > $_POST['datado']) {
           $validation = false;
-          echo "5";
-          $_SESSION['error_data'] = "Data rozpoczęcia > data zakończenia";
+          $_SESSION['error_data'] = "Data rozpoczęcia nie może być późniejsza niż data zakończenia";
         }
 
         if ($validation == true) {
@@ -186,6 +181,14 @@ if(empty($_SESSION['admin'])):{
 
                <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Dodaj przerwę"></input>
      </form>
+     <?php
+        if (isset($_SESSION['error_data'])) {
+          echo '<div class="alert alert-danger mt-3" role="alert">';
+          echo $_SESSION['error_data'];
+          unset($_SESSION['error_data']);
+          echo '</div>';
+        }
+        ?>
 
      <h2>Przerwy techniczne</h2>
   
