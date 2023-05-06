@@ -153,56 +153,75 @@ if (empty($_SESSION['admin'])) : {
                     <!--DODAWANIE PRZERWY TECH -->
 
 
-                    <div class="col-md-5 mx-auto text-center">
+                    <div class="col-md-5 mx-auto text-left">
 
-                        <form method="post" action="upload.php" enctype="multipart/form-data">
-                            <div class="form-floating m-3 text-light">
+                        <form method="post" action="upload.php " enctype="multipart/form-data" >
+                            <div class="form-floating m-3 text-light ">
                                 <input type="text" name="nrrejestracyjny" id="nrrejestracyjny" class="form-control" pattern="[A-Z]{2,3}-[A-Z0-9]{4,5}" required>
                                 <label for="nrrejestracyjny">Numer rejestracyjny:</label>
+                                <small id="rejestracjaHelp" class="form-text ">Wprowadź nr. rejestracyjny np: NE-9K47, NOL-9K475 </small>
                             </div>
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" name="marka" id="marka" class="form-control" pattern="[A-Za-z{2,50}" required>
                                 <label for="marka">Marka:</label>
+                                <small id="markaHelp" class="form-text ">Wprowadź markę pojazdu np. Opel </small>
                             </div>
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" name="model" id="model" class="form-control" pattern="[A-Za-z0-9]{2,50}" required>
                                 <label for="model">Model:</label>
+                                <small id="modelHelp" class="form-text ">Wprowadź model pojazdu np. Zafira </small>
                             </div>
                             <div class="form-floating m-3 text-dark">
-                                <input type="text" name="pojemnosc" id="pojemnosc" class="form-control" required>
+                                <input type="text" name="pojemnosc" id="pojemnosc" class="form-control" pattern="[0-9]{3,4}" required>
                                 <label for="pojemnosc">Pojemnosc cc:</label>
+                                <small id="pojemnoscHelp" class="form-text ">Wprowadź pojemność np. 1598 </small>
                             </div>
                             <div class="form-floating m-3 text-dark">
-                                <input type="text" name="moc" id="moc" class="form-control" required>
+                                <input type="text" name="moc" id="moc" class="form-control" pattern="[0-9]{1,4}" required>
                                 <label for="moc">Moc KM</label>
+                                <small id="mocHelp" class="form-text ">Wprowadź moc KM np. 101 </small>
                             </div>
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" name="moment" id="moment" class="form-control" required>
                                 <label for="moment">Moment obrotowy:</label>
+                                <small id="momentHelp" class="form-text ">Wprowadź moment obrotowy np. 150 </small>
                             </div>
                             <div class="form-floating m-3 text-dark">
                                 <textarea name="opis" id="opis" class="form-control" required></textarea>
                                 <label for="opis">Opis:</label>
+                                <small id="opisHelp" class="form-text ">Wprowadź krótki opis pojazdu </small>
                             </div>
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" name="cena" id="cena" class="form-control" required>
                                 <label for="cena">Cena:</label>
+                                <small id="opisHelp" class="form-text ">Wprowadź cenę wynajmu pojazdu</small>
                             </div>
 
 
 
-                            <div class="form-floating m-3 text-dark">
+                            <div class="form-floating m-3 text-dark text-center">
                                 <input class="btn  btn-dark m-md-3" type="file" id="my_image" name="my_image" class="form-control" accept="image/jpeg" maxlength="1048576" required>
                             </div>
                             <?php if (isset($_GET['error'])) : ?>
-                                <p><?php echo $_GET['error']; ?></p>
+                                <p><?php
+                                    echo '<div class="alert alert-danger m-1 text-center" role="alert">';
+                                    echo $_GET['error'];
+                                    echo '</div>';
+                                    ?></p>
                             <?php endif ?>
-
+                            <div class="form-floating m-3 text-dark text-center">
                             <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Dodaj pojazd"></input>
+                            </div>
+                           
                         </form>
                     </div>
+
+                 
+
+
+
 
                     <script>
                         const inputs = document.querySelectorAll('input');

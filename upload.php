@@ -1,5 +1,4 @@
 <?php 
-
 if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 	require_once "connect.php";
     $connect = new mysqli($host, $db_user, $db_pass, $db_name);
@@ -41,7 +40,7 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 				mysqli_query($connect, $sql);
 				header("Location: dodawanieAut.php");
 			}else {
-				$em = "Nieobsługiwany format pliku";
+				$em = "Nieobsługiwany format pliku, wypełnij formularz ponownie";
 		        header("Location: dodawanieAut.php?error=$em");
 			}
 		}
