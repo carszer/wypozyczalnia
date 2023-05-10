@@ -213,7 +213,6 @@ if (empty($_SESSION['admin'])) : {
                 </tr>
               </thead>
               <tbody>
-                <form action="deleteadmin.php" method="post" onsubmit="return submitForm(this);">
                   <?php
                   require_once "connect.php";
                   $connect = new mysqli($host, $db_user, $db_pass, $db_name);
