@@ -98,7 +98,7 @@ if (empty($_SESSION['admin'])) : {
             #opis {
                 min-height: 80px;
                 max-height: 180px;
-            }
+            } 
         </style>
         <title>CarSzer-Panel administratora</title>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
