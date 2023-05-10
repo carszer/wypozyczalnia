@@ -21,7 +21,7 @@ if (isset($_POST['email'])) {
                 $rezultat->free_result();
                 header('Location:adminDash.php');
             } else {
-                $_SESSION['blad'] = 'Nieprawidłowy login lub hasło do panelu administratora';
+                $_SESSION['blad_admin'] = 'Nieprawidłowy login lub hasło do panelu administratora';
                 header('Location: admin.php');
             }
         }

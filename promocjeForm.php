@@ -84,7 +84,7 @@ session_start();
             $connect = new mysqli($host, $db_user, $db_pass, $db_name);
             //sprawdzić czy zapytanie jest poprawne (ma wybierać samochód w promocji)
          // znacznik <s> ma przekreślać liczbę i pokazywać aktualną cenę z bazy danych
-         $sql = "SELECT idcar, marka, model, moc_km,pojemnosc,moment,cena,img,opis FROM car WHERE marka = 'DEŁU MATIZ'";
+         $sql = "SELECT idcar, marka, model, moc_km,pojemnosc,moment,cena,img,opis FROM car WHERE marka = 'dełu'";
          $result = mysqli_query($connect, $sql);
          while($pole = $result->fetch_assoc()){
          echo "

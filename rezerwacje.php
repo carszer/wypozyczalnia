@@ -59,17 +59,17 @@ session_start();
 
     if (!isset($_POST['dataod'])) {
       $validation = false;
-      $_SESSION['error_data'] = "Data nie poprawna";  
+      $_SESSION['error_data'] = "Data niepoprawna";  
     }
 
     if (!isset($_POST['datado'])) {
       $validation = false;
-      $_SESSION['error_data'] = "Data nie poprawna";
+      $_SESSION['error_data'] = "Data niepoprawna";
     }
 
     if ($_POST['dataod'] < date('Y-m-d')) {
       $validation = false;
-      $_SESSION['error_data'] = "Data nie poprawna";
+      $_SESSION['error_data'] = "Data niepoprawna";
     }
 
     if ($_POST['datado'] > date('Y-m-31')) {
@@ -79,7 +79,7 @@ session_start();
 
     if ($_POST['dataod'] > $_POST['datado']) {
       $validation = false;
-      $_SESSION['error_data'] = "Data nie poprawna";
+      $_SESSION['error_data'] = "Data niepoprawna";
     }
 
     if ($validation == true) {
@@ -124,7 +124,7 @@ session_start();
   }
 
   $idcar = $car;
-  include 'Calendar.php';
+  include 'calendar.php';
   $calendar = new Calendar(date('Y-m-d'));
   $sql = "SELECT data_start, ile_dni FROM reservation where idcar = $idcar";
   $result = mysqli_query($connect, $sql);
@@ -272,7 +272,7 @@ session_start();
                 </div>
 
                 <div class="form-floating m-3">
-                  <input type="text" class="form-control" id="name" name="name" required>
+                  <input type="text" class="form-control" id="name" name="name" >
                   <label for="name">Imię</label>
                 </div>
                 <?php
@@ -283,7 +283,7 @@ session_start();
                 ?>
 
                 <div class="form-floating m-3">
-                  <input type="text" class="form-control" id="nazwisko" name="nazwisko" required>
+                  <input type="text" class="form-control" id="nazwisko" name="nazwisko" >
                   <label for="nazwisko">Nazwisko</label>
                 </div>
                 <?php
@@ -305,7 +305,7 @@ session_start();
                 ?>
 
                 <div class="form-floating m-3">
-                  <input type="text" class="form-control" id="miasto" name="miasto" required>
+                  <input type="text" class="form-control" id="miasto" pattern="^\w{3,50}" name="miasto" required>
                   <label for="miasto">Miasto</label>
                 </div>
                 <?php
@@ -316,7 +316,7 @@ session_start();
                 ?>
 
                 <div class="form-floating m-3">
-                  <input type="text" class="form-control" id="ulica" name="ulica" required>
+                  <input type="text" class="form-control" id="ulica"  name="ulica" required>
                   <label for="ulica">Ulica</label>
                 </div>
                 <?php

@@ -1,7 +1,13 @@
 <?php
 session_start();
+if (isset($_SESSION['admin'])) {
+  unset($_SESSION['admin']);
+  unset($_SESSION['zalogowany']);
+  session_destroy();
+  header('Location: index.php');
+}
 ?>
-<?php if(empty($_SESSION['zalogowany']) && empty($_SESSION['rezerwacja']) & empty($_SESSION['userid'])):{
+<?php if(empty($_SESSION['zalogowany']) && empty($_SESSION['userid'])):{
    header('Location: loginForm.php');
 }
 ?>
@@ -20,7 +26,6 @@ session_start();
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
   <style>
-
     .g-recaptcha {
       width: min-content;
     }
@@ -30,16 +35,13 @@ session_start();
     main{
       min-height: 1000px;
     }
+    table,td{
+      font-size: 18px;
+    }
   </style>
-  <title>CarSzer</title>
+  <title>CarSzer-Panel użytkownika</title>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-  <script>
-    function DeleteConfirm() {
-      confirm("Jesteś pewien że nie chcesz wynająć tak wspaniałego auta?");
-      location.reload(true); 
-     }
- </script>
+  <script src="sweetalert.min.js"></script>
 </head>
 <body>
     <header >
@@ -55,7 +57,7 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav m-auto mb-2 justify-content-center mb-md-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Strona główna</a>
+              <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="oferta.php">Oferta</a>
@@ -80,7 +82,6 @@ session_start();
       </div>
     </nav>
     </header>
-
     
 <div class="container-fluid bg-dark bg-gradient">
   <div class="row">
@@ -89,6 +90,8 @@ session_start();
         <ul class="nav flex-column">
           <li class="nav-item">
             <a style="color: white" class="nav-link btn btn-secondary me-2" role="button" href="userDash.php">Moje rezerwacje</a>   
+            <br>
+            <a style="color: white" class="nav-link btn btn-secondary me-2" role="button" href="userDashDaneKontaktowe.php">Dane kontaktowe</a>   
           </li>
       </div>
     </nav>
@@ -98,7 +101,7 @@ session_start();
         <h1 class="h2">Panel użytkownika | <?=$_SESSION['zalogowany']?> | <?=$_SESSION['userid']?></h1>
       </div>
       <h2>Moje rezerwacje</h2>
-
+  
             <table class='table'>
             <thead>
               <tr>
@@ -108,43 +111,58 @@ session_start();
                 <th scope='col'>Początek</th>
                 <th scope='col'>Koniec</th>
                 <th scope='col'>Liczba dni</th>
+                <th scope='col'> </th>
               </tr>
             </thead>
             <tbody>
+           
            <?php
              require_once "connect.php";
              $connect = new mysqli($host, $db_user, $db_pass, $db_name);
-              if(isset($_POST['idreservation'])) {
-              $sql = sprintf("DELETE FROM reservation WHERE idreservation = %d", $_POST['idreservation']);
-              $connect->query($sql);
-              die();
-            }
             $zmienna = $_SESSION['rezerwacja'];
-            $sql = "SELECT c.marka, c.model, c.cena, r.data_start, r.data_koniec, r.ile_dni ,r.idreservation as dni FROM car as c 
+            $sql = "SELECT  c.marka, c.model, c.cena, r.idreservation, r.data_start, r.data_koniec, r.ile_dni, r.potwierdzone as dni FROM car as c 
             INNER JOIN reservation as r ON c.idcar=r.idcar
             INNER JOIN user as u ON u.iduser=r.iduser WHERE u.email = '$zmienna'";
             $result = mysqli_query($connect, $sql);
-            while ($pole = $result->fetch_row()) {
-              vprintf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>
-                      <td><form action="" method="post">
-                      <input type="hidden" name="idreservation" value="%s">
-                      <input class="btn btn-outline-light me-2" type="submit" name="s" onclick="DeleteConfirm()" value="Usuń">
-                      </form></td>
-                      </tr>', $pole);
-           /*   echo "<tr>
-              <td>{$pole['idreservation']}</td>
-              <td>{$pole['marka']}</td>
-              <td>{$pole['model']}</td>
-              <td>{$pole['cena']}</td>
-              <td>{$pole['data_start']}</td>
-              <td>{$pole['data_koniec']}</td>
-              <td>{$pole['dni']}</td>
-            </tr>";
-            */
-            
+            //while ($pole = $result->fetch_row()) {
+              while($pole = $result->fetch_assoc()){
+                echo '<form action="deleteuser.php" method="post" onsubmit="return submitForm(this);">';
+                echo"
+                <tr>
+                <td>{$pole ['marka']}</td>
+                <td>{$pole ['model']}</td>
+                <td>{$pole ['cena']}</td>
+                <td>{$pole ['data_start']}</td>
+                <td>{$pole ['data_koniec']}</td>
+                <td>{$pole ['ile_dni']}</td>
+                <td><input type='submit' class='btn btn-danger' name='deletebutton' value='Usuń'></td>
+                </tr>
+                <input type='hidden' name='idreservation' value='{$pole ['idreservation']}'>
+                </form>";     
+            }
+            if(isset($_POST['deletebutton'])){
+            $_SESSION['resOK'] = true;
             }
         $connect->close();
         ?>
+        
+         <script>
+	          function submitForm(form) {
+                swal({
+                  title: "Potwierdź operację",
+                  text: "Czy jestes pewien że chcesz usunąć rezerwację auta?",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then(function (isOkay) {
+                  if (isOkay) {
+                    form.submit();
+                  }
+                });
+                return false;
+              }
+                </script>
         </tbody>
         </table>
       </div>

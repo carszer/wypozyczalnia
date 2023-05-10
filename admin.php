@@ -1,6 +1,6 @@
 <?php
+unset($_SESSION['blad_admin']);
 session_start();
-session_destroy();
 ?>
 <!DOCTYPE html>
 <html lang="pl-PL">
@@ -31,7 +31,7 @@ session_destroy();
       style="background-color: #1c2331">
       <div class="container-fluid">
         <img src='img/matizB.png' height="15px" class="m-1">
-        <a class="navbar-brand" href="#">CarSzer</a>
+        <a class="navbar-brand" href="index.php">CarSzer</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -79,7 +79,14 @@ session_destroy();
           </div>
           <input class="w-50 btn btn-lg btn-warning m-3" type="submit" name="admin_btn" value="Zaloguj się">
         </form>
-         
+        <?php
+        if (isset($_SESSION['blad_admin'])) {
+          echo '<div class="alert alert-danger mt-3" role="alert">';
+          echo $_SESSION['blad_admin'];
+          unset($_SESSION['blad_admin']);
+          echo '</div>';
+        }
+        ?>
       </div>
       <div class="alert alert-dark" role="alert">
         Strona służąca do logowania na Panel Administratora.
