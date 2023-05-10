@@ -1,7 +1,9 @@
 <?php 
+
 if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 	require_once "connect.php";
     $connect = new mysqli($host, $db_user, $db_pass, $db_name);
+
 
     $nrrejestracyjny = $_POST['nrrejestracyjny'];
     $marka = $_POST['marka'];
@@ -18,6 +20,17 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 	$tmp_name = $_FILES['my_image']['tmp_name'];
 	$error = $_FILES['my_image']['error'];
 
+
+	if (isset($_POST['marka'])) {
+
+		$nrRej = $_POST['nrrejestracyjny'];
+		$rejIstnieje = $connect->query("SELECT idcar FROM car WHERE nrrejestracyjny = '$nrRej'");
+		$rejestracja = $rejIstnieje->num_rows;
+		if ($rejestracja > 0) {
+			$em = "Nr. rejestracyjny już istnieje w bazie!!";
+			header("Location: dodawanieAut.php?error=$em");
+		}
+	}
 
 
 	if ($error === 0) {

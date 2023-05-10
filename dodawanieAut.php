@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once "connect.php";
+$connect = new mysqli($host, $db_user, $db_pass, $db_name);
 ?>
 <?php
 if (empty($_SESSION['admin'])) : {
@@ -7,6 +9,8 @@ if (empty($_SESSION['admin'])) : {
     }
 ?>
 <?php else : ?>
+<?php
+?>
     <!DOCTYPE html>
     <html lang="pl-PL">
 
@@ -68,6 +72,9 @@ if (empty($_SESSION['admin'])) : {
                 transition: opacity .4s ease-out;
             }
 
+            .error {
+                color: red;
+            }
 
             .g-recaptcha {
                 width: min-content;
@@ -161,6 +168,13 @@ if (empty($_SESSION['admin'])) : {
                                 <label for="nrrejestracyjny">Numer rejestracyjny:</label>
                                 <small id="rejestracjaHelp" class="form-text ">Wprowadź nr. rejestracyjny np: NE-9K47, NOL-9K475 </small>
                             </div>
+                            <?php if (isset($_GET['error'])) : ?>
+                                <p><?php
+                                    echo '<div class="alert alert-danger m-1 text-center" role="alert">';
+                                    echo $_GET['error'];
+                                    echo '</div>';
+                                    ?></p>
+                            <?php endif ?>
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" name="marka" id="marka" class="form-control" pattern="[A-Za-z{2,50}" required>
