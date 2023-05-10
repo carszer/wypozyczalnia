@@ -227,11 +227,11 @@ if (empty($_SESSION['admin'])) : {
                       echo '<form action="deletePause.php" method="post" onsubmit="return submitForm(this);">';
                       echo "
       <tr>
-      <td>{$pole['marka']}</td>
-      <td>{$pole['model']}</td>
-      <td>{$pole['data_start']}</td>
-      <td>{$pole['data_koniec']}</td>
-      <td>{$pole['ile_dni']}</td>
+      <td id='markawys'>{$pole['marka']}</td>
+      <td id='modelwys'>{$pole['model']}</td>
+      <td id='dataodwys'>{$pole['data_start']}</td>
+      <td id='datadowys'>{$pole['data_koniec']}</td>
+      <td id='iledniwys'>{$pole['ile_dni']}</td>
       <td><input type='submit' class='btn btn-danger' name='deletebutton2' value='Zakończ'></td>
       </tr>
       <input type='hidden' name='idreservation' value='{$pole['idreservation']}'>
