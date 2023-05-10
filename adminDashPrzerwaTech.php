@@ -109,6 +109,7 @@ if (empty($_SESSION['admin'])) : {
           $sql = "SELECT idcar, img, marka, model FROM car";
           $result = $connect->query($sql);
           if ($result->num_rows > 0) {
+
             $options = mysqli_fetch_all($result, MYSQLI_ASSOC);
           }
           $sql = "SELECT iduser FROM user where email = 'przerwatech@gmail.com'";
@@ -162,7 +163,7 @@ if (empty($_SESSION['admin'])) : {
 
 
           <div class="col-md-5 mx-auto text-center">
-            <img id="imgFrame" class="img-thumbnail" src="<?php echo $options[0]['img'] ?>">
+            <img id="imgFrame" class="img-thumbnail" src="<?php echo $options[0]['img']; ?>">
             <form method="post" action="adminDashPrzerwaTech.php">
               <div class="form-floating m-3 text-dark">
                 <select class="form-select text-dark" name="car" id="car" onchange="changeImg()" required>

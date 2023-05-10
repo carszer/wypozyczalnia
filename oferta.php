@@ -94,7 +94,7 @@ echo "
           <div class='col'>
             <div class='card bg-dark text-light'>
               <img width='100%' height='225'
-                src=img/{$pole["img"]}
+                src={$pole["img"]}
                 alt=...>
               <div class='card-body'>
                 <p class='h4 card-text text-uppercase'>
