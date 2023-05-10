@@ -4,7 +4,7 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 	require_once "connect.php";
     $connect = new mysqli($host, $db_user, $db_pass, $db_name);
 
-
+	
     $nrrejestracyjny = $_POST['nrrejestracyjny'];
     $marka = $_POST['marka'];
     $model = $_POST['model'];
