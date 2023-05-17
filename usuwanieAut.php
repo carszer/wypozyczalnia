@@ -132,7 +132,7 @@ if (empty($_SESSION['admin'])) : {
           <div class="col-md-5 mx-auto text-center">
             <img id="imgFrame" class="img-thumbnail" src="<?php echo $options[0]['img']; ?>">
 
-            <form method="post" action="deleteCar.php" onsubmit="return submitForm(this);">
+            <form method="post" action="deleteCar.php">
               <div class="form-floating m-3 text-dark">
                 <select class="form-select text-dark" name="car" id="car" onchange="changeImg()" required>
                   <?php
@@ -150,24 +150,7 @@ if (empty($_SESSION['admin'])) : {
             </form>
 
             <?php include("tabelaAutInvisible.php"); ?>
-            <script>
-                  function submitForm(form) {
-                    swal({
-                        title: "Potwierdź operację",
-                        text: "Czy jestes pewien że chcesz usunąć auto z oferty?",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                      })
-                      .then(function(isOkay) {
-                        if (isOkay) {
-                          form.submit();
-                        }
-                      });
-                    return false;
-                  }
-                </script>
-
+          
           </div>
 
         </main>
