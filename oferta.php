@@ -87,7 +87,7 @@ if (isset($_SESSION['admin'])) {
 <?php
  require_once "connect.php";
  $connect = new mysqli($host, $db_user, $db_pass, $db_name);
- $sql = "SELECT idcar, marka, model, moc_km,pojemnosc,moment,cena,img,opis FROM car WHERE visibility = 1";
+ $sql = "SELECT idcar, marka, model, moc_km,pojemnosc,moment,cena,img,opis FROM car WHERE visible = '1'";
  $result = mysqli_query($connect, $sql);
 while($pole = $result->fetch_assoc()){
 echo "
