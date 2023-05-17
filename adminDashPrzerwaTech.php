@@ -116,7 +116,7 @@ if (empty($_SESSION['admin'])) : {
           <?php
           require_once "connect.php";
           $connect = new mysqli($host, $db_user, $db_pass, $db_name);
-          $sql = "SELECT idcar, img, marka, model FROM car";
+          $sql = "SELECT idcar, img, marka, model FROM car WHERE visible = 1";
           $result = $connect->query($sql);
           if ($result->num_rows > 0) {
 
