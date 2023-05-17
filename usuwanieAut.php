@@ -37,6 +37,7 @@ if (empty($_SESSION['admin'])) : {
       td {
         font-size: 18px;
       }
+      
     </style>
     <title>CarSzer-Panel administratora</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
