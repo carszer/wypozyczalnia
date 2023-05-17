@@ -99,7 +99,7 @@ if (empty($_SESSION['admin'])) : {
               <li class="nav-item">
                 <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="dodawanieAut.php">Dodawanie pojazdów do oferty</a>
               </li>
-              
+
               <li class="nav-item">
                 <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="usuwanieAut.php">Usuwanie pojazdów z oferty</a>
               </li>
@@ -116,7 +116,7 @@ if (empty($_SESSION['admin'])) : {
           <?php
           require_once "connect.php";
           $connect = new mysqli($host, $db_user, $db_pass, $db_name);
-          $sql = "SELECT idcar, img, marka, model FROM car WHERE visible = 1";
+          $sql = "SELECT idcar, img, marka, model FROM car";
           $result = $connect->query($sql);
           if ($result->num_rows > 0) {
 
@@ -128,53 +128,11 @@ if (empty($_SESSION['admin'])) : {
             $iduser = mysqli_fetch_row($result);
             $iduser = $iduser[0];
           }
-          $validation = true;
-          //walidacja
-          if (isset($_POST['submit'])) {
-
-            if (!isset($_POST['car'])) {
-              $validation = false;
-              $_SESSION['error_data'] = "Podaj datę rozpoczęcia";
-            }
-
-            if (!isset($_POST['dataod'])) {
-              $validation = false;
-              $_SESSION['error_data'] = "Podaj datę rozpoczęcia";
-            }
-
-            if (!isset($_POST['datado'])) {
-              $validation = false;
-              $_SESSION['error_data'] = "Podaj datę zakończenia";
-            }
-
-            if ($_POST['dataod'] < date('Y-m-d')) {
-              $validation = false;
-              $_SESSION['error_data'] = "Data rozpoczęcia < aktualna";
-            }
-
-            if ($_POST['dataod'] > $_POST['datado']) {
-              $validation = false;
-              $_SESSION['error_data'] = "Data rozpoczęcia nie może być późniejsza niż data zakończenia";
-            }
-
-            if ($validation == true) {
-              $datado = $_POST['datado'];
-              $dataod = $_POST['dataod'];
-              $diff = date_diff(date_create($dataod), date_create($datado));
-              $days = $diff->format('%a');
-              $days = intval($days) + 1;
-              $idcar = $_POST['car'];
-              $sql = "INSERT INTO reservation (data_start, data_koniec,ile_dni, idcar, iduser) VALUES ('$dataod','$datado','" . $days . "','$idcar','$iduser')";
-              mysqli_query($connect, $sql);
-            }
-          }
-          $connect->close();
           ?>
-
-
           <div class="col-md-5 mx-auto text-center">
             <img id="imgFrame" class="img-thumbnail" src="<?php echo $options[0]['img']; ?>">
-            <form method="post" action="adminDashPrzerwaTech.php">
+
+            <form method="post" action="deleteCar.php" onsubmit="return submitForm(this);">
               <div class="form-floating m-3 text-dark">
                 <select class="form-select text-dark" name="car" id="car" onchange="changeImg()" required>
                   <?php
@@ -188,73 +146,15 @@ if (empty($_SESSION['admin'])) : {
                 <label for="car">Wybierz auto:</label>
               </div>
 
-              <div class="form-floating m-3 text-dark">
-                <input type="date" name="dataod" id="dataod" class="form-control" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="<?php echo date('Y-m-d'); ?>">
-                <label for="dataod">Przerwa od:</label>
-              </div>
-
-              <div class="form-floating m-3 text-dark">
-                <input type="date" class="form-control" id="datado" name="datado" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="<?php echo date('Y-m-d'); ?>">
-                <label for="datado">Przerwa do:</label>
-              </div>
-
-              <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Dodaj przerwę"></input>
+              <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Usuń"></input>
             </form>
-            <?php
-            if (isset($_SESSION['error_data'])) {
-              echo '<div class="alert alert-danger mt-3" role="alert">';
-              echo $_SESSION['error_data'];
-              unset($_SESSION['error_data']);
-              echo '</div>';
-            }
-            ?>
 
-            <h2>Przerwy techniczne</h2>
-
-            <table class='table'>
-              <thead>
-                <tr>
-                  <th scope='col'>Model</th>
-                  <th scope='col'>Marka</th>
-                  <th scope='col'>Początek</th>
-                  <th scope='col'>Koniec</th>
-                  <th scope='col'>Liczba dni</th>
-                  <th scope='col'> </th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                require_once "connect.php";
-                $connect = new mysqli($host, $db_user, $db_pass, $db_name);
-                $sql = "SELECT u.imie,u.nazwisko,u.nrprawojazdy, c.marka, c.model, c.cena, r.idreservation, r.data_start, r.data_koniec, r.ile_dni, r.potwierdzone as dni FROM car as c 
-  INNER JOIN reservation as r ON c.idcar=r.idcar
-  INNER JOIN user as u ON u.iduser=r.iduser";
-                $result = mysqli_query($connect, $sql);
-                //while ($pole = $result->fetch_row()) {
-                while ($pole = $result->fetch_assoc()) {
-                  if ($pole['imie'] == "przerwa") {
-
-                    echo '<form action="deletePause.php" method="post" onsubmit="return submitForm(this);">';
-                    echo "
-      <tr>
-      <td id='markawys'>{$pole['marka']}</td>
-      <td id='modelwys'>{$pole['model']}</td>
-      <td id='dataodwys'>{$pole['data_start']}</td>
-      <td id='datadowys'>{$pole['data_koniec']}</td>
-      <td id='iledniwys'>{$pole['ile_dni']}</td>
-      <td><input type='submit' class='btn btn-danger' name='deletebutton2' value='Zakończ'></td>
-      </tr>
-      <input type='hidden' name='idreservation' value='{$pole['idreservation']}'>
-      </form>";
-                  }
-                }
-                $connect->close();
-                ?>
-                <script>
+            <?php include("tabelaAutInvisible.php"); ?>
+            <script>
                   function submitForm(form) {
                     swal({
                         title: "Potwierdź operację",
-                        text: "Czy jestes pewien że chcesz zakończyć przerwę techniczną?",
+                        text: "Czy jestes pewien że chcesz usunąć auto z oferty?",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
@@ -267,42 +167,6 @@ if (empty($_SESSION['admin'])) : {
                     return false;
                   }
                 </script>
-              </tbody>
-            </table>
-
-            <?php
-            // za wczesna data
-            /*
-      require_once "connect.php";
-      $connect = new mysqli($host, $db_user, $db_pass, $db_name);
-      $currentDate = date('Y-m-d');
-      $_SESSION['user'] = true;
-
-      $validation = true;
-      if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
-        $dataOd = $_POST['dataod'];
-        if($dataOd < $currentDate) {
-          $validation = false;
-          $_SESSION['user'] = 'Nieprawidłowe dane!!!';
-        }
-        echo $dataOd;
-      }
-     
-     
-      */
-
-            ?>
-            <?php
-            // Błąd za wczesna data
-            /*
-        if (isset($_SESSION['user'])) {
-          echo '<div class="alert alert-danger mt-3" role="alert">';
-          echo $_SESSION['user'];
-          unset($_SESSION['user']);
-          echo '</div>';
-        }
-        */
-            ?>
 
           </div>
 

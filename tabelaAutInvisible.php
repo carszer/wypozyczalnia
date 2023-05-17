@@ -21,7 +21,7 @@
                         <td id='markawys'>{$pole['marka']}</td>
                         <td id='modelwys'>{$pole['model']}</td>
                         <td id='dataodwys'>{$pole['nrrejestracyjny']}</td>
-                        <td id='datadowys'>{$pole['data_koniec']}</td>";
+                        <td id='datadowys'>{$pole['dni']}</td>";
                   }
                 $connect->close();
                 ?>

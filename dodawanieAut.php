@@ -148,6 +148,10 @@ if (empty($_SESSION['admin'])) : {
                             <li class="nav-item">
                                 <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="dodawanieAut.php">Dodawanie pojazdów do oferty</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="usuwanieAut.php">Usuwanie pojazdów z oferty</a>
+                            </li>
                     </div>
                 </nav>
 
