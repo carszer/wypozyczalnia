@@ -55,8 +55,8 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 				$img_upload_path = $new_img_name;
 				move_uploaded_file($tmp_name, $img_upload_path);
 
-				$sql = "INSERT INTO car(nrrejestracyjny, marka, model, cena, pojemnosc, moc_km, moment, opis, img) 
-                VALUES ('$nrrejestracyjny','$marka','$model','$cena','$pojemnosc','$moc','$moment','$opis','$new_img_name')";
+				$sql = "INSERT INTO car(nrrejestracyjny, marka, model, cena, pojemnosc, moc_km, moment, opis, img, visible) 
+                VALUES ('$nrrejestracyjny','$marka','$model','$cena','$pojemnosc','$moc','$moment','$opis','$new_img_name',1)";
 				mysqli_query($connect, $sql);
 				header("Location: dodawanieAut.php");
 			} else {
