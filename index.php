@@ -141,7 +141,7 @@ if (isset($_POST['submit'])) {
               <a class="nav-link active" aria-current="page" href="index.php">Strona główna</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="oferta.php">Oferta</a>
+              <a class="nav-link" id="oferta-guzik" href="oferta.php">Oferta</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Kontakt</a>
