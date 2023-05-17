@@ -37,7 +37,7 @@ if (empty($_SESSION['admin'])) : {
       td {
         font-size: 18px;
       }
-      
+
     </style>
     <title>CarSzer-Panel administratora</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -112,23 +112,18 @@ if (empty($_SESSION['admin'])) : {
             <h1 class="h2">Panel Administratora | Hi admin</h1>
           </div>
 
-          <h2 class="col-md-5 mx-auto text-center">Dodaj przerwę techniczną</h2>
+          <h2 class="col-md-5 mx-auto text-center">Usuń auto z oferty</h2>
           <!--DODAWANIE PRZERWY TECH -->
           <?php
           require_once "connect.php";
           $connect = new mysqli($host, $db_user, $db_pass, $db_name);
-          $sql = "SELECT idcar, img, marka, model FROM car";
+          $sql = "SELECT idcar, img, marka, model FROM car WHERE visible = 1";
           $result = $connect->query($sql);
           if ($result->num_rows > 0) {
 
             $options = mysqli_fetch_all($result, MYSQLI_ASSOC);
           }
-          $sql = "SELECT iduser FROM user where email = 'przerwatech@gmail.com'";
-          $result = $connect->query($sql);
-          if ($result->num_rows > 0) {
-            $iduser = mysqli_fetch_row($result);
-            $iduser = $iduser[0];
-          }
+          
           ?>
           <div class="col-md-5 mx-auto text-center">
             <img id="imgFrame" class="img-thumbnail" src="<?php echo $options[0]['img']; ?>">
