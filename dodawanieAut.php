@@ -9,8 +9,8 @@ if (empty($_SESSION['admin'])) : {
     }
 ?>
 <?php else : ?>
-<?php
-?>
+    <?php
+    ?>
     <!DOCTYPE html>
     <html lang="pl-PL">
 
@@ -98,7 +98,7 @@ if (empty($_SESSION['admin'])) : {
             #opis {
                 min-height: 80px;
                 max-height: 180px;
-            } 
+            }
         </style>
         <title>CarSzer-Panel administratora</title>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -162,19 +162,21 @@ if (empty($_SESSION['admin'])) : {
 
                     <div class="col-md-5 mx-auto text-left">
 
-                        <form method="post" action="upload.php " enctype="multipart/form-data" >
+                        <form method="post" action="upload.php " enctype="multipart/form-data">
                             <div class="form-floating m-3 text-light ">
                                 <input type="text" name="nrrejestracyjny" id="nrrejestracyjny" class="form-control" pattern="[A-Z]{2,3}-[A-Z0-9]{4,5}" required>
                                 <label for="nrrejestracyjny">Numer rejestracyjny:</label>
                                 <small id="rejestracjaHelp" class="form-text ">Wprowadź nr. rejestracyjny np: NE-9K47, NOL-9K475 </small>
                             </div>
-                            <?php if (isset($_GET['error'])) : ?>
-                                <p><?php
-                                    echo '<div class="alert alert-danger m-1 text-center" role="alert">';
-                                    echo $_GET['error'];
-                                    echo '</div>';
-                                    ?></p>
-                            <?php endif ?>
+
+                            <?php
+                            if (isset($_SESSION['blad'])) {
+                                echo '<div class="alert alert-danger m-1 text-center" role="alert">';
+                                echo $_SESSION['blad'];
+                                unset($_SESSION['blad']);
+                                echo '</div>';
+                            }
+                            ?>
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" name="marka" id="marka" class="form-control" pattern="[A-Za-z{2,50}" required>
@@ -213,8 +215,6 @@ if (empty($_SESSION['admin'])) : {
                                 <small id="opisHelp" class="form-text ">Wprowadź cenę wynajmu pojazdu</small>
                             </div>
 
-
-
                             <div class="form-floating m-3 text-dark text-center">
                                 <input class="btn  btn-dark m-md-3" type="file" id="my_image" name="my_image" class="form-control" accept="image/jpeg" maxlength="1048576" required>
                             </div>
@@ -226,15 +226,11 @@ if (empty($_SESSION['admin'])) : {
                                     ?></p>
                             <?php endif ?>
                             <div class="form-floating m-3 text-dark text-center">
-                            <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Dodaj pojazd"></input>
+                                <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Dodaj pojazd"></input>
                             </div>
-                           
+
                         </form>
                     </div>
-
-                 
-
-
 
 
                     <script>
@@ -248,7 +244,7 @@ if (empty($_SESSION['admin'])) : {
                             pojemnosc: /^[0-9]{3,4}$/,
                             moc: /^[0-9]{1,4}$/,
                             moment: /^[0-9]{1,4}$/,
-                            opis: /^[A-Za-z0-9 ]{3,}$/i,
+                            opis: /^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9 ]{3,}$/i,
                             cena: /^[0-9. ]{1,9}$/,
                             nrrejestracyjny: /^(?!\.)[A-Z]{2,3}\-[A-Z0-9]{4,5}$/
                         };

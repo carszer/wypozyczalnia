@@ -50,6 +50,12 @@ if (empty($_SESSION['admin'])) : {
       }
     </script>
 
+
+    <script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
   </head>
 
   <body>
@@ -213,19 +219,19 @@ if (empty($_SESSION['admin'])) : {
                 </tr>
               </thead>
               <tbody>
-                  <?php
-                  require_once "connect.php";
-                  $connect = new mysqli($host, $db_user, $db_pass, $db_name);
-                  $sql = "SELECT u.imie,u.nazwisko,u.nrprawojazdy, c.marka, c.model, c.cena, r.idreservation, r.data_start, r.data_koniec, r.ile_dni, r.potwierdzone as dni FROM car as c 
+                <?php
+                require_once "connect.php";
+                $connect = new mysqli($host, $db_user, $db_pass, $db_name);
+                $sql = "SELECT u.imie,u.nazwisko,u.nrprawojazdy, c.marka, c.model, c.cena, r.idreservation, r.data_start, r.data_koniec, r.ile_dni, r.potwierdzone as dni FROM car as c 
   INNER JOIN reservation as r ON c.idcar=r.idcar
   INNER JOIN user as u ON u.iduser=r.iduser";
-                  $result = mysqli_query($connect, $sql);
-                  //while ($pole = $result->fetch_row()) {
-                  while ($pole = $result->fetch_assoc()) {
-                    if ($pole['imie'] == "przerwa") {
+                $result = mysqli_query($connect, $sql);
+                //while ($pole = $result->fetch_row()) {
+                while ($pole = $result->fetch_assoc()) {
+                  if ($pole['imie'] == "przerwa") {
 
-                      echo '<form action="deletePause.php" method="post" onsubmit="return submitForm(this);">';
-                      echo "
+                    echo '<form action="deletePause.php" method="post" onsubmit="return submitForm(this);">';
+                    echo "
       <tr>
       <td id='markawys'>{$pole['marka']}</td>
       <td id='modelwys'>{$pole['model']}</td>
@@ -236,27 +242,27 @@ if (empty($_SESSION['admin'])) : {
       </tr>
       <input type='hidden' name='idreservation' value='{$pole['idreservation']}'>
       </form>";
-                    }
                   }
-                  $connect->close();
-                  ?>
-                  <script>
-                    function submitForm(form) {
-                      swal({
-                          title: "Potwierdź operację",
-                          text: "Czy jestes pewien że chcesz zakończyć przerwę techniczną?",
-                          icon: "warning",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then(function(isOkay) {
-                          if (isOkay) {
-                            form.submit();
-                          }
-                        });
-                      return false;
-                    }
-                  </script>
+                }
+                $connect->close();
+                ?>
+                <script>
+                  function submitForm(form) {
+                    swal({
+                        title: "Potwierdź operację",
+                        text: "Czy jestes pewien że chcesz zakończyć przerwę techniczną?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                      })
+                      .then(function(isOkay) {
+                        if (isOkay) {
+                          form.submit();
+                        }
+                      });
+                    return false;
+                  }
+                </script>
               </tbody>
             </table>
 
