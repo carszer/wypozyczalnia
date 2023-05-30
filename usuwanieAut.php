@@ -128,7 +128,7 @@ if (empty($_SESSION['admin'])) : {
           <div class="col-md-5 mx-auto text-center">
             <img id="imgFrame" class="img-thumbnail" src="<?php echo $options[0]['img']; ?>">
 
-            <form method="post" action="deleteCar.php">
+        <form method="post" action="deleteCar.php" onsubmit="return confirm('Czy na pewno chcesz usunąć to auto?');" >
               <div class="form-floating m-3 text-dark">
                 <select class="form-select text-dark" name="car" id="car" onchange="changeImg()" required>
                   <?php
@@ -141,10 +141,11 @@ if (empty($_SESSION['admin'])) : {
                 </select>
                 <label for="car">Wybierz auto:</label>
               </div>
-
               <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Usuń"></input>
+               
             </form>
 
+            
             <?php include("tabelaAutInvisible.php"); ?>
           
           </div>
