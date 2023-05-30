@@ -19,6 +19,64 @@ if (empty($_SESSION['admin'])) : {
         <link href="dashboard.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <style>
+            label {
+                margin-bottom: .5rem;
+                text-align: right;
+                display: block;
+                letter-spacing: 2px;
+                color: #adb5bd;
+                text-transform: uppercase;
+            }
+
+            .form-control {
+                color: white;
+                border: none;
+                background: none;
+                border-bottom: 5px solid rgba(0, 0, 0, 0.2);
+                transition: border-color .4s ease-out;
+                border-radius: 0;
+            }
+
+            #cena {
+                color: black;
+                border-bottom: 5px solid green;
+                transition: border-color .4s ease-out;
+            }
+
+            .form-control:active,
+            .form-control:focus,
+            .btn.focus,
+            .btn:focus {
+                outline: none;
+                box-shadow: none;
+                border-color: black;
+            }
+
+            .form-control.valid {
+                border-color: green;
+            }
+
+            .form-control.invalid {
+                border-color: red;
+            }
+
+            .form-control+small {
+                color: red;
+                opacity: 0;
+                height: 0;
+                transition: opacity .4s ease-out;
+            }
+
+            .form-control.invalid+small {
+                opacity: 1;
+                height: auto;
+                margin-bottom: 20px;
+                transition: opacity .4s ease-out;
+            }
+
+            .error {
+                color: red;
+            }
             .g-recaptcha {
                 width: min-content;
             }
@@ -108,7 +166,11 @@ if (empty($_SESSION['admin'])) : {
                             </li>
 
                             <li class="nav-item">
-                                <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="usuwanieAut.php">Usuwanie pojazdów z oferty</a>
+                            <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="usuwanieAut.php">Usuwanie pojazdów z oferty</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a style="color: white" class="nav-link btn btn-secondary m-2 " role="button" href="rezerwacjeAdmin.php">Dodawanie rezerwacji</a>
                             </li>
                     </div>
                 </nav>
@@ -297,6 +359,12 @@ if (empty($_SESSION['admin'])) : {
                                 <label for="name">Email</label>
                                 <small id="nameHelp" class="form-text">Email musi nie istnieć w bazie i być w formacie example@example.com</small>
                             </div>
+                            <?php
+                            if(isset($_SESSION['error_email'])) {
+                            echo '<div class="error" id="error_email">' .$_SESSION['error_email'] . '</div>';
+                            unset($_SESSION['error_email']);
+                            }
+                            ?>
 
 
                             <div class="form-floating m-3 text-dark">
@@ -304,6 +372,12 @@ if (empty($_SESSION['admin'])) : {
                                 <label for="name">Imię</label>
                                 <small id="nameHelp" class="form-text">Imie musi zawierać przynajmniej 3 znaki.</small>
                             </div>
+                            <?php
+                            if(isset($_SESSION['error_imie'])) {
+                            echo '<div class="error" id="error_imie">' .$_SESSION['error_imie'] . '</div>';
+                            unset($_SESSION['error_imie']);
+                            }
+                            ?>
 
 
                             <div class="form-floating m-3 text-dark">
@@ -311,36 +385,72 @@ if (empty($_SESSION['admin'])) : {
                                 <label for="nazwisko">Nazwisko</label>
                                 <small id="nazwiskoHelp" class="form-text">Nazwisko musi zawierać przynajmniej 3 znaki.</small>
                             </div>
+                            <?php
+                            if(isset($_SESSION['error_nazwisko'])) {
+                            echo '<div class="error" id="error_nazwisko">' .$_SESSION['error_nazwisko'] . '</div>';
+                            unset($_SESSION['error_nazwisko']);
+                            }
+                            ?>
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" class="form-control" id="telefon" name="telefon" pattern="[0-9]{9}" required>
                                 <label for="telefon">Nr. telefonu</label>
                                 <small id="telefonHelp" class="form-text">Numer telefonu musi mieć 9 cyfr.</small>
                             </div>
+                            <?php
+                            if(isset($_SESSION['error_tel'])) {
+                            echo '<div class="error" id="error_tel">' .$_SESSION['error_tel'] . '</div>';
+                            unset($_SESSION['error_tel']);
+                            }
+                            ?>
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" class="form-control" id="miasto" pattern="[A-Za-z]{3,20}" name="miasto" required>
                                 <label for="miasto">Miasto</label>
                                 <small id="miastoHelp" class="form-text">Miasto musi zawierać przynajmniej 3 znaki.</small>
                             </div>
+                            <?php
+                            if(isset($_SESSION['error_miasto'])) {
+                            echo '<div class="error" id="error_miasto">' .$_SESSION['error_miasto'] . '</div>';
+                            unset($_SESSION['error_miasto']);
+                            }
+                            ?>
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" class="form-control" id="ulica" name="ulica" pattern="(?!\.)(?!(0))[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9.-]{3,20}" required>
                                 <label for="ulica">Ulica</label>
                                 <small id="ulicaHelp" class="form-text">Ulica musi zawierać przynajmniej 3 znaki.</small>
                             </div>
+                            <?php
+                            if(isset($_SESSION['error_ulica'])) {
+                            echo '<div class="error" id="error_ulica">' .$_SESSION['error_ulica'] . '</div>';
+                            unset($_SESSION['error_ulica']);
+                            }
+                            ?>
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" class="form-control" id="numer" name="numer" pattern="(?!(0))[0-9A-Za-z/]{1,7}" required>
                                 <label for="numer">Lokal</label>
                                 <small id="numerHelp" class="form-text">Podaj numer lokalu np. '10B/12', '10'</small>
                             </div>
+                            <?php
+                            if(isset($_SESSION['error_lokal'])) {
+                            echo '<div class="error" id="error_lokal">' .$_SESSION['error_lokal'] . '</div>';
+                            unset($_SESSION['error_lokal']);
+                            }
+                            ?>
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" class="form-control" id="prawojazdy" name="prawojazdy" pattern="(?!\.)[0-9]{5}/[0-9]{2}/[0-9]{4}" required>
                                 <label for="prawojazdy">Nr. prawa jazdy</label>
                                 <small id="prawojazdyHelp" class="form-text">Numer prawa jazdy musi składać się z 11 znaków i wygląda nastepująco 12345/12/1234</small>
                             </div>
+                            <?php
+                            if(isset($_SESSION['error_prawko'])) {
+                            echo '<div class="error" id="error_prawko">' .$_SESSION['error_prawko'] . '</div>';
+                            unset($_SESSION['error_prawko']);
+                            }
+                            ?>
 
 
                             <div class="form-floating m-3 text-dark">
@@ -352,6 +462,24 @@ if (empty($_SESSION['admin'])) : {
                                 <input type="date" class="form-control" id="datado" name="datado" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="<?php echo date('Y-m-d'); ?>">
                                 <label for="datado">rezerwacja do:</label>
                             </div>
+                            <?php
+                            if(isset($_SESSION['error_zajety'])) {
+                            echo '<div class="error" id="error_zajety">' .$_SESSION['error_zajety'] . '</div>';
+                            unset($_SESSION['error_zajety']);
+                            }
+                            if(isset($_SESSION['error_data'])) {
+                            echo '<div class="error" id="error_data">' .$_SESSION['error_data'] . '</div>';
+                            unset($_SESSION['error_data']);
+                            }
+                            if(isset($_SESSION['error_koniec'])) {
+                            echo '<div class="error" id="error_koniec">' .$_SESSION['error_koniec'] . '</div>';
+                            unset($_SESSION['error_koniec']);
+                            }
+                            if(isset($_SESSION['error_uzytkownik'])) {
+                                echo '<div class="error" id="error_uzytkownik">' .$_SESSION['error_uzytkownik'] . '</div>';
+                                unset($_SESSION['error_uzytkownik']);
+                            }
+                            ?>
 
                             <input class="w-50 btn btn-lg btn-warning m-md-3" type="submit" name="submit" value="Dodaj rezerwację"></input>
                         </form>
@@ -367,6 +495,44 @@ if (empty($_SESSION['admin'])) : {
 
 
                         <script>
+                            const inputs = document.querySelectorAll('input');
+                            const areas = document.querySelectorAll('textarea');
+
+                            const patterns = {
+
+                                email: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
+                                name: /^[A-Za-z]{3,50}$/i,
+                                nazwisko: /^[A-Za-z]{3,50}$/i,
+                                telefon: /^[0-9]{9}$/i,
+                                miasto: /^[A-Za-z]{3,50}$/i,
+                                ulica: /^[A-Za-z-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9.,-]{3,50}$/i,
+                                numer: /^[0-9]{1,4}$/i,
+                                prawojazdy: /^(?!\.)[0-9]{5}\/[0-9]{2}\/[0-9]{4}$/i,
+                                marka: /^[A-Za-z0-9]{2,50}$/i,
+                                model: /^[A-Za-z0-9]{2,50}$/i,
+                                opis: /^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9 ]{3,}$/i
+                            };
+
+                            inputs.forEach((input) => {
+                                input.addEventListener('keyup', (e) => {
+                                    validate(e.target, patterns[e.target.attributes.id.value]);
+                                });
+                            });
+
+                            areas.forEach((textarea) => {
+                                textarea.addEventListener('keyup', (e) => {
+                                    validate(e.target, patterns[e.target.attributes.id.value]);
+                                });
+                            });
+
+                            function validate(field, regex) {
+                                if (regex.test(field.value)) {
+                                    field.className = 'form-control valid';
+                                } else {
+                                    field.className = 'form-control invalid';
+                                }
+                            }
+
                             function submitForm(form) {
                                 swal({
                                         title: "Potwierdź operację",
