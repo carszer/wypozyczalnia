@@ -369,7 +369,7 @@ if (empty($_SESSION['admin'])) : {
 
 
                             <div class="form-floating m-3 text-dark">
-                                <input type="text" class="form-control" id="name" name="name" pattern="[A-Za-z]{3,20}" required>
+                                <input type="text" class="form-control" id="name" name="name" pattern="[A-Za-z-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,20}" required>
                                 <label for="name">Imię</label>
                                 <small id="nameHelp" class="form-text">Imie musi zawierać przynajmniej 3 znaki.</small>
                             </div>
