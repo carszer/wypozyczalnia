@@ -133,30 +133,90 @@ if (empty($_SESSION['admin'])) : {
                     //walidacja
                     if (isset($_POST['submit'])) {
 
-                        if (!isset($_POST['car'])) {
-                            $validation = false;
-                            $_SESSION['error_data'] = "Podaj datę rozpoczęcia";
-                        }
+                            $validation = true;
+                            
+                            if (isset($_POST['email'])) {
+                                $addremail = $_POST['email'];
+                                $emailIstnieje = $connect->query("SELECT iduser FROM user WHERE email='$addremail'");
+                                $numEmail = $emailIstnieje->num_rows;
+                                if ($numEmail > 0) {
+                                  $validation = false;
+                                  $_SESSION['error_email'] = "Użytkownik o podanym emailu istnieje.";
+                                }
+                            }
 
-                        if (!isset($_POST['dataod'])) {
-                            $validation = false;
-                            $_SESSION['error_data'] = "Podaj datę rozpoczęcia";
-                        }
+                            $imie = $_POST['name'];
+                            if (strlen($imie) < 3) {
+                              $validation = false;
+                              $_SESSION['error_imie'] = "Imie musi składać się z co najmniej 3 liter!";
+                            }
+                        
+                            $nazwisko = $_POST['nazwisko'];
+                            if (empty($nazwisko)) {
+                              $validation = false;
+                              $_SESSION['error_nazwisko'] = "Podaj nazwisko!";
+                            }
+                        
+                            $nrTel = $_POST['telefon'];
+                            if (strlen($nrTel) < 9) {
+                              $validation = false;
+                              $_SESSION['error_tel'] = "Numer telefonu musi składać się z 9 cyfr!";
+                            }
+                        
+                            $miasto = $_POST['miasto'];
+                            if (empty($miasto)) {
+                              $validation = false;
+                              $_SESSION['error_miasto'] = "Pole miasto nie może być puste!";
+                            }
+                        
+                            $ulica = $_POST['ulica'];
+                            if (empty($ulica)) {
+                              $validation = false;
+                              $_SESSION['error_ulica'] = "Pole ulica nie może być puste!";
+                            }
+                        
+                            $nrLok = $_POST['numer'];
+                            if (empty($nrLok)) {
+                              $validation = false;
+                              $_SESSION['error_lokal'] = "Pole numer lokalu nie może być puste";
+                            }
+                        
+                            $prawojazdy = $_POST['prawojazdy'];
+                            if (empty($prawojazdy)) {
+                              $validation = false;
+                              $_SESSION['error_prawko'] = "Pole prawo jazdy nie może być puste";
+                            }
 
-                        if (!isset($_POST['datado'])) {
-                            $validation = false;
-                            $_SESSION['error_data'] = "Podaj datę zakończenia";
-                        }
+                            if (!isset($_POST['car'])) {
+                                $validation = false;
+                              }
+                            else
+                                $idcar = $_POST['car'];
 
-                        if ($_POST['dataod'] < date('Y-m-d')) {
-                            $validation = false;
-                            $_SESSION['error_data'] = "Data rozpoczęcia < aktualna";
-                        }
-
-                        if ($_POST['dataod'] > $_POST['datado']) {
-                            $validation = false;
-                            $_SESSION['error_data'] = "Data rozpoczęcia nie może być późniejsza niż data zakończenia";
-                        }
+                            if (!isset($_POST['dataod'])) {
+                              $validation = false;
+                              $_SESSION['error_data'] = "Data niepoprawna";  
+                            }
+                        
+                            if (!isset($_POST['datado'])) {
+                              $validation = false;
+                              $_SESSION['error_data'] = "Data niepoprawna";
+                            }
+                        
+                            if ($_POST['dataod'] < date('Y-m-d')) {
+                              $validation = false;
+                              $_SESSION['error_data'] = "Data niepoprawna";
+                            }
+                        
+                            if ($_POST['datado'] > date('Y-m-31')) {
+                              $validation = false;
+                              $_SESSION['error_koniec'] = "Samochody wynajmujemy na bieżący miesiąc, spróbuj w następnym miesiącu";
+                            }
+                        
+                            if ($_POST['dataod'] > $_POST['datado']) {
+                              $validation = false;
+                              $_SESSION['error_data'] = "Data niepoprawna";
+                            }
 
                         if ($validation == true) {
                             $datado = $_POST['datado'];
@@ -164,11 +224,49 @@ if (empty($_SESSION['admin'])) : {
                             $diff = date_diff(date_create($dataod), date_create($datado));
                             $days = $diff->format('%a');
                             $days = intval($days) + 1;
-                            $idcar = $_POST['car'];
-                            $sql = "INSERT INTO reservation (data_start, data_koniec,ile_dni, idcar, iduser,cena) VALUES ('$dataod','$datado','" . $days . "','$idcar','$iduser',)";
-                            mysqli_query($connect, $sql);
+                            $arr = array_fill(0, 32, 0);
+                            $sql = "SELECT data_start, ile_dni FROM reservation where idcar = $idcar and (data_start between'" . date('Y-m-1') . "' and '" . date('Y-m-31') . "')";
+                            $result = mysqli_query($connect, $sql);
+                            while ($pole = $result->fetch_assoc()) {
+                              $date = strtotime($pole['data_start']);
+                              $day = idate('d', $date);
+                              $ile = $pole['ile_dni'];
+                              for ($i = 0; $i < $ile; $i++) {
+                                $arr[$day + $i] = 1;
+                              }
+                            }
+                            $datefrom = strtotime($_POST['dataod']);
+                            $dayfrom = idate('d', $datefrom);
+                            $dateto = strtotime($_POST['datado']);
+                            $dayto = idate('d', $dateto);
+                            $clear = true;
+                            for ($i = $dayfrom; $i <= $dayto; $i++) {
+                              if ($arr[$i] == 1) {
+                                $clear = false; //Zmienna walidacyjna czy samochóch wolny(true = wolny tj można rezerwować)
+                              }
+                            }
+                            if ($clear) {
+                                $connect->query("INSERT INTO user (iduser, email, password) VALUES (NULL, '$addremail', '123456')");
+                                $quser = $connect->query("SELECT iduser FROM user WHERE email='$addremail'");
+                                if($quser->num_rows > 0){
+                                    $row = $quser->fetch_assoc();
+                                    $connect->query("UPDATE user SET imie='$imie', nazwisko='$nazwisko', nrtelefon='$nrTel', miasto='$miasto', ulica='$ulica', lokal='$nrLok', nrprawojazdy='$prawojazdy' WHERE email='$addremail'");
+                                    $sql = "INSERT INTO reservation (data_start, data_koniec,ile_dni, idcar, iduser) VALUES ('$dataod','$datado','" . $days . "','$idcar','$row[iduser]')";
+                                    mysqli_query($connect, $sql);
+                                     $_SESSION['reservation'] = true;
+                                     header('Location:rezerwacjeOK.php');
+                                }
+                                else{
+                                    $_SESSION['error_uzytkownik'] = "Dodawanie użytkownika nie powiodło się";
+                                  }
+                            }
+                            else{
+                              $_SESSION['error_zajety'] = "W wybranym terminie samochód jest już zarezerwowany";
+                            }
+                          }
                         }
-                    }
+
+                    
                     $connect->close();
                     ?>
 
@@ -193,6 +291,13 @@ if (empty($_SESSION['admin'])) : {
                                 <label for="cena">Cena</label>
                                 <small id="nameHelp" class="form-text">Cena za 24H wynajmu</small>
                             </div>
+
+                            <div class="form-floating m-3 text-dark">
+                                <input type="text" class="form-control" id="email" name="email" required>
+                                <label for="name">Email</label>
+                                <small id="nameHelp" class="form-text">Email musi nie istnieć w bazie i być w formacie example@example.com</small>
+                            </div>
+
 
                             <div class="form-floating m-3 text-dark">
                                 <input type="text" class="form-control" id="name" name="name" pattern="[A-Za-z]{3,20}" required>
