@@ -199,13 +199,8 @@ if (empty($_SESSION['admin'])) : {
                             
                             if (isset($_POST['email'])) {
                                 $addremail = $_POST['email'];
-                                $emailIstnieje = $connect->query("SELECT iduser FROM user WHERE email='$addremail'");
-                                $numEmail = $emailIstnieje->num_rows;
-                                if ($numEmail > 0) {
-                                  $validation = false;
-                                  $_SESSION['error_email'] = "Użytkownik o podanym emailu istnieje.";
                                 }
-                            }
+
 
                             $imie = $_POST['name'];
                             if (strlen($imie) < 3) {
