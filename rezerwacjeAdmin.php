@@ -38,7 +38,7 @@ if (empty($_SESSION['admin'])) : {
             }
 
             #cena {
-                color: black;
+                background: none;
                 border-bottom: 5px solid green;
                 transition: border-color .4s ease-out;
             }
@@ -341,7 +341,7 @@ if (empty($_SESSION['admin'])) : {
                                     <?php
                                     foreach ($options as $option) {
                                     ?>
-                                        <option id="<?php echo $option['img'] ?>" value="<?php echo $option['idcar'] ?>" data-price="<?php echo $option['cena']; ?>"> <?php echo $option['marka'] . " " . $option['model']; ?> </option>
+                                        <option class="opt" id="<?php echo $option['img'] ?>" value="<?php echo $option['idcar'] ?>" data-price="<?php echo $option['cena']; ?>"> <?php echo $option['marka'] . " " . $option['model']; ?> </option>
                                     <?php
                                     }
                                     ?>
