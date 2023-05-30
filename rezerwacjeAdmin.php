@@ -308,7 +308,6 @@ if (empty($_SESSION['admin'])) : {
                               }
                             }
                             if ($clear) {
-                                $connect->query("INSERT INTO user (iduser, email, password) VALUES (NULL, '$addremail', '123456')");
                                 $quser = $connect->query("SELECT iduser FROM user WHERE email='$addremail'");
                                 if($quser->num_rows > 0){
                                     $row = $quser->fetch_assoc();
@@ -316,10 +315,17 @@ if (empty($_SESSION['admin'])) : {
                                     $sql = "INSERT INTO reservation (data_start, data_koniec,ile_dni, idcar, iduser) VALUES ('$dataod','$datado','" . $days . "','$idcar','$row[iduser]')";
                                     mysqli_query($connect, $sql);
                                      $_SESSION['reservation'] = true;
-                                     header('Location:rezerwacjeOK.php');
+                                     header('Location:rezerwracjeAdmin.php');
                                 }
                                 else{
-                                    $_SESSION['error_uzytkownik'] = "Dodawanie użytkownika nie powiodło się";
+                                    $connect->query("INSERT INTO user (iduser, email, password) VALUES (NULL, '$addremail', '123456')");
+                                    $quser = $connect->query("SELECT iduser FROM user WHERE email='$addremail'");
+                                    $row = $quser->fetch_assoc();
+                                    $connect->query("UPDATE user SET imie='$imie', nazwisko='$nazwisko', nrtelefon='$nrTel', miasto='$miasto', ulica='$ulica', lokal='$nrLok', nrprawojazdy='$prawojazdy' WHERE email='$addremail'");
+                                    $sql = "INSERT INTO reservation (data_start, data_koniec,ile_dni, idcar, iduser) VALUES ('$dataod','$datado','" . $days . "','$idcar','$row[iduser]')";
+                                    mysqli_query($connect, $sql);
+                                     $_SESSION['reservation'] = true;
+                                     header('Location:rezerwracjeAdmin.php');
                                   }
                             }
                             else{
