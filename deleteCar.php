@@ -13,13 +13,10 @@ if (isset($_POST['car'])) {
     $idcar = $_POST['car'];
     $rezIstnieje = $connect->query("SELECT reservation.idcar FROM reservation INNER JOIN car ON reservation.idcar = $idcar'");
     $rezerwacja = $rezIstnieje->num_rows;
-    if ($rezerwacja > 0) {
+    if ($rezerwacja >= 0) {
         $sql1 = "UPDATE car SET visible = 0 WHERE idcar = $idcar";
         $connect->query($sql1);
-    } else {
-        $sql = "DELETE FROM car WHERE idcar = $idcar";
-        $connect->query($sql);
-        $connect->close();
+        header('Location:usuwanieAut.php');
     }
 }
 ?>
