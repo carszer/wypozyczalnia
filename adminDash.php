@@ -107,8 +107,9 @@ if (empty($_SESSION['admin'])) : {
                 <th scope='col'>Imię</th>
                 <th scope='col'>Nazwisko</th>
                 <th scope='col'>nr.Prawa jazdy</th>
-                <th scope='col'>Model</th>
                 <th scope='col'>Marka</th>
+                <th scope='col'>Model</th>
+                <th scope='col'>Cena</th>
                 <th scope='col'>Początek</th>
                 <th scope='col'>Koniec</th>
                 <th scope='col'>Liczba dni</th>
@@ -131,15 +132,15 @@ if (empty($_SESSION['admin'])) : {
                     echo '<form action="deleteadmin.php" method="post" onsubmit="return submitForm(this);">';
                     echo "
                 <tr>
-                <td>{$pole['imie']}</td>
-                <td>{$pole['nazwisko']}</td>
-                <td>{$pole['nrprawojazdy']}</td>
-                <td>{$pole['marka']}</td>
-                <td>{$pole['model']}</td>
-                <td>{$pole['cena']}</td>
-                <td>{$pole['data_start']}</td>
-                <td>{$pole['data_koniec']}</td>
-                <td>{$pole['ile_dni']}</td>
+                <td id='imiewys'>{$pole['imie']}</td>
+                <td id='nazwiskowys'>{$pole['nazwisko']}</td>
+                <td id='nrwys'>{$pole['nrprawojazdy']}</td>
+                <td id='markawys'>{$pole['marka']}</td>
+                <td id='modelwys'>{$pole['model']}</td>
+                <td id='cenawys'>{$pole['cena']}</td>
+                <td id='datastartwys'>{$pole['data_start']}</td>
+                <td id='datakoniecwys'>{$pole['data_koniec']}</td>
+                <td id='iledniwys'>{$pole['ile_dni']}</td>
                 <td><input type='submit' class='btn btn-danger' name='deletebutton2' value='Usuń'></td>
                 </tr>
                 <input type='hidden' name='idreservation' value='{$pole['idreservation']}'>
