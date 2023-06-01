@@ -107,8 +107,9 @@ if (empty($_SESSION['admin'])) : {
                 <th scope='col'>Imię</th>
                 <th scope='col'>Nazwisko</th>
                 <th scope='col'>nr.Prawa jazdy</th>
-                <th scope='col'>Model</th>
                 <th scope='col'>Marka</th>
+                <th scope='col'>Model</th>
+                <th scope='col'>Cena</th>
                 <th scope='col'>Początek</th>
                 <th scope='col'>Koniec</th>
                 <th scope='col'>Liczba dni</th>
