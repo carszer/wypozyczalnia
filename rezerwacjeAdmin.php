@@ -310,7 +310,7 @@ if (empty($_SESSION['admin'])) : {
                                     $sql = "INSERT INTO reservation (data_start, data_koniec,ile_dni, idcar, iduser) VALUES ('$dataod','$datado','" . $days . "','$idcar','$row[iduser]')";
                                     mysqli_query($connect, $sql);
                                      $_SESSION['reservation'] = true;
-                                     header('Location:rezerwracjeAdmin.php');
+                                     header('Location:rezerwacjeOKadmin.php');
                                 }
                                 else{
                                     $connect->query("INSERT INTO user (iduser, email, password) VALUES (NULL, '$addremail', '123456')");
@@ -320,7 +320,7 @@ if (empty($_SESSION['admin'])) : {
                                     $sql = "INSERT INTO reservation (data_start, data_koniec,ile_dni, idcar, iduser) VALUES ('$dataod','$datado','" . $days . "','$idcar','$row[iduser]')";
                                     mysqli_query($connect, $sql);
                                      $_SESSION['reservation'] = true;
-                                     header('Location:rezerwracjeAdmin.php');
+                                     header('Location:rezerwacjeOKadmin.php');
                                   }
                             }
                             else{
@@ -336,7 +336,7 @@ if (empty($_SESSION['admin'])) : {
 
                     <div class="col-md-5 mx-auto text-center">
                         <img id="imgFrame" class="img-thumbnail" width="" src="<?php echo $options[0]['img']; ?>">
-                        <form method="post">
+                        <form method="post" action="">
                             <div class="form-floating m-3 text-dark">
                                 <select class="form-select text-dark" name="car" id="car" onchange="changeImgAndPrice()" required>
                                     <?php
