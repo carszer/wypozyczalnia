@@ -3,7 +3,7 @@ session_start();
 ?>
 <?php
 if (empty($_SESSION['admin'])) : {
-        header('Location: loginForm.php');
+        header('Location: admin.php');
     }
 ?>
 <?php else : ?>
@@ -199,6 +199,9 @@ if (empty($_SESSION['admin'])) : {
                             
                             if (isset($_POST['email'])) {
                                 $addremail = $_POST['email'];
+                                }
+                                else{
+                                    $_SESSION['error_email'] = "Mail musi być wpisany";
                                 }
 
 
