@@ -12,7 +12,7 @@ $connect = new mysqli($host, $db_user, $db_pass, $db_name);
 
 if (isset($_POST['car'])) {
     $idcar = $_POST['car'];
-    $rezIstnieje = $connect->query("SELECT reservation.idcar FROM reservation INNER JOIN car ON reservation.idcar = $idcar");
+    $rezIstnieje = $connect->query("SELECT r.idcar FROM reservation  AS r INNER JOIN car as c ON r.idcar = c.idcar WHERE r.idcar = $idcar");
     $rezerwacja = $rezIstnieje->num_rows;
     if ($rezerwacja > 0) {
         $sql1 = "UPDATE car SET visible = 0 WHERE idcar = $idcar";
