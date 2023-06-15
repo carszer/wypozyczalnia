@@ -149,7 +149,7 @@ if (empty($_SESSION['admin'])) : {
                     header('Location:rezerwacjeOKadmin.php');
                 }
             } else {
-                echo "<script src='errormess.js'></script>";
+                $_SESSION['error_zajety'] = "W wybranym terminie samochód jest już zarezerwowany";
             }
         }
     }
@@ -496,6 +496,10 @@ if (empty($_SESSION['admin'])) : {
                                 <label for="datado">rezerwacja do:</label>
                             </div>
                             <?php
+                              if(isset($_SESSION['error_zajety'])) {
+                                echo '<div class="error" id="error_zajety">' .$_SESSION['error_zajety'] . '</div>';
+                                unset($_SESSION['error_zajety']);
+                                }
                             if (isset($_SESSION['error_data'])) {
                                 echo '<div class="error" id="error_data">' . $_SESSION['error_data'] . '</div>';
                                 unset($_SESSION['error_data']);
