@@ -1,8 +1,8 @@
 <?php
 session_start();
 ?>
-<?php if(empty($_SESSION['zalogowany']) && empty($_SESSION['userid'])):{
-   header('Location: loginForm.php');
+<?php if(empty($_SESSION['admin'])):{
+   header('Location: admin.php');
 }
 ?>
 <?php else: ?>
