@@ -1,3 +1,13 @@
+
+<?php
+session_start();
+?>
+<?php
+if (empty($_SESSION['admin'])) : {
+    header('Location: loginForm.php');
+  }
+?>
+<?php else : ?>
 <?php
 require('./tfpdf/tfpdf.php');
 if (isset($_GET['id'])) {
@@ -200,3 +210,4 @@ if (isset($_GET['id'])) {
 } else
     echo ('Błąd przekierowania musi być ?id=(idrezerwacja)');
 ?>
+<?php endif; ?>
